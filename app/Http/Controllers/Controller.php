@@ -6,8 +6,15 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as RoutingController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends RoutingController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function requirePermission(string $permission)
+    {
+        if (!Auth::user()->hasPermissionTo($permission))
+            abort(403);
+    }
 }

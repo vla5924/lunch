@@ -179,7 +179,6 @@
     <script src="/theme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 
     <script src="/theme/dist/js/adminlte.js"></script>
-    <script src="/theme/dist/js/demo.js"></script>
     <script src="/theme/dist/js/pages/dashboard.js"></script>
 
     <script src="/js/common.js"></script>

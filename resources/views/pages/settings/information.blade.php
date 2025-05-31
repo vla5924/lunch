@@ -14,6 +14,10 @@
 
         <div class="card-body">
             <div class="form-group">
+                <label>@lang('settings.display_name')</label>
+                <input type="text" class="form-control" name="display_name" placeholder="@lang('practice.display_name_placeholder')">
+            </div>
+            <div class="form-group">
                 <label>@lang('settings.notes')</label>
                 <textarea class="form-control" name="notes">{{ Auth::user()->notes }}</textarea>
             </div>
