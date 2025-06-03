@@ -29,11 +29,13 @@
                               <i class="fas fa-folder"></i>
                               <span class="d-none d-md-inline">@lang('categories.view')</span>
                         </a>
-                        @if ($category->user->id == Auth::user()->id)
+                        @can('edit categories')
                         <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
                             <i class="fas fa-pencil-alt"></i>
                             <span class="d-none d-md-inline">@lang('categories.edit')</span>
                         </a>
+                        @endcan
+                        @can('delete categories')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $category->id }}">
                                 <i class="fas fa-trash"></i>
                                 <span class="d-none d-md-inline">@lang('categories.delete')</span>
@@ -42,7 +44,7 @@
                             @csrf
                             @method('DELETE')
                         </form>
-                        @endif
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

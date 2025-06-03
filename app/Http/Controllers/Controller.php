@@ -17,4 +17,10 @@ class Controller extends RoutingController
         if (!Auth::user()->hasPermissionTo($permission))
             abort(403);
     }
+
+    public function requireCurrentUser(int $userId)
+    {
+        if (Auth::user()->id != $userId)
+            abort(403);
+    }
 }

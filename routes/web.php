@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\TelegramAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserProfileInfoController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::middleware('can:view profiles')->resource('users', UserProfileController::class)->only('show');
 
     Route::resource('categories', CategoryController::class);
+    Route::resource('restaurants', RestaurantController::class);
 
     Route::prefix('settings')->group(function () {
         Route::get('/', [SettingsController::class, 'index'])->name('settings.index');

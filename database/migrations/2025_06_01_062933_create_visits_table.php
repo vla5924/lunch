@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurants', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('location');
-            $table->text('description')->nullable()->default(null);
-            $table->text('yandex_map_widget')->nullable()->default(null);
-            $table->unsignedBigInteger('category_id');
+            $table->text('notes')->nullable()->default(null);
+            $table->dateTimeTz('datetime');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('restaurant_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurants');
+        Schema::dropIfExists('visits');
     }
 };

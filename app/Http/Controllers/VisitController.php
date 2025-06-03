@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CriteriaEvaluation;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 
-class CriteriaEvaluationController extends Controller
+class VisitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CriteriaEvaluationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CriteriaEvaluation $criteriaEvaluation)
+    public function show(Visit $visit)
     {
         //
     }
@@ -42,7 +42,7 @@ class CriteriaEvaluationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CriteriaEvaluation $criteriaEvaluation)
+    public function edit(Visit $visit)
     {
         //
     }
@@ -50,7 +50,7 @@ class CriteriaEvaluationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CriteriaEvaluation $criteriaEvaluation)
+    public function update(Request $request, Visit $visit)
     {
         //
     }
@@ -58,7 +58,7 @@ class CriteriaEvaluationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CriteriaEvaluation $criteriaEvaluation)
+    public function destroy(Visit $visit)
     {
         //
     }

@@ -124,6 +124,45 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-utensils"></i>
+                                <p>
+                                    Restaurants
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @can('view restaurants')
+                                <li class="nav-item">
+                                    <a href="{{ route('restaurants.index') }}" class="nav-link">
+                                        <p>All restaurants</p>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('create restaurants')
+                                <li class="nav-item">
+                                    <a href="{{ route('restaurants.create') }}" class="nav-link">
+                                        <p>+ Add restaurant</p>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('view categories')
+                                <li class="nav-item">
+                                    <a href="{{ route('categories.index') }}" class="nav-link">
+                                        <p>Categories</p>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('create categories')
+                                <li class="nav-item">
+                                    <a href="{{ route('categories.create') }}" class="nav-link">
+                                        <p>+ Add category</p>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
                                     @lang('settings.settings')
@@ -177,10 +216,8 @@
     <script src="/theme/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/theme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="/theme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
     <script src="/theme/dist/js/adminlte.js"></script>
-    <script src="/theme/dist/js/pages/dashboard.js"></script>
-
+    
     <script src="/js/common.js"></script>
     <script>@yield('inline-script')</script>
 </body>

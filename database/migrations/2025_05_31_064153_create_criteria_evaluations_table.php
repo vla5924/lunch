@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('criteria_evaluations', function (Blueprint $table) {
             $table->id();
             $table->integer('value');
+            $table->unsignedBigInteger('criteria_id');
             $table->unsignedBigInteger('evaluation_id');
             $table->timestamps();
 
+            $table->foreign('criteria_id')->references('id')->on('criterias');
             $table->foreign('evaluation_id')->references('id')->on('evaluations');
         });
     }

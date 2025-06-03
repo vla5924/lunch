@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Criteria extends Model
 {
-    public function criteria_evaluations()
+    public function categories()
     {
-        return $this->belongsToMany(CriteriaEvaluation::class);
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function evaluations()
+    {
+        return $this->hasMany(CriteriaEvaluation::class);
     }
 }
