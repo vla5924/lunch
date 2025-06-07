@@ -50,7 +50,6 @@ class RestaurantController extends Controller
             'name' => 'required',
             'description' => 'nullable',
             'yandex_map_widget' => 'nullable',
-            'yandex_reviews_widget' => 'nullable',
             'category_id' => 'required|integer',
         ]);
 
@@ -58,7 +57,6 @@ class RestaurantController extends Controller
         $restaurant->name = $request->name;
         $restaurant->description = $request->description;
         $restaurant->yandex_map_widget = $request->yandex_map_widget;
-        $restaurant->yandex_reviews_widget = $request->yandex_reviews_widget;
         $restaurant->category_id = $request->category_id;
         $restaurant->user_id = Auth::user()->id;
         $restaurant->save();

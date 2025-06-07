@@ -13,7 +13,7 @@ class Restaurant extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function evaluations()

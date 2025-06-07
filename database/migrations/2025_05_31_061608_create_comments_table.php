@@ -16,11 +16,11 @@ return new class extends Migration
             $table->text('text');
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('restaurant_id');
+            $table->string('commentable_type', 50);
+            $table->unsignedBigInteger('commentable_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
         });
     }
 

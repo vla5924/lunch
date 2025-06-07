@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -12,7 +13,13 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $this->requirePermission('view groups');
+
+        $groups = Group::orderBy('name')->get();
+
+        return view('pages.groups.index', [
+            'groups' => $groups,
+        ]);
     }
 
     /**
@@ -20,7 +27,9 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $this->requirePermission('create groups');
+
+        return view('pages.groups.create');
     }
 
     /**
@@ -28,7 +37,19 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->requirePermission('create groups');
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $group = new Group;
+        $group->name = $request->name;
+        $group->description = $request->get('description');
+        $this->setUserId($group);
+        $group->save();
+
+        return redirect()->route('groups.show', $group->id)->with('success', __('categories.category_created_successfully'));
     }
 
     /**
@@ -36,7 +57,11 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //
+        $this->requirePermission('view groups');
+
+        return view('pages.groups.show', [
+            'group' => $group,
+        ]);
     }
 
     /**
@@ -44,7 +69,11 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        $this->requirePermission('edit groups');
+
+        return view('pages.groups.edit', [
+            'group' => $group,
+        ]);
     }
 
     /**
@@ -52,7 +81,17 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $this->requirePermission('edit groups');
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $group->name = $request->name;
+        $group->description = $request->get('description');
+        $group->save();
+
+        return redirect()->route('groups.show', $group->id)->with('success', __('categories.category_created_successfully'));
     }
 
     /**
@@ -60,6 +99,10 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $this->requirePermission('delete groups');
+
+        $group->delete();
+
+        return redirect()->route('groups.index')->with('success', __('categories.category_deleted_successfully'));
     }
 }

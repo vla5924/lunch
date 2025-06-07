@@ -28,6 +28,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit categories']);
         Permission::create(['name' => 'delete categories']);
 
+        Permission::create(['name' => 'view visits']);
+        Permission::create(['name' => 'create visits']);
+        Permission::create(['name' => 'edit visits']);
+        Permission::create(['name' => 'delete visits']);
+
         Permission::create(['name' => 'view criterias']);
         Permission::create(['name' => 'create criterias']);
         Permission::create(['name' => 'edit criterias']);
@@ -71,6 +76,7 @@ class PermissionSeeder extends Seeder
             'view profiles',
             'view restaurants',
             'view categories',
+            'view visits',
             'view criterias',
             'view groups',
             'view evaluations',

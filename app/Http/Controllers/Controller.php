@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -22,5 +23,20 @@ class Controller extends RoutingController
     {
         if (Auth::user()->id != $userId)
             abort(403);
+    }
+
+    public function requireExistingId(string $modelClass, int $id, string $message = '')
+    {
+        $inst = $modelClass::where('id', $id)->first();
+        if (!$inst) {
+            abort(404, $message);
+        }
+    }
+
+    public function setUserId(Model $model, int|null $userId = null)
+    {
+        if ($userId == null)
+            $userId = Auth::user()->id;
+        $model->user_id = $userId;
     }
 }
