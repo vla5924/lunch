@@ -10,6 +10,24 @@
 
     <title>@yield('title') | @lang('misc.lunch')</title>
 
+    <link rel="shortcut icon" href="/images/icons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
+    <link rel="icon" type="image/png" sizes="72x72" href="/images/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="/images/icons/apple-touch-icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="76x76" href="/images/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="/images/icons/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" sizes="114x114" href="/images/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="/images/icons/apple-touch-icon-114x114.png">
+    <link rel="icon" type="image/png" sizes="120x120" href="/images/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="/images/icons/apple-touch-icon-120x120.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="/images/icons/apple-touch-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="152x152" href="/images/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="/images/icons/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="/images/icons/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/images/icons/apple-touch-icon-180x180.png">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="/theme/plugins/fontawesome-free/css/all.min.css">
@@ -45,7 +63,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                <li class="nav-item">
+                <!--li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -65,7 +83,7 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li-->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="@lang('misc.full_screen')">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -114,75 +132,59 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        @can('view restaurants')
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    @lang('home.home')
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('restaurants.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-utensils"></i>
-                                <p>
-                                    Restaurants
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
+                                <p>Рестораны</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                @can('view restaurants')
-                                <li class="nav-item">
-                                    <a href="{{ route('restaurants.index') }}" class="nav-link">
-                                        <p>All restaurants</p>
-                                    </a>
-                                </li>
-                                @endcan
-                                @can('create restaurants')
-                                <li class="nav-item">
-                                    <a href="{{ route('restaurants.create') }}" class="nav-link">
-                                        <p>+ Add restaurant</p>
-                                    </a>
-                                </li>
-                                @endcan
-                                @can('view categories')
-                                <li class="nav-item">
-                                    <a href="{{ route('categories.index') }}" class="nav-link">
-                                        <p>Categories</p>
-                                    </a>
-                                </li>
-                                @endcan
-                                @can('create categories')
-                                <li class="nav-item">
-                                    <a href="{{ route('categories.create') }}" class="nav-link">
-                                        <p>+ Add category</p>
-                                    </a>
-                                </li>
-                                @endcan
-                            </ul>
                         </li>
+                        @endcan
+                        @can('view visits')
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cog"></i>
-                                <p>
-                                    @lang('settings.settings')
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
+                            <a href="{{ route('visits.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-door-open"></i>
+                                <p>Посещения</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('settings.index') }}" class="nav-link">
-                                        <p>@lang('settings.general_settings')</p>
-                                    </a>
-                                </li>
-                                @can('view profiles')
-                                <li class="nav-item">
-                                    <a href="{{ route('information.index') }}" class="nav-link">
-                                        <p>@lang('settings.information')</p>
-                                    </a>
-                                </li>
-                                @endcan
-                            </ul>
+                        </li>
+                        @endcan
+                        @can('view categories')
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-layer-group"></i>
+                                <p>Категории</p>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('view criterias')
+                        <li class="nav-item">
+                            <a href="{{ route('criterias.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-star-half-alt"></i>
+                                <p>Критерии</p>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('view users')
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Пользователи</p>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('view groups')
+                        <li class="nav-item">
+                            <a href="{{ route('groups.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Группы</p>
+                            </a>
+                        </li>
+                        @endcan
+                        <li class="nav-item">
+                            <a href="{{ route('users.settings') }}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>Настройки</p>
+                            </a>
                         </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->

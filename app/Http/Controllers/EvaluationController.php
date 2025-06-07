@@ -55,8 +55,8 @@ class EvaluationController extends Controller
         $request->validate([
             'notes' => 'nullable',
             'restaurant_id' => 'required|integer',
-            'criterias' => 'list',
-            'values' => 'list',
+            'criteria_ids' => 'list',
+            'criteria_values' => 'list',
         ]);
 
         $restaurantId = (int)$request->restaurant_id;

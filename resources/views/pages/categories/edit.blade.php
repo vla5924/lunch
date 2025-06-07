@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('categories.edit_pollbunch'))
+@section('title', 'Изменить категорию: ' . $category->name)
 
 @section('content')
 @include('components.form-alert')
@@ -12,13 +12,21 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>@lang('categories.name')</label>
-                <input type="text" class="form-control" value="{{ $category->name }}" name="name" placeholder="@lang('categories.name_placeholder')" required>
+                <label>Название</label>
+                <input type="text" class="form-control" name="name" value="{{ $category->name }}" placeholder="Введите название категории" required>
+            </div>
+            <div class="form-group">
+                <label>Критерии</label>
+                <select multiple class="form-control" name="criteria_ids[]">
+                    @foreach ($criterias as $criteria)
+                    <option value="{{ $criteria->id }}" {{ $category->criterias->contains($criteria) ? 'selected' : '' }}>{{ $criteria->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">@lang('categories.save')</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>
 </div>

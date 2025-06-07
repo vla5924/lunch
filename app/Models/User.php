@@ -21,8 +21,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'tg_id',
+        'tg_name',
         'tg_username',
     ];
 
@@ -32,7 +32,6 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -44,15 +43,20 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'settings' => AsArrayObject::class,
         ];
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->display_name ?? $this->tg_name;
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
 
     public function groups()
     {

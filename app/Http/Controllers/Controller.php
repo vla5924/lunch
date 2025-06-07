@@ -31,6 +31,7 @@ class Controller extends RoutingController
         if (!$inst) {
             abort(404, $message);
         }
+        return $inst;
     }
 
     public function setUserId(Model $model, int|null $userId = null)

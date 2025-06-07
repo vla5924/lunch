@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\Restaurant;
 use App\Models\Visit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
@@ -25,14 +26,31 @@ class VisitController extends Controller
         ]);
     }
 
+    public function restaurant(int $restaurantId)
+    {
+        $this->requirePermission('view visits');
+
+        $restaurant = $this->requireExistingId(Restaurant::class, $restaurantId);
+        $visits = Visit::where('restaurant_id', $restaurant->id)->orderBy('datetime', 'desc')->paginate(self::PER_PAGE);
+
+        return view('pages.visits.restaurant', [
+            'restaurant' => $restaurant,
+            'visits' => $visits,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(int $restaurantId)
     {
         $this->requirePermission('create visits');
+        $restaurant = $this->requireExistingId(Restaurant::class, $restaurantId);
 
-        return view('pages.visits.create');
+        return view('pages.visits.create', [
+            'restaurant' => $restaurant,
+            'groups' => Auth::user()->groups,
+        ]);
     }
 
     /**
@@ -82,6 +100,7 @@ class VisitController extends Controller
 
         return view('pages.visits.edit', [
             'visit' => $visit,
+            'groups' => Auth::user()->groups,
         ]);
     }
 

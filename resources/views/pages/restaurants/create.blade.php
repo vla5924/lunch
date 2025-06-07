@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('restaurants.add_restaurant'))
+@section('title', 'Добавить ресторан')
 
 @section('content')
 @include('components.form-alert')
@@ -11,7 +11,7 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>@lang('restaurants.group')</label>
+                <label>Категория</label>
                 <select class="form-control" style="width: 100%;" name="category_id" required>
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -19,15 +19,19 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>@lang('restaurants.name')</label>
-                <input type="text" class="form-control" name="name" placeholder="@lang('category.name_placeholder')" required>
+                <label>Название</label>
+                <input type="text" class="form-control" name="name" placeholder="Введите название ресторана" required>
             </div>
             <div class="form-group">
-                <label>@lang('restaurants.description')</label>
-                <textarea class="form-control" name="description"></textarea>
+                <label>Описание</label>
+                <textarea class="form-control" name="description" placeholder="Введите описание ресторана"></textarea>
             </div>
             <div class="form-group">
-                <label>@lang('restaurants.yandex_map_widget')</label>
+                <label>Местоположение</label>
+                <input type="text" class="form-control" name="location" placeholder="Введите местоположение ресторана (например, город, улицу и номер дома)" required>
+            </div>
+            <div class="form-group">
+                <label>Ссылка для виджета Яндекс Карт</label>
                 <input type="text" class="form-control" name="yandex_map_widget">
             </div>
         </div>

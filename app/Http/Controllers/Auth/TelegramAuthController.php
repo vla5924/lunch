@@ -22,7 +22,7 @@ class TelegramAuthController extends Controller
                 'tg_id' => $telegramUser->getId(),
             ],
             [
-                'name' => $telegramUser->getName(),
+                'tg_name' => $telegramUser->getName(),
                 'tg_username' => $telegramUser->getNickname(),
                 'avatar' => $telegramUser->getAvatar(),
             ]

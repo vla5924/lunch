@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Категории')
+@section('title', 'Группы')
 
 @section('content')
 @include('components.form-alert')
@@ -11,39 +11,41 @@
             <thead>
                 <tr>
                     <th>Название</th>
+                    <th>Пользователи</th>
                     <th class="text-right">
-                        @can('create categories')
-                        <a class="btn btn-info btn-sm" href="{{ route('categories.create') }}">
+                        @can('create groups')
+                        <a class="btn btn-info btn-sm" href="{{ route('groups.create') }}">
                             <i class="fas fa-plus"></i>
-                            <span class="d-none d-md-inline">Добавить</span>
+                            <span class="d-none d-md-inline">Создать</span>
                         </a>
                         @endcan
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($groups as $group)
                 <tr>
                     <td>
-                        <b>{{ $category->name }}</b>
+                        <b>{{ $group->name }}</b>
                     </td>
+                    <td>{{ $group->users->count() }}</td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ route('categories.show', $category->id) }}">
+                        <a class="btn btn-primary btn-sm" href="{{ route('groups.show', $group->id) }}">
                               <i class="fas fa-folder"></i>
                               <span class="d-none d-md-inline">Посмотреть</span>
                         </a>
-                        @can('edit categories')
-                        <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
+                        @can('edit groups')
+                        <a class="btn btn-info btn-sm" href="{{ route('groups.edit', $group->id) }}">
                             <i class="fas fa-pencil-alt"></i>
                             <span class="d-none d-md-inline">Изменить</span>
                         </a>
                         @endcan
-                        @can('delete categories')
-                        <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $category->id }}">
+                        @can('delete groups')
+                        <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $group->id }}">
                                 <i class="fas fa-trash"></i>
                                 <span class="d-none d-md-inline">Удалить</span>
                         </button>
-                        <form method="POST" action="{{ route('categories.destroy', $category->id) }}" id="destroy-{{ $category->id }}" hidden>
+                        <form method="POST" action="{{ route('groups.destroy', $group->id) }}" id="destroy-{{ $group->id }}" hidden>
                             @csrf
                             @method('DELETE')
                         </form>
@@ -56,5 +58,4 @@
     </div>
 </div>
 
-{{ $categories->links('vendor.pagination.bootstrap-4') }}
 @endsection

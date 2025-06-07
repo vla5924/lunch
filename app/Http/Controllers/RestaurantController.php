@@ -49,6 +49,7 @@ class RestaurantController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'nullable',
+            'location' => 'required',
             'yandex_map_widget' => 'nullable',
             'category_id' => 'required|integer',
         ]);
@@ -56,9 +57,10 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant;
         $restaurant->name = $request->name;
         $restaurant->description = $request->description;
+        $restaurant->location = $request->location;
         $restaurant->yandex_map_widget = $request->yandex_map_widget;
         $restaurant->category_id = $request->category_id;
-        $restaurant->user_id = Auth::user()->id;
+        $this->setUserId($restaurant);
         $restaurant->save();
 
         return redirect()->route('restaurants.show', $restaurant->id)->with('success', __('categories.category_created_successfully'));
@@ -100,15 +102,15 @@ class RestaurantController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'nullable',
+            'location' => 'required',
             'yandex_map_widget' => 'nullable',
-            'yandex_reviews_widget' => 'nullable',
             'category_id' => 'required|integer',
         ]);
 
         $restaurant->name = $request->name;
         $restaurant->description = $request->description;
+        $restaurant->location = $request->location;
         $restaurant->yandex_map_widget = $request->yandex_map_widget;
-        $restaurant->yandex_reviews_widget = $request->yandex_reviews_widget;
         $restaurant->category_id = $request->category_id;
         $restaurant->save();
 

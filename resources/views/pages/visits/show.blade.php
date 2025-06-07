@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $restaurant->name)
+@section('title', 'Посещение: ' . $visit->datetime)
 
 @section('content')
     @include('components.form-alert')
@@ -13,51 +13,24 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <strong><i class="fas fa-book mr-1"></i> Категория</strong>
-                    <p class="text-muted">{{ $restaurant->category->name }}</p>
-                    <hr>
-                    <strong><i class="fas fa-book mr-1"></i> Описание</strong>
-                    <p class="text-muted">{{ $restaurant->description }}</p>
+                    <strong><i class="fas fa-book mr-1"></i> Ресторан</strong>
+                    <p class="text-muted">{{ $visit->restaurant->name }}</p>
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Местоположение</strong>
-                    <p class="text-muted">$restaurant->location</p>
-                    @if ($restaurant->yandex_map_widget)
-                        <p>
-                            <iframe src="{{ $restaurant->yandex_map_widget }}" allowfullscreen="true" frameborder="0"
-                                width=100% height="400"></iframe>
-                        </p>
-                    @endif
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Статистика</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <ul class="list-group list-group-unbordered mb-3">
-                        <li class="list-group-item">
-                            <b>Посещения</b>
-                            <a class="float-right" href="{{ route('visits.restaurant', $restaurant->id) }}">{{ $restaurant->visits->count() }}</a>
-                        </li>
-                    </ul>
-                    @can('create visits')
-                    <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
-                        <i class="fas fa-calendar-plus"></i> Добавить посещение
-                    </a>
-                    @endcan
-                    @can('edit restaurants')
-                    <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
+                    <p class="text-muted">{{ $visit->restaurant->location }}</p>
+                    <hr>
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Группа</strong>
+                    <p class="text-muted"> {{ $visit->group->name }}</p>
+                    @can('edit visits')
+                    <a class="btn btn-info btn-sm" href="{{ route('visits.edit', $visit->id) }}">
                         <i class="fas fa-pencil-alt"></i> Изменить
                     </a>
                     @endcan
-                    @can('delete restaurants')
-                    <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $restaurant->id }}">
+                    @can('delete visits')
+                    <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $visit->id }}">
                         <i class="fas fa-trash"></i> Удалить
                     </button>
-                    <form method="POST" action="{{ route('restaurants.destroy', $restaurant->id) }}" id="destroy-{{ $restaurant->id }}" hidden>
+                    <form method="POST" action="{{ route('visits.destroy', $visit->id) }}" id="destroy-{{ $visit->id }}" hidden>
                         @csrf
                         @method('DELETE')
                     </form>
@@ -65,83 +38,16 @@
                 </div>
                 <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Рейтинг</h3>
+                    <h3 class="card-title">Заметка</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <!-- small card -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>9.5</h3>
-                                    <p>Средняя оценка</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">
-                                    Все оценки <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-6 col-12">
-                            <!-- small card -->
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>9.8</h3>
-                                    <p>Ваша оценка</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">
-                                    Изменить оценку <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="d-flex">
-                                <p class="d-flex flex-column">
-                                    <span class="text-bold text-lg">$18,230.00</span>
-                                    <span>Sales Over Time</span>
-                                </p>
-                                <p class="ml-auto d-flex flex-column text-right">
-                                    <span class="text-success">
-                                        <i class="fas fa-arrow-up"></i> 33.1%
-                                    </span>
-                                    <span class="text-muted">Since last month</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-
-                            <div class="position-relative mb-4">
-                                <canvas id="sales-chart" height="200"></canvas>
-                            </div>
-
-                            <div class="d-flex flex-row justify-content-end">
-                                <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This year
-                                </span>
-
-                                <span>
-                                    <i class="fas fa-square text-gray"></i> Last year
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
+                    {{ $visit->notes }}
                 </div>
                 <!-- /.card -->
             </div>

@@ -53,8 +53,8 @@ class CriteriaController extends Controller
         $criteria = new Criteria;
         $criteria->name_en = $request->name_en;
         $criteria->name_ru = $request->name_ru;
-        $criteria->description_en = $request->name_ru;
-        $criteria->description_ru = $request->name_ru;
+        $criteria->description_en = $request->description_en;
+        $criteria->description_ru = $request->description_ru;
         $criteria->fa_icon = $request->fa_icon;
         $criteria->min_value = $request->min_value;
         $criteria->max_value = $request->max_value;

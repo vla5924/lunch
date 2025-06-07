@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('categories.pollbunch') . ' ' . $category->id)
+@section('title', 'Категория: ' . $category->name)
 
 @section('content')
 @include('components.form-alert')
@@ -9,38 +9,35 @@
 <div class="card-body">
     <div class="row">
     <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-        <div class="row">
-        <div class="col-12 col-sm-4">
-            <div class="info-box bg-light">
-            <div class="info-box-content">
-                <span class="info-box-text text-center text-muted">@lang('categories.author')</span>
-                <span class="info-box-number text-center text-muted mb-0">
-                    @include('components.user-link', ['user' => $category->user])
-                </span>
-            </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="info-box bg-light">
-            <div class="info-box-content">
-                <span class="info-box-text text-center text-muted">@lang('categories.created_at')</span>
-                <span class="info-box-number text-center text-muted mb-0">{{ $category->created_at }}</span>
-            </div>
-            </div>
-        </div>
-        </div>
+        Связанные критерии:
+
+        <ul>
+            @foreach ($category->criterias as $criteria)
+            <li>
+                <a href="{{ route('criterias.show', $criteria->id) }}">
+                    {{ $criteria->name }}
+                </a>
+            </li>
+            @endforeach
+        </ul>
+
+        Связанные рестораны:
+
+        <ul>
+            <li>1</li>
+            <li>2</li>
+        </ul>
     </div>
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-        <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{ $category->name }}</h3>
         <div class="mt-3 mb-5">
             @can('edit categories')
             <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
-                <i class="fas fa-pencil-alt"></i> @lang('categories.edit')
+                <i class="fas fa-pencil-alt"></i> Изменить
             </a>
             @endcan
             @can('delete categories')
             <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $category->id }}">
-                    <i class="fas fa-trash"></i> @lang('categories.delete')
+                <i class="fas fa-trash"></i> Удалить
             </button>
             <form method="POST" action="{{ route('categories.destroy', $category->id) }}" id="destroy-{{ $category->id }}" hidden>
                 @csrf
@@ -50,9 +47,14 @@
         </div>
 
         <div class="text-muted">
-        <p class="text-sm">@lang('categories.unique_identifier')
-            <b class="d-block">{{ $category->id }}</b>
-        </p>
+            <p class="text-sm">
+                Добавлена
+                <b class="d-block">{{ $category->created_at }}</b>
+            </p>
+            <p class="text-sm">
+                Пользователь
+                <b class="d-block">@include('components.user-link', ['user' => $category->user])</b>
+            </p>
         </div>
     </div>
     </div>

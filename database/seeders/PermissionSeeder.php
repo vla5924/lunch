@@ -16,7 +16,10 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'view profiles']);
+        Permission::create(['name' => 'view users']);
+        Permission::create(['name' => 'edit users']);
+        Permission::create(['name' => 'assign permissions']);
+        Permission::create(['name' => 'assign roles']);
 
         Permission::create(['name' => 'view restaurants']);
         Permission::create(['name' => 'create restaurants']);
@@ -51,9 +54,9 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'view comments']);
         Permission::create(['name' => 'create comments']);
-        Permission::create(['name' => 'edit comments']);
+        Permission::create(['name' => 'edit owned comments']);
         Permission::create(['name' => 'edit all comments']);
-        Permission::create(['name' => 'delete comments']);
+        Permission::create(['name' => 'delete owned comments']);
         Permission::create(['name' => 'delete all comments']);
 
         Permission::create(['name' => 'view reactions']);
@@ -61,19 +64,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit reactions']);
         Permission::create(['name' => 'delete reactions']);
 
-        Permission::create(['name' => 'create comment reactions']);
-        Permission::create(['name' => 'delete comment reactions']);
-
-        Permission::create(['name' => 'view permissions']);
-        Permission::create(['name' => 'assign permissions']);
-
-        Permission::create(['name' => 'view roles']);
-        Permission::create(['name' => 'assign roles']);
+        Permission::create(['name' => 'add comment reactions']);
+        Permission::create(['name' => 'remove comment reactions']);
 
         Role::create(['name' => 'noname']);
 
         Role::create(['name' => 'user'])->givePermissionTo([
-            'view profiles',
+            'view users',
             'view restaurants',
             'view categories',
             'view visits',
@@ -85,11 +82,11 @@ class PermissionSeeder extends Seeder
             'delete evaluations',
             'view comments',
             'create comments',
-            'edit comments',
-            'delete comments',
+            'edit owned comments',
+            'delete owned comments',
             'view reactions',
-            'create comment reactions',
-            'delete comment reactions',
+            'add comment reactions',
+            'remove comment reactions',
         ]);
 
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());

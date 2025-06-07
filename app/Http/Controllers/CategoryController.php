@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Criteria;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -31,7 +31,11 @@ class CategoryController extends Controller
     {
         $this->requirePermission('create categories');
 
-        return view('pages.categories.create');
+        $criterias = Criteria::orderBy('name')->get();
+
+        return view('pages.categories.create', [
+            'criterias' => $criterias,
+        ]);
     }
 
     /**
@@ -42,12 +46,15 @@ class CategoryController extends Controller
         $this->requirePermission('create categories');
         $request->validate([
             'name' => 'required',
+            'criteria_ids' => 'required|array',
+            'criteria_ids.*' => 'exists:criterias,id',
         ]);
 
         $category = new Category;
         $category->name = $request->name;
-        $category->user_id = Auth::user()->id;
+        $this->setUserId($category);
         $category->save();
+        $category->criterias()->attach($request->criteria_ids);
 
         return redirect()->route('categories.show', $category->id)->with('success', __('categories.category_created_successfully'));
     }
@@ -71,8 +78,11 @@ class CategoryController extends Controller
     {
         $this->requirePermission('edit categories');
 
+        $criterias = Criteria::orderBy('name')->get();
+
         return view('pages.categories.edit', [
             'category' => $category,
+            'criterias' => $criterias,
         ]);
     }
 
@@ -84,10 +94,13 @@ class CategoryController extends Controller
         $this->requirePermission('edit categories');
         $request->validate([
             'name' => 'required',
+            'criteria_ids' => 'required|array',
+            'criteria_ids.*' => 'exists:criterias,id',
         ]);
 
         $category->name = $request->name;
         $category->save();
+        $category->criterias()->sync($request->criteria_ids);
 
         return redirect()->route('categories.show', $category->id)->with('success', __('categories.category_updated_successfully'));
     }

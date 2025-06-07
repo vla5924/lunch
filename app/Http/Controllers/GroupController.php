@@ -40,12 +40,10 @@ class GroupController extends Controller
         $this->requirePermission('create groups');
         $request->validate([
             'name' => 'required',
-            'description' => 'nullable',
         ]);
 
         $group = new Group;
         $group->name = $request->name;
-        $group->description = $request->get('description');
         $this->setUserId($group);
         $group->save();
 
@@ -84,11 +82,9 @@ class GroupController extends Controller
         $this->requirePermission('edit groups');
         $request->validate([
             'name' => 'required',
-            'description' => 'nullable',
         ]);
 
         $group->name = $request->name;
-        $group->description = $request->get('description');
         $group->save();
 
         return redirect()->route('groups.show', $group->id)->with('success', __('categories.category_created_successfully'));
