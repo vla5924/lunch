@@ -6,7 +6,7 @@
 @include('components.form-alert')
 
 <div class="card card-primary">
-    <form method="POST" action="{{ route('users.update_groups', $user->id) }}">
+    <form method="POST" action="{{ route('users.groups', $user->id) }}">
         @csrf
 
         <div class="card-body">

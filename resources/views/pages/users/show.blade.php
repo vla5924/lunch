@@ -13,7 +13,11 @@
 
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                <p class="text-muted text-center">{{ Str::ucfirst($user->roles[0]->name) }} </p>
+                <p class="text-muted text-center">
+                    @foreach ($user->roles as $role)
+                    {{ Str::ucfirst($role->name) }} 
+                    @endforeach
+                </p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
@@ -28,7 +32,7 @@
                 </ul>
 
                 @if($user->id == Auth::user()->id)
-                <a href="{{ route('users.settings') }}" class="btn btn-primary btn-block"><b>@lang('users.edit_information')</b></a>
+                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block"><b>@lang('users.edit_information')</b></a>
                 @endif
             </div>
         </div>

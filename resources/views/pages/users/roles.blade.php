@@ -6,13 +6,13 @@
     @include('components.form-alert')
 
     <div class="card card-primary">
-        <form method="POST" action="{{ route('users.update_roles', $user->id) }}">
+        <form method="POST" action="{{ route('users.roles', $user->id) }}">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
                     <label>Роль</label>
-                    <select class="form-control" name="role_id">
+                    <select multiple class="form-control" name="role_ids[]" size={{ $roles->count() }} required>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
                                 {{ $role->name }}</option>

@@ -85,6 +85,11 @@
                     </div>
                 </li-->
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.settings') }}" title="Настройки приложения">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="@lang('misc.full_screen')">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
@@ -180,12 +185,6 @@
                             </a>
                         </li>
                         @endcan
-                        <li class="nav-item">
-                            <a href="{{ route('users.settings') }}" class="nav-link">
-                                <i class="nav-icon fas fa-cog"></i>
-                                <p>Настройки</p>
-                            </a>
-                        </li>
                     </ul>
                 </nav><!-- /.sidebar-menu -->
 
