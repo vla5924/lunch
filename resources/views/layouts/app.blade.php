@@ -193,6 +193,14 @@
         </aside>
 
         <div class="content-wrapper">
+            @hasSection('breadcrumbs')
+            <section class="content-header">
+                <div class="container-fluid">
+                    @yield('breadcrumbs')
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            @endif
             <div class="content-header mb-2"></div>
             <section class="content">
                 <div class="container-fluid">
