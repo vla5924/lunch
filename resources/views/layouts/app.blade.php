@@ -127,7 +127,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ Auth::user()->avatar ?? '/images/karas-keds.jpg' }}" class="img-circle elevation-2">
+                        <img src="{{ Auth::user()->ava }}" class="img-circle elevation-2">
                     </div>
                     <div class="info">
                         <a href="{{ route('users.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>

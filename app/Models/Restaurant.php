@@ -16,6 +16,18 @@ class Restaurant extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function visitComments()
+    {
+        return $this->hasManyThrough(
+            Comment::class,
+            Visit::class,
+            'restaurant_id',
+            'commentable_id',
+            'id',
+            'id'
+        )->where('comments.commentable_type', Visit::class);
+    }
+
     public function evaluations()
     {
         return $this->hasMany(Evaluation::class);

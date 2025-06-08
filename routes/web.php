@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\TelegramAuthController;
 use App\Http\Controllers\Auth\YandexAuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
@@ -32,9 +33,11 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('visits', VisitController::class)->except('create');
     Route::resource('groups', GroupController::class);
+    Route::resource('comments', CommentController::class)->only(['store', 'edit', 'update', 'destroy']);
 
     Route::get('/restaurants/{id}/visits/create', [VisitController::class, 'create'])->name('visits.create');
     Route::get('/restaurants/{id}/visits', [VisitController::class, 'restaurant'])->name('visits.restaurant');
+
 
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/groups', [UserAdminController::class, 'groups'])->name('users.groups');

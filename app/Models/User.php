@@ -47,6 +47,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getAvaAttribute()
+    {
+        return $this->avatar ?? env('USER_FALLBACK_AVATAR');
+    }
+
     public function getNameAttribute()
     {
         return $this->display_name ?? $this->tg_name;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CommentHelper;
+use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Restaurant;
 use App\Models\Visit;
@@ -86,8 +88,15 @@ class VisitController extends Controller
     {
         $this->requirePermission('view visits');
 
+        $comments = Comment::query()
+            ->where('commentable_id', $visit->id)
+            ->where('commentable_type', Visit::class)
+            ->orderBy('created_by', 'asc')
+            ->paginate(CommentHelper::PER_PAGE);
+
         return view('pages.visits.show', [
             'visit' => $visit,
+            'comments' => $comments,
         ]);
     }
 

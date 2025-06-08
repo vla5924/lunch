@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PermissionHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,6 +18,13 @@ class Controller extends RoutingController
     {
         if (!Auth::user()->hasPermissionTo($permission))
             abort(403);
+    }
+
+    public function requireOwnedPermission(string $permissionAll, string $permissionOwned, int $ownerId)
+    {
+        if (!PermissionHelper::canActOwned($permissionAll, $permissionOwned, $ownerId))
+            abort(403);
+        return;
     }
 
     public function requireCurrentUser(int $userId)

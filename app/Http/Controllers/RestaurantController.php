@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CommentHelper;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Restaurant;
+use App\Models\Visit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class RestaurantController extends Controller
 {
@@ -73,8 +74,21 @@ class RestaurantController extends Controller
     {
         $this->requirePermission('view restaurants');
 
+        $restaurantComments = Comment::query()
+            ->where('commentable_type', Restaurant::class)
+            ->where('commentable_id', $restaurant->id);
+        $visitComments = Comment::query()
+            ->where('commentable_type', Visit::class)
+            ->join('visits', 'comments.commentable_id', '=', 'visits.id')
+            ->where('visits.restaurant_id', $restaurant->id)
+            ->select('comments.*');
+        $comments = $restaurantComments->unionAll($visitComments)
+            ->orderBy('created_at', 'asc')
+            ->paginate(CommentHelper::PER_PAGE);
+
         return view('pages.restaurants.show', [
             'restaurant' => $restaurant,
+            'comments' => $comments,
         ]);
     }
 
