@@ -2,6 +2,10 @@
 
 @section('title', 'Группы')
 
+@section('breadcrumbs')
+@include('components.breadcrumbs')
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

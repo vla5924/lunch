@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Роль пользователя: ' . $user->name)
+@section('title', 'Роли пользователя: ' . $user->name)
+
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Пользователи', route('users.index')],
+    [$user->name, route('users.show', $user->id)],
+], 'active' => 'Роли'])
+@endsection
 
 @section('content')
     @include('components.form-alert')
@@ -11,8 +18,8 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label>Роль</label>
-                    <select multiple class="form-control" name="role_ids[]" size={{ $roles->count() }} required>
+                    <label>Роли</label>
+                    <select multiple class="form-control" name="role_ids[]" size="{{ $roles->count() }}" required>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
                                 {{ $role->name }}</option>

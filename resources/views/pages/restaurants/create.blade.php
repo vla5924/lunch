@@ -2,6 +2,12 @@
 
 @section('title', 'Добавить ресторан')
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Рестораны', route('restaurants.index')],
+]])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

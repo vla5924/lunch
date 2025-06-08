@@ -2,6 +2,12 @@
 
 @section('title', 'Добавить категорию')
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Категории', route('categories.index')],
+]])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

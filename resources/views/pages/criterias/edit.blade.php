@@ -2,6 +2,13 @@
 
 @section('title', 'Изменить критерий: ' . $criteria->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Критерии', route('criterias.index')],
+    [$criteria->name, route('criterias.show', $criteria->id)],
+], 'active' => 'Изменить критерий'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

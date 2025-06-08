@@ -2,6 +2,12 @@
 
 @section('title', 'Группа: ' . $group->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Группы', route('groups.index')],
+], 'active' => $group->name])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

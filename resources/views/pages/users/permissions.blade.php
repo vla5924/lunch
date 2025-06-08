@@ -2,6 +2,13 @@
 
 @section('title', 'Права пользователя: ' . $user->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Пользователи', route('users.index')],
+    [$user->name, route('users.show', $user->id)],
+], 'active' => 'Права'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 
@@ -15,7 +22,7 @@
         <div class="card-body">
             <div class="form-group">
                 <label hidden>Выбранные права</label>
-                <select multiple class="form-control" name="permission_ids[]" size={{ $permissions->count() }}>
+                <select multiple class="form-control" name="permission_ids[]" size="{{ $permissions->count() }}">
                     @foreach ($permissions as $permission)
                     <option value="{{ $permission->id }}" {{ $user->hasDirectPermission($permission->name) ? 'selected' : '' }}>{{ $permission->name }}</option>
                     @endforeach

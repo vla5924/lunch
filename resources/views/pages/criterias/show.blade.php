@@ -2,6 +2,12 @@
 
 @section('title', $criteria->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Критерии', route('criterias.index')],
+], 'active' => $criteria->name])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

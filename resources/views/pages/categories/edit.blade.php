@@ -2,6 +2,13 @@
 
 @section('title', 'Изменить категорию: ' . $category->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Категории', route('categories.index')],
+    [$category->name, route('categories.show', $category->id)],
+], 'active' => 'Изменить категорию'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

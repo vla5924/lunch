@@ -2,6 +2,12 @@
 
 @section('title', 'Создать группу')
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Группы', route('groups.index')],
+]])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

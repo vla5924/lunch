@@ -2,6 +2,13 @@
 
 @section('title', 'Группы пользователя: ' . $user->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Пользователи', route('users.index')],
+    [$user->name, route('users.show', $user->id)],
+], 'active' => 'Группы'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

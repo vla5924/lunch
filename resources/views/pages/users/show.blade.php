@@ -2,6 +2,12 @@
 
 @section('title', $user->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Пользователи', route('users.index')],
+], 'active' => $user->name])
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-12 col-md-4 col-lg-3">

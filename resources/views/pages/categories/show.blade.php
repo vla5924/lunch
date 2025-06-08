@@ -2,6 +2,12 @@
 
 @section('title', 'Категория: ' . $category->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Категории', route('categories.index')],
+], 'active' => $category->name])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 
