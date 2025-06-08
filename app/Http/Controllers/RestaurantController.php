@@ -85,7 +85,7 @@ class RestaurantController extends Controller
     {
         $this->requirePermission('edit restaurants');
 
-        $categories = Category::orderBy('name');
+        $categories = Category::orderBy('name')->get();
 
         return view('pages.restaurants.edit', [
             'restaurant' => $restaurant,

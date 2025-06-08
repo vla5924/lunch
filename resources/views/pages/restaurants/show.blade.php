@@ -26,7 +26,7 @@
                     <p class="text-muted">{{ $restaurant->description }}</p>
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Местоположение</strong>
-                    <p class="text-muted">$restaurant->location</p>
+                    <p class="text-muted">{{ $restaurant->location }}</p>
                     @if ($restaurant->yandex_map_widget)
                         <p>
                             <iframe src="{{ $restaurant->yandex_map_widget }}" allowfullscreen="true" frameborder="0"

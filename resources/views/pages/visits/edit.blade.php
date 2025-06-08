@@ -2,6 +2,15 @@
 
 @section('title', 'Изменить посещение: ' . $visit->restaurant->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Рестораны', route('restaurants.index')],
+    [$visit->restaurant->name, route('restaurants.show', $visit->restaurant->id)],
+    ['Посещения', route('visits.restaurant', $visit->restaurant->id)],
+    [$visit->datetime, route('visits.show', $visit->id)],
+], 'active' => 'Изменить'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 

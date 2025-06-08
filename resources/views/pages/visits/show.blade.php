@@ -2,6 +2,14 @@
 
 @section('title', 'Посещение: ' . $visit->datetime)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Рестораны', route('restaurants.index')],
+    [$visit->restaurant->name, route('restaurants.show', $visit->restaurant->id)],
+    ['Посещения', route('visits.restaurant', $visit->restaurant->id)],
+], 'active' => $visit->datetime])
+@endsection
+
 @section('content')
     @include('components.form-alert')
 

@@ -2,6 +2,13 @@
 
 @section('title', 'Посещения: ' . $restaurant->name)
 
+@section('breadcrumbs')
+@include('components.breadcrumbs', ['prev' => [
+    ['Рестораны', route('restaurants.index')],
+    [$restaurant->name, route('restaurants.show', $restaurant->id)],
+], 'active' => 'Посещения'])
+@endsection
+
 @section('content')
 @include('components.form-alert')
 
@@ -12,7 +19,13 @@
                 <tr>
                     <th>Дата и время</th>
                     <th>Группа</th>
-                    <th></th>
+                    <th class="text-right">
+                        @can('create visits')
+                        <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
+                            <i class="fas fa-calendar-plus"></i> Добавить
+                        </a>
+                        @endcan
+                    </th>
                 </tr>
             </thead>
             <tbody>
