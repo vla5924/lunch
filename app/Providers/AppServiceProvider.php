@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('telegram', \SocialiteProviders\Telegram\Provider::class);
+            $event->extendSocialite('yandex', \SocialiteProviders\Yandex\Provider::class);
         });
     }
 }

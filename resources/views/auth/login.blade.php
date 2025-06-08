@@ -21,9 +21,15 @@
       <a href="/" class="h1"><b>@lang('misc.lunch')</b></a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">@lang('misc.login_description')</p>
+      @include('components.form-alert')
+      <p class="login-box-msg">Войдите, чтобы продолжить</p>
       <div class="social-auth-links text-center mt-2 mb-3">
         {!! Socialite::driver('telegram')->getButton() !!}
+        <br />
+        <br />
+        <a href="{{ route('auth.yandex') }}" class="btn btn-danger">
+            <i class="fab fa-yandex mr-2"></i> Войти через Яндекс
+        </a>
       </div>
     </div>
   </div>

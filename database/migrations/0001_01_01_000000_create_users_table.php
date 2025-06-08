@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('tg_id')->unique();
             $table->string('tg_name');
             $table->string('tg_username');
+            $table->string('yandex_id')->nullable()->default(null);
             $table->string('display_name')->nullable()->default(null);
             $table->string('avatar')->nullable()->default(null);
             $table->string('locale', 5)->default('ru');

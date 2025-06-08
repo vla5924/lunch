@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\TelegramAuthController;
+use App\Http\Controllers\Auth\YandexAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\GroupController;
@@ -19,6 +20,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login/telegram/redirect', [TelegramAuthController::class, 'redirect'])->name('auth.telegram');
     Route::get('/login/telegram/callback', [TelegramAuthController::class, 'callback']);
 });
+
+Route::get('/login/yandex/redirect', [YandexAuthController::class, 'redirect'])->name('auth.yandex');
+Route::get('/login/yandex/callback', [YandexAuthController::class, 'callback']);
 
 Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');

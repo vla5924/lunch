@@ -11,7 +11,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Настройки приложения</h3>
+            <h3 class="card-title">Приложение</h3>
         </div>
         <form method="POST" action="{{ route('users.settings') }}">
             @csrf
@@ -31,5 +31,20 @@
                 <button type="submit" class="btn btn-primary">@lang('settings.save')</button>
             </div>
         </form>
+    </div>
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">Безопасность</h3>
+        </div>
+        <div class="card-body">
+            @if(Auth::user()->yandex_id)
+            <i class="fas fa-check"></i> Аккаунт Яндекса привязан ({{ Auth::user()->yandex_id }})
+            @else
+            <a href="{{ route('auth.yandex') }}" class="btn btn-danger">
+                <i class="fab fa-yandex mr-2"></i> Привязать аккаунт Яндекса
+            </a>
+            @endif
+        </div>
     </div>
 @endsection
