@@ -3,7 +3,7 @@
 @section('title', 'Настройки')
 
 @section('breadcrumbs')
-@include('components.breadcrumbs')
+    @include('components.breadcrumbs')
 @endsection
 
 @section('content')
@@ -38,12 +38,16 @@
             <h3 class="card-title">Безопасность</h3>
         </div>
         <div class="card-body">
-            @if(Auth::user()->yandex_id)
-            <i class="fas fa-check"></i> Аккаунт Яндекса привязан ({{ Auth::user()->yandex_id }})
+            @if (Auth::user()->yandex_id)
+                <i class="fas fa-check"></i> Аккаунт Яндекса привязан ({{ Auth::user()->yandex_id }})
+                <button type="submit" class="btn btn-danger btn-delete btn-sm" form="remove-yandex-id">Отвязать</button>
+                <form method="POST" action="{{ route('users.setings.remove_yandex_id') }}" id="remove-yandex-id" hidden>
+                    @csrf
+                </form>
             @else
-            <a href="{{ route('auth.yandex') }}" class="btn btn-danger">
-                <i class="fab fa-yandex mr-2"></i> Привязать аккаунт Яндекса
-            </a>
+                <a href="{{ route('auth.yandex') }}" class="btn btn-danger">
+                    <i class="fab fa-yandex mr-2"></i> Привязать аккаунт Яндекса
+                </a>
             @endif
         </div>
     </div>

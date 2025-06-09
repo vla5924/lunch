@@ -37,4 +37,13 @@ class UserSettingsController extends Controller
 
         return redirect()->back()->withSuccess(__('settings.settings_saved', [], $user->locale));
     }
+
+    public function removeYandexId()
+    {
+        $user = Auth::user();
+        $user->yandex_id = null;
+        $user->save();
+
+        return redirect()->back()->withSuccess('Привязка аккаунта Яндекса отменена');
+    }
 }
