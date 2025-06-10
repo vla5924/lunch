@@ -1,7 +1,7 @@
 @can('view comments')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Комментарии</h3>
+            <h3 class="card-title">Комментарии ({{ $comments->count() }})</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body card-comments">
@@ -15,11 +15,13 @@
                             <span class="text-muted">
                                 &middot; {{ $comment->created_at }}
                                 &middot; <a href="#comment-{{ $comment->id }}">#{{ $comment->id }}</a>
-                                @if($comment->parent_id)
-                                &middot; в ответ <a href="#comment-{{ $comment->parent_id }}">#{{ $comment->parent_id }}</a>
+                                @if ($comment->parent_id)
+                                    &middot; в ответ
+                                    <a href="#comment-{{ $comment->parent_id }}">#{{ $comment->parent_id }}</a>
                                 @endif
                                 @if ($external = App\Helpers\CommentHelper::getExternal($comment, $commentable))
-                                    &middot; {{ $external['preamble'] }} <a href="{{ $external['href'] }}">{{ $external['text'] }}</a>
+                                    &middot; {{ $external['preamble'] }}
+                                    <a href="{{ $external['href'] }}">{{ $external['text'] }}</a>
                                 @endif
                             </span>
                             <span class="float-right">

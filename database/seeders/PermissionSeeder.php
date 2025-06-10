@@ -49,8 +49,10 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'view evaluations']);
         Permission::create(['name' => 'create evaluations']);
-        Permission::create(['name' => 'edit evaluations']);
-        Permission::create(['name' => 'delete evaluations']);
+        Permission::create(['name' => 'edit owned evaluations']);
+        Permission::create(['name' => 'edit all evaluations']);
+        Permission::create(['name' => 'delete owned evaluations']);
+        Permission::create(['name' => 'delete all evaluations']);
 
         Permission::create(['name' => 'view comments']);
         Permission::create(['name' => 'create comments']);
@@ -78,8 +80,8 @@ class PermissionSeeder extends Seeder
             'view groups',
             'view evaluations',
             'create evaluations',
-            'edit evaluations',
-            'delete evaluations',
+            'edit owned evaluations',
+            'delete owned evaluations',
             'view comments',
             'create comments',
             'edit owned comments',

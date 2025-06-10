@@ -35,4 +35,13 @@ class Criteria extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getValuesAttribute()
+    {
+        $i = 0;
+        $values = [];
+        for ($value = $this->min_value; $value <= $this->max_value; $value += $this->step)
+            $values[$i++] = $value;
+        return $values;
+    }
 }

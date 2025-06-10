@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CommentHelper;
+use App\Helpers\EvaluationHelper;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\CriteriaEvaluation;
+use App\Models\Evaluation;
 use App\Models\Restaurant;
 use App\Models\Visit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
@@ -85,10 +89,43 @@ class RestaurantController extends Controller
         $comments = $restaurantComments->unionAll($visitComments)
             ->orderBy('created_at', 'asc')
             ->paginate(CommentHelper::PER_PAGE);
+        $evaluation = Evaluation::where('user_id', Auth::user()->id)->where('restaurant_id', $restaurant->id)->first();
+        $userValues = null;
+        if ($evaluation) {
+            foreach ($evaluation->criterias as $ce) {
+                $userValues[$ce->criteria->id] = [
+                    'value' => $ce->value,
+                    'percentage' => $ce->percentage,
+                ];
+            }
+        }
+        $ces = CriteriaEvaluation::query()
+            ->join('evaluations', 'criteria_evaluations.evaluation_id', '=', 'evaluations.id')
+            ->where('evaluations.restaurant_id', $restaurant->id)->select('criteria_evaluations.*')->get();
+        $chart = [];
+        foreach ($restaurant->category->criterias as $criteria) {
+            $chart[$criteria->id] = [
+                'name' => $criteria->name,
+                'avg' => [
+                    'value' => $ces->avg('value'),
+                    'percentage' => $ces->avg('percentage'),
+                ],
+                'user' => [
+                    'value' => $userValues != null ? $userValues[$criteria->id]['value'] : 0,
+                    'percentage' => $userValues != null ? $userValues[$criteria->id]['percentage'] : 0,
+                ],
+            ];
+        }
+        $lastVisit = Visit::where('restaurant_id', $restaurant->id)->orderBy('datetime', 'desc')->limit(1)->first();
+
 
         return view('pages.restaurants.show', [
             'restaurant' => $restaurant,
             'comments' => $comments,
+            'evaluation' => $evaluation,
+            'evaluation_avg' => EvaluationHelper::formatTotal($restaurant->evaluations->avg('total')),
+            'chart' => $chart,
+            'last_visit' => $lastVisit,
         ]);
     }
 

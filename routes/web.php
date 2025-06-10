@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\YandexAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RestaurantController;
@@ -34,10 +35,12 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::resource('visits', VisitController::class)->except('create');
     Route::resource('groups', GroupController::class);
     Route::resource('comments', CommentController::class)->only(['store', 'edit', 'update', 'destroy']);
+    Route::resource('evaluations', EvaluationController::class)->except(['index', 'create']);
 
     Route::get('/restaurants/{id}/visits/create', [VisitController::class, 'create'])->name('visits.create');
     Route::get('/restaurants/{id}/visits', [VisitController::class, 'restaurant'])->name('visits.restaurant');
-
+    Route::get('/restaurants/{id}/evaluations/create', [EvaluationController::class, 'create'])->name('evaluations.create');
+    Route::get('/restaurants/{id}/evaluations', [EvaluationController::class, 'restaurant'])->name('evaluations.restaurant');
 
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/groups', [UserAdminController::class, 'groups'])->name('users.groups');

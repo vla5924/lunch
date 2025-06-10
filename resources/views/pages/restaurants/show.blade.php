@@ -3,9 +3,10 @@
 @section('title', $restaurant->name)
 
 @section('breadcrumbs')
-@include('components.breadcrumbs', ['prev' => [
-    ['Рестораны', route('restaurants.index')],
-], 'active' => $restaurant->name])
+    @include('components.breadcrumbs', [
+        'prev' => [['Рестораны', route('restaurants.index')]],
+        'active' => $restaurant->name,
+    ])
 @endsection
 
 @section('content')
@@ -33,6 +34,21 @@
                                 width=100% height="400"></iframe>
                         </p>
                     @endif
+                    @can('edit restaurants')
+                        <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
+                            <i class="fas fa-pencil-alt"></i> Изменить
+                        </a>
+                    @endcan
+                    @can('delete restaurants')
+                        <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $restaurant->id }}">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                        <form method="POST" action="{{ route('restaurants.destroy', $restaurant->id) }}"
+                            id="destroy-{{ $restaurant->id }}" hidden>
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endcan
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -45,29 +61,26 @@
                 <div class="card-body">
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Посещения</b>
-                            <a class="float-right" href="{{ route('visits.restaurant', $restaurant->id) }}">{{ $restaurant->visits->count() }}</a>
+                            <b>Все посещения</b>
+                            <a class="float-right"
+                                href="{{ route('visits.restaurant', $restaurant->id) }}">{{ $restaurant->visits->count() }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Последнее посещение</b>
+                            @if ($last_visit)
+                                <a class="float-right" href="{{ route('visits.show', $last_visit->id) }}">
+                                    {{ $last_visit->datetime }}
+                                </a>
+                            @else
+                                <span class="float-right">никогда</span>
+                            @endif
                         </li>
                     </ul>
                     @can('create visits')
-                    <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
-                        <i class="fas fa-calendar-plus"></i> Добавить посещение
-                    </a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
+                            <i class="fas fa-calendar-plus"></i> Добавить посещение
+                        </a>
                     @endcan
-                    @can('edit restaurants')
-                    <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
-                        <i class="fas fa-pencil-alt"></i> Изменить
-                    </a>
-                    @endcan
-                    @can('delete restaurants')
-                    <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $restaurant->id }}">
-                        <i class="fas fa-trash"></i> Удалить
-                    </button>
-                    <form method="POST" action="{{ route('restaurants.destroy', $restaurant->id) }}" id="destroy-{{ $restaurant->id }}" hidden>
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                    @endif
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -86,63 +99,63 @@
                             <!-- small card -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>9.5</h3>
+                                    <h3>{{ $evaluation_avg }}</h3>
                                     <p>Средняя оценка</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-star-half-alt"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">
-                                    Все оценки <i class="fas fa-arrow-circle-right"></i>
+                                <a href="{{ route('evaluations.restaurant', $restaurant->id) }}" class="small-box-footer">
+                                    Все оценки ({{ $restaurant->evaluations->count() }})
+                                    <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-lg-6 col-12">
                             <!-- small card -->
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>9.8</h3>
-                                    <p>Ваша оценка</p>
+                            @if ($evaluation)
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $evaluation->totalf }}</h3>
+                                        <p>Ваша оценка</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                    <a href="{{ route('evaluations.show', $evaluation->id) }}" class="small-box-footer">
+                                        Подробнее <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
+                            @else
+                                <div class="small-box bg-secondary">
+                                    <div class="inner">
+                                        <h3>Неизвестно</h3>
+                                        <p>Ваша оценка</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-user-times"></i>
+                                    </div>
+                                    <a href="{{ route('evaluations.create', $restaurant->id) }}" class="small-box-footer">
+                                        Поставить оценку <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
                                 </div>
-                                <a href="#" class="small-box-footer">
-                                    Изменить оценку <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
+                            @endif
                         </div>
                         <!-- ./col -->
                     </div>
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="d-flex">
-                                <p class="d-flex flex-column">
-                                    <span class="text-bold text-lg">$18,230.00</span>
-                                    <span>Sales Over Time</span>
-                                </p>
-                                <p class="ml-auto d-flex flex-column text-right">
-                                    <span class="text-success">
-                                        <i class="fas fa-arrow-up"></i> 33.1%
-                                    </span>
-                                    <span class="text-muted">Since last month</span>
-                                </p>
+                            <div class="position-relative mb-2 mt-4">
+                                <canvas id="evaluation-chart" height="200"></canvas>
                             </div>
-                            <!-- /.d-flex -->
-
-                            <div class="position-relative mb-4">
-                                <canvas id="sales-chart" height="200"></canvas>
-                            </div>
-
                             <div class="d-flex flex-row justify-content-end">
                                 <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This year
+                                    <i class="fas fa-square text-primary"></i> Ваша оценка
                                 </span>
-
                                 <span>
-                                    <i class="fas fa-square text-gray"></i> Last year
+                                    <i class="fas fa-square text-gray"></i> Средняя оценка
                                 </span>
                             </div>
                         </div>
@@ -154,83 +167,86 @@
             @include('components.comments', ['comments' => $comments, 'commentable' => $restaurant])
         </div>
     </div>
+
+    <script>
+        let drawChart = () => {
+            let ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold'
+            };
+
+            let mode = 'index';
+            let intersect = true;
+
+            let chart = $('#evaluation-chart');
+            new Chart(chart, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        @foreach ($chart as $c)
+                            '{{ $c['name'] }}',
+                        @endforeach
+                    ],
+                    datasets: [{
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: [
+                                @foreach ($chart as $c)
+                                    {{ $c['avg']['percentage'] }},
+                                @endforeach
+                            ],
+                        },
+                        {
+                            backgroundColor: '#ced4da',
+                            borderColor: '#ced4da',
+                            data: [
+                                @foreach ($chart as $c)
+                                    {{ $c['user']['percentage'] }},
+                                @endforeach
+                            ],
+                        },
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect,
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect,
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent',
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
+                                callback: (value) => `${value}%`,
+                            }, ticksStyle),
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false,
+                            },
+                            ticks: ticksStyle,
+                        }]
+                    }
+                },
+            });
+        };
+    </script>
 @endsection
 
 @section('inline-script')
-    $(function () {
-      'use strict'
-
-      var ticksStyle = {
-        fontColor: '#495057',
-        fontStyle: 'bold'
-      }
-
-      var mode = 'index'
-      var intersect = true
-
-      var $salesChart = $('#sales-chart')
-      new Chart($salesChart, {
-        type: 'bar',
-        data: {
-          labels: ['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-          datasets: [
-            {
-              backgroundColor: '#007bff',
-              borderColor: '#007bff',
-              data: [1000, 2000, 3000, 2500, 2700, 2500, 3000]
-            },
-            {
-              backgroundColor: '#ced4da',
-              borderColor: '#ced4da',
-              data: [700, 1700, 2700, 2000, 1800, 1500, 2000]
-            }
-          ]
-        },
-        options: {
-          maintainAspectRatio: false,
-          tooltips: {
-            mode: mode,
-            intersect: intersect
-          },
-          hover: {
-            mode: mode,
-            intersect: intersect
-          },
-          legend: {
-            display: false
-          },
-          scales: {
-            yAxes: [{
-              // display: false,
-              gridLines: {
-                display: true,
-                lineWidth: '4px',
-                color: 'rgba(0, 0, 0, .2)',
-                zeroLineColor: 'transparent'
-              },
-              ticks: $.extend({
-                beginAtZero: true,
-
-                // Include a dollar sign in the ticks
-                callback: function (value) {
-                  if (value >= 1000) {
-                    value /= 1000
-                    value += 'k'
-                  }
-
-                  return '$' + value
-                }
-              }, ticksStyle)
-            }],
-            xAxes: [{
-              display: true,
-              gridLines: {
-                display: false
-              },
-              ticks: ticksStyle
-            }]
-          }
-        }
-      })
-    });
+    $(drawChart);
 @endsection

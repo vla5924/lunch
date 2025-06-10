@@ -216,7 +216,10 @@
     <script src="/theme/plugins/jquery/jquery.min.js"></script>
     <script src="/theme/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script>
-        $.widget.bridge('uibutton', $.ui.button)
+        $.widget.bridge('uibutton', $.ui.button);
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({html: true});
+        });
     </script>
     <script src="/theme/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/theme/plugins/chart.js/Chart.min.js"></script>

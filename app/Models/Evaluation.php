@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\EvaluationHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Evaluation extends Model
@@ -19,5 +20,10 @@ class Evaluation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTotalfAttribute()
+    {
+        return EvaluationHelper::formatTotal($this->total);
     }
 }

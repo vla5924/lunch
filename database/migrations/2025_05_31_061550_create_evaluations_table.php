@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->text('notes')->nullable()->default(null);
+            $table->float('total');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('restaurant_id');
             $table->timestamps();
