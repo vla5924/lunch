@@ -78,7 +78,7 @@ class VisitController extends Controller
         $this->setUserId($visit);
         $visit->save();
 
-        return redirect()->route('visits.show', $visit->id)->with('success', __('categories.category_created_successfully'));
+        return redirect()->route('visits.show', $visit->id)->with('success', 'Посещение успешно добавлено');
     }
 
     /**
@@ -134,7 +134,7 @@ class VisitController extends Controller
         $visit->restaurant_id = $request->restaurant_id;
         $visit->save();
 
-        return redirect()->route('visits.show', $visit->id)->with('success', __('categories.category_created_successfully'));
+        return redirect()->route('visits.show', $visit->id)->with('success', 'Посещение успешно изменено');
     }
 
     /**
@@ -146,6 +146,6 @@ class VisitController extends Controller
 
         $visit->delete();
 
-        return redirect()->route('visits.index')->with('success', __('categories.category_deleted_successfully'));
+        return redirect()->route('visits.index')->with('success', 'Посещение успешно удалено');
     }
 }

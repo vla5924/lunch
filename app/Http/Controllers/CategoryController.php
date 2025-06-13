@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category->save();
         $category->criterias()->attach($request->criteria_ids);
 
-        return redirect()->route('categories.show', $category->id)->with('success', __('categories.category_created_successfully'));
+        return redirect()->route('categories.show', $category->id)->with('success', 'Категория успешно добавлена');
     }
 
     /**
@@ -102,7 +102,7 @@ class CategoryController extends Controller
         $category->save();
         $category->criterias()->sync($request->criteria_ids);
 
-        return redirect()->route('categories.show', $category->id)->with('success', __('categories.category_updated_successfully'));
+        return redirect()->route('categories.show', $category->id)->with('success', 'Категория успешно изменена');
     }
 
     /**
@@ -114,6 +114,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', __('categories.category_deleted_successfully'));
+        return redirect()->route('categories.index')->with('success', 'Категория успешно удалена');
     }
 }

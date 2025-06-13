@@ -21,7 +21,11 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <strong><i class="fas fa-book mr-1"></i> Категория</strong>
-                    <p class="text-muted">{{ $restaurant->category->name }}</p>
+                    <p class="text-muted">
+                        <a href="{{ route('categories.show', $restaurant->category->id) }}">
+                            {{ $restaurant->category->name }}
+                        </a>
+                    </p>
                     <hr>
                     <strong><i class="fas fa-book mr-1"></i> Описание</strong>
                     <p class="text-muted">{{ $restaurant->description }}</p>

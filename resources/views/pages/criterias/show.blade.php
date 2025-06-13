@@ -63,8 +63,13 @@
         Связанные категории:
 
         <ul>
-            <li>1</li>
-            <li>2</li>
+            @foreach ($criteria->categories as $category)
+            <li>
+                <a href="{{ route('categories.show', $category->id) }}">
+                    {{ $category->name }}
+                </a>
+            </li>
+            @endforeach
         </ul>
     </div>
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">

@@ -68,7 +68,7 @@ class RestaurantController extends Controller
         $this->setUserId($restaurant);
         $restaurant->save();
 
-        return redirect()->route('restaurants.show', $restaurant->id)->with('success', __('categories.category_created_successfully'));
+        return redirect()->route('restaurants.show', $restaurant->id)->with('success', 'Ресторан успешно добавлен');
     }
 
     /**
@@ -165,7 +165,7 @@ class RestaurantController extends Controller
         $restaurant->category_id = $request->category_id;
         $restaurant->save();
 
-        return redirect()->route('restaurants.show', $restaurant->id)->with('success', __('categories.category_created_successfully'));
+        return redirect()->route('restaurants.show', $restaurant->id)->with('success', 'Ресторан успешно изменен');
     }
 
     /**
@@ -177,6 +177,6 @@ class RestaurantController extends Controller
 
         $restaurant->delete();
 
-        return redirect()->route('restaurants.index')->with('success', __('categories.category_deleted_successfully'));
+        return redirect()->route('restaurants.index')->with('success', 'Ресторан успешно удален');
     }
 }

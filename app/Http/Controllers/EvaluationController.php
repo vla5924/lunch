@@ -180,6 +180,6 @@ class EvaluationController extends Controller
         }
         $evaluation->delete();
 
-        return redirect()->route('restaurants.show', $restaurantId)->with('success', __('categories.category_deleted_successfully'));
+        return redirect()->route('restaurants.show', $restaurantId)->with('success', 'Оценка успешно удалена');
     }
 }

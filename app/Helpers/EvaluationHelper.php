@@ -25,8 +25,10 @@ class EvaluationHelper
         return self::totalFromArrays($values, $weights);
     }
 
-    public static function formatTotal(float $total)
+    public static function formatTotal(float|null $total)
     {
+        if ($total == null)
+            $total = 0.0;
         return sprintf('%.2f', $total);
     }
 }

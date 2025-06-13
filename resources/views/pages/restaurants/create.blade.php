@@ -43,7 +43,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">@lang('restaurants.add')</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </div>
     </form>
 </div>

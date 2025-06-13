@@ -30,8 +30,13 @@
         Связанные рестораны:
 
         <ul>
-            <li>1</li>
-            <li>2</li>
+            @foreach ($category->restaurants as $restaurant)
+            <li>
+                <a href="{{ route('restaurants.show', $restaurant->id) }}">
+                    {{ $restaurant->name }}
+                </a>
+            </li>
+            @endforeach
         </ul>
     </div>
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
