@@ -1,0 +1,3 @@
+/certbot/conf/
+/certbot/www/
+/nginx/nginx.conf

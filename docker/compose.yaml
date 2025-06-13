@@ -1,0 +1,42 @@
+services:
+  php:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - app-data:/var/www/html
+    networks:
+      - lunch-network
+  
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - app-data:/var/www/html
+    networks:
+      - lunch-network
+    depends_on:
+      - php
+  
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    networks:
+      - lunch-network
+
+
+networks:
+  lunch-network:
+    driver: bridge
+
+volumes:
+  app-data:
