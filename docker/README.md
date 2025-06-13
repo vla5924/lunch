@@ -28,4 +28,22 @@ Stop services:
 
 ```bash
 docker/compose.sh down
+docker/compose.sh down -v # also remove volumes
+```
+
+Initialize Laravel:
+
+```bash
+docker/compose.sh exec -u www-data php cp .env.production .env
+docker/compose.sh exec -u www-data php php artisan key:generate
+docker/compose.sh exec -u www-data php php artisan migrate
+docker/compose.sh exec -u www-data php php artisan db:seed
+```
+
+Check application logs:
+
+```bash
+docker/compose.sh logs php
+docker/compose.sh logs nginx
+docker/compose.sh exec php cat storage/logs/laravel.log
 ```
