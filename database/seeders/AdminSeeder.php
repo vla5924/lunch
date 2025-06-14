@@ -14,10 +14,10 @@ class AdminSeeder extends Seeder
     {
         $user = User::create([
             'id' => 1,
-            'tg_id' => env('ADMIN_TG_ID'),
-            'tg_name' => env('ADMIN_TG_NAME', 'admin'),
-            'tg_username' => env('ADMIN_TG_USERNAME', 'admin'),
-            'yandex_id' => env('ADMIN_YANDEX_ID'),
+            'tg_id' => config('lunch.admin_tg_id'),
+            'tg_name' => config('lunch.admin_tg_name'),
+            'tg_username' => config('lunch.admin_tg_username'),
+            'yandex_id' => config('lunch.admin_yandex_id'),
         ]);
         $user->assignRole('admin');
     }

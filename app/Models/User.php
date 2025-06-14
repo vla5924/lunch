@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function getAvaAttribute()
     {
-        return $this->avatar ?? env('USER_FALLBACK_AVATAR');
+        return $this->avatar ?? config('lunch.fallback_avatar');
     }
 
     public function getNameAttribute()

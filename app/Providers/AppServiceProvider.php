@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Route::pattern('id', '[0-9]+');
 
-        URL::forceScheme(env('APP_URL_SCHEME', 'http'));
+        URL::forceScheme(config('lunch.url_scheme'));
 
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('telegram', \SocialiteProviders\Telegram\Provider::class);
