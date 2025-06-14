@@ -36,8 +36,20 @@ Initialize Laravel:
 ```bash
 docker/compose.sh exec -u www-data php cp .env.production .env
 docker/compose.sh exec -u www-data php php artisan key:generate
+```
+
+Recover from existing database:
+
+```bash
+docker/compose.sh cp database.sqlite php:/var/www/database
+docker/compose.sh exec php chown -R www-data:www-data /var/www/database
+```
+
+Setup database:
+
+```bash
 docker/compose.sh exec -u www-data php php artisan migrate
-docker/compose.sh exec -u www-data php php artisan db:seed
+docker/compose.sh exec -u www-data php php artisan db:seed # fresh installation
 ```
 
 Check application logs:

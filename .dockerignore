@@ -1,6 +1,9 @@
+/.dockerignore
 /.env
 /.git/
 /database/*.sqlite*
 /docker/
 /public/theme/.git/
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
 /vendor/
