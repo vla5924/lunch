@@ -21,14 +21,14 @@ class YandexAuthController extends Controller
         $user = User::where('yandex_id', $yandexUser->getId())->first();
         if ($currentUser != null) {
             if ($user != null && $user->id != $currentUser->id) {
-                return redirect()->route('users.settings')->with('failure', 'Аккаунт Яндекса привязан к другому пользователю');
+                return redirect()->route('users.settings')->with('failure', __('auth.yandex_linked_to_another_user'));
             }
             $currentUser->yandex_id = $yandexUser->getId();
             $currentUser->save();
-            return redirect()->route('users.settings')->with('success', 'Аккаунт Яндекса привязан успешно');
+            return redirect()->route('users.settings')->with('success', __('auth.yandex_linked_successfully'));
         }
         if ($user == null) {
-            return redirect()->route('login')->with('failure', 'Сначала нужно авторизоваться через Telegram и привязать аккаунт Яндекса в настройках');
+            return redirect()->route('login')->with('failure', __('auth.yandex_telegram_first'));
         }
         Auth::login($user);
         return redirect('/');

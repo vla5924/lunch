@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Изменить категорию: ' . $category->name)
+@section('title', __('categories.edit_category') . ': ' . $category->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Категории', route('categories.index')],
+    [__('categories.categories'), route('categories.index')],
     [$category->name, route('categories.show', $category->id)],
-], 'active' => 'Изменить категорию'])
+], 'active' => __('categories.edit_category')])
 @endsection
 
 @section('content')
@@ -19,11 +19,11 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" class="form-control" name="name" value="{{ $category->name }}" placeholder="Введите название категории" required>
+                <label>@lang('categories.name')</label>
+                <input type="text" class="form-control" name="name" value="{{ $category->name }}" placeholder="@lang('categories.enter_name')" required>
             </div>
             <div class="form-group">
-                <label>Критерии</label>
+                <label>@lang('categories.criterias')</label>
                 <select multiple class="form-control" name="criteria_ids[]">
                     @foreach ($criterias as $criteria)
                     <option value="{{ $criteria->id }}" {{ $category->criterias->contains($criteria) ? 'selected' : '' }}>{{ $criteria->name }}</option>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@lang('categories.save')</button>
         </div>
     </form>
 </div>

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Создать группу')
+@section('title', __('groups.create_group'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Группы', route('groups.index')],
+    [__('groups.groups'), route('groups.index')],
 ]])
 @endsection
 
@@ -17,13 +17,13 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" class="form-control" name="name" placeholder="Введите название группы" required>
+                <label>@lang('groups.name')</label>
+                <input type="text" class="form-control" name="name" placeholder="@lang('groups.enter_name')" required>
             </div>
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <button type="submit" class="btn btn-primary">@lang('groups.create')</button>
         </div>
     </form>
 </div>

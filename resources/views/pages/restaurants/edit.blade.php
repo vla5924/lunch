@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Изменить ресторан: ' . $restaurant->name)
+@section('title', __('restaurants.edit_restaurant') . ': ' . $restaurant->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Рестораны', route('restaurants.index')],
+    [__('restaurants.restaurants'), route('restaurants.index')],
     [$restaurant->name, route('restaurants.show', $restaurant->id)],
-], 'active' => 'Изменить ресторан'])
+], 'active' => __('restaurants.edit_restaurant')])
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Категория</label>
+                <label>@lang('restaurants.category')</label>
                 <select class="form-control" style="width: 100%;" name="category_id" required>
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ $restaurant->category->id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -27,25 +27,25 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" class="form-control" name="name" value="{{ $restaurant->name }}" placeholder="Введите название ресторана" required>
+                <label>@lang('restaurants.name')</label>
+                <input type="text" class="form-control" name="name" value="{{ $restaurant->name }}" placeholder="@lang('restaurants.enter_name')" required>
             </div>
             <div class="form-group">
-                <label>Описание</label>
-                <textarea class="form-control" name="description" placeholder="Введите описание ресторана">{{ $restaurant->description }}</textarea>
+                <label>@lang('restaurants.description')</label>
+                <textarea class="form-control" name="description" placeholder="@lang('restaurants.enter_description')">{{ $restaurant->description }}</textarea>
             </div>
             <div class="form-group">
-                <label>Местоположение</label>
-                <input type="text" class="form-control" name="location" value="{{ $restaurant->location }}" placeholder="Введите местоположение ресторана (например, город, улицу и номер дома)" required>
+                <label>@lang('restaurants.location')</label>
+                <input type="text" class="form-control" name="location" value="{{ $restaurant->location }}" placeholder="@lang('restaurants.enter_location')" required>
             </div>
             <div class="form-group">
-                <label>Ссылка для виджета Яндекс Карт</label>
-                <input type="text" class="form-control" name="yandex_map_widget" value="{{ $restaurant->yandex_map_widget }}">
+                <label>@lang('restaurants.yandex_map_widget')</label>
+                <input type="text" class="form-control" name="yandex_map_widget" value="{{ $restaurant->yandex_map_widget }}" placeholder="@lang('restaurants.enter_yandex_map_widget')">
             </div>
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@lang('restaurants.save')</button>
         </div>
     </form>
 </div>

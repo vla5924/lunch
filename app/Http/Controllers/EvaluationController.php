@@ -36,7 +36,7 @@ class EvaluationController extends Controller
         $restaurant = $this->requireExistingId(Restaurant::class, $restaurantId);
         $evaluation = Evaluation::where('user_id', Auth::user()->id)->where('restaurant_id', $restaurant->id)->first();
         if ($evaluation) {
-            return redirect()->route('evaluations.show', $evaluation->id)->with('failure', 'Вы уже поставили оценку этому ресторану');
+            return redirect()->route('evaluations.show', $evaluation->id)->with('failure', __('evaluations.you_already_evaluated'));
         }
 
         return view('pages.evaluations.create', [
@@ -65,17 +65,17 @@ class EvaluationController extends Controller
         }
         $numIds = count($request->criteria_ids);
         if ($numIds != count($request->criteria_values) || $request->criteria_ids != array_unique($request->criteria_ids)) {
-            return redirect()->back()->with('failure', 'Неверные параметры запроса');
+            return redirect()->back()->with('failure', __('evaluations.invalid_request_parameters'));
         }
         $criterias = [];
         $weights = [];
         for ($i = 0; $i < $numIds; $i++) {
             $criteria = Criteria::where('id', $request->criteria_ids[$i])->first();
             if (!$criteria)
-                return redirect()->back()->with('failure', 'Неверные параметры запроса');
+                return redirect()->back()->with('failure', __('evaluations.invalid_request_parameters'));
             $value = $request->criteria_values[$i];
             if (!\in_array($value, $criteria->values))
-                return redirect()->back()->with('failure', 'Недопустимое значение критерия: ' . $criteria->name);
+                return redirect()->back()->with('failure', __('evaluations.illegal_criteria_value', ['name' => $criteria->name]));
             $criterias[$criteria->id] = $value;
             $weights[$criteria->id] = $criteria->impact;
         }
@@ -93,7 +93,7 @@ class EvaluationController extends Controller
             $ce->save();
         }
 
-        return redirect()->route('evaluations.show', $evaluation->id)->withSuccess('Оценка успешно добавлена');
+        return redirect()->route('evaluations.show', $evaluation->id)->withSuccess(__('evaluations.created_successfully'));
     }
 
     /**
@@ -141,7 +141,7 @@ class EvaluationController extends Controller
             || $numIds != $evaluation->criterias->count()
             || $request->criteria_ids != array_unique($request->criteria_ids)
         ) {
-            return redirect()->back()->with('failure', 'Неверные параметры запроса');
+            return redirect()->back()->with('failure', __('evaluations.invalid_request_parameters'));
         }
         $criterias = [];
         $weights = [];
@@ -151,7 +151,7 @@ class EvaluationController extends Controller
                 return redirect()->back()->with('failure', 'Неверные параметры запроса');
             $value = $request->criteria_values[$i];
             if (!\in_array($value, $criteria->values))
-                return redirect()->back()->with('failure', 'Недопустимое значение критерия: ' . $criteria->name);
+                return redirect()->back()->with('failure', __('evaluations.illegal_criteria_value', ['name' => $criteria->name]));
             $criterias[$criteria->id] = $value;
             $weights[$criteria->id] = $criteria->impact;
         }
@@ -163,7 +163,7 @@ class EvaluationController extends Controller
             $ce->save();
         }
 
-        return redirect()->route('evaluations.show', $evaluation->id)->withSuccess('Оценка успешно изменена');
+        return redirect()->route('evaluations.show', $evaluation->id)->withSuccess(__('evaluations.updated_successfully'));
     }
 
     /**
@@ -180,6 +180,6 @@ class EvaluationController extends Controller
         }
         $evaluation->delete();
 
-        return redirect()->route('restaurants.show', $restaurantId)->with('success', 'Оценка успешно удалена');
+        return redirect()->route('restaurants.show', $restaurantId)->with('success', __('evaluations.deleted_successfully'));
     }
 }

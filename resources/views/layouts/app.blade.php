@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | @lang('misc.lunch')</title>
+    <title>@yield('title') | @lang('common.lunch')</title>
 
     <link rel="shortcut icon" href="/images/icons/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" sizes="57x57" href="/images/icons/apple-touch-icon-57x57.png">
@@ -94,7 +94,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="@lang('misc.search')"
+                                <input class="form-control form-control-navbar" type="search" placeholder="@lang('common.search')"
                                     aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
@@ -109,12 +109,12 @@
                     </div>
                 </li-->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.settings') }}" title="Настройки приложения">
+                    <a class="nav-link" href="{{ route('users.settings') }}" title="@lang('users.settings')">
                         <i class="fas fa-cog"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="@lang('misc.full_screen')">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button" title="@lang('common.full_screen')">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
@@ -126,7 +126,7 @@
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                      document.getElementById('logout-form').submit();"
-                        class="nav-link" title="@lang('misc.logout')">
+                        class="nav-link" title="@lang('common.logout')">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" hidden>
@@ -143,7 +143,7 @@
             <a href="{{ route('home') }}" class="brand-link">
                 <img src="/images/briar.jpg" alt="Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">@lang('misc.lunch')</span>
+                <span class="brand-text font-weight-light">@lang('common.lunch')</span>
             </a>
 
             <!-- Sidebar -->
@@ -165,7 +165,7 @@
                         <li class="nav-item">
                             <a href="{{ route('restaurants.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-utensils"></i>
-                                <p>Рестораны</p>
+                                <p>@lang('restaurants.restaurants')</p>
                             </a>
                         </li>
                         @endcan
@@ -173,7 +173,7 @@
                         <li class="nav-item">
                             <a href="{{ route('visits.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-door-open"></i>
-                                <p>Посещения</p>
+                                <p>@lang('visits.visits')</p>
                             </a>
                         </li>
                         @endcan
@@ -181,7 +181,7 @@
                         <li class="nav-item">
                             <a href="{{ route('categories.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-layer-group"></i>
-                                <p>Категории</p>
+                                <p>@lang('categories.categories')</p>
                             </a>
                         </li>
                         @endcan
@@ -189,7 +189,7 @@
                         <li class="nav-item">
                             <a href="{{ route('criterias.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-star-half-alt"></i>
-                                <p>Критерии</p>
+                                <p>@lang('criterias.criterias')</p>
                             </a>
                         </li>
                         @endcan
@@ -197,7 +197,7 @@
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
-                                <p>Пользователи</p>
+                                <p>@lang('users.users')</p>
                             </a>
                         </li>
                         @endcan
@@ -205,7 +205,7 @@
                         <li class="nav-item">
                             <a href="{{ route('groups.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
-                                <p>Группы</p>
+                                <p>@lang('groups.groups')</p>
                             </a>
                         </li>
                         @endcan

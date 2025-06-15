@@ -4,7 +4,7 @@
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Критерии', route('criterias.index')],
+    [__('criterias.criterias'), route('criterias.index')],
 ], 'active' => $criteria->name])
 @endsection
 
@@ -17,7 +17,7 @@
         <div class="col-12 col-sm-3">
             <div class="info-box bg-light">
                 <div class="info-box-content">
-                    <span class="info-box-text text-center text-muted">Минимальное значение</span>
+                    <span class="info-box-text text-center text-muted">@lang('criterias.min_value')</span>
                     <span class="info-box-number text-center text-muted mb-0">
                         {{ $criteria->min_value }}
                     </span>
@@ -27,7 +27,7 @@
         <div class="col-12 col-sm-3">
             <div class="info-box bg-light">
                 <div class="info-box-content">
-                    <span class="info-box-text text-center text-muted">Максимальное значение</span>
+                    <span class="info-box-text text-center text-muted">@lang('criterias.max_value')</span>
                     <span class="info-box-number text-center text-muted mb-0">
                         {{ $criteria->max_value }}
                     </span>
@@ -37,7 +37,7 @@
         <div class="col-12 col-sm-3">
             <div class="info-box bg-light">
                 <div class="info-box-content">
-                    <span class="info-box-text text-center text-muted">Шаг значения</span>
+                    <span class="info-box-text text-center text-muted">@lang('criterias.step')</span>
                     <span class="info-box-number text-center text-muted mb-0">
                         {{ $criteria->step }}
                     </span>
@@ -47,7 +47,7 @@
         <div class="col-12 col-sm-3">
             <div class="info-box bg-light">
                 <div class="info-box-content">
-                    <span class="info-box-text text-center text-muted">Вес критерия</span>
+                    <span class="info-box-text text-center text-muted">@lang('criterias.weight')</span>
                     <span class="info-box-number text-center text-muted mb-0">
                         {{ $criteria->impact }}
                     </span>
@@ -59,9 +59,7 @@
     <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
         <p>{{ $criteria->description }}</p>
-
-        Связанные категории:
-
+        @lang('criterias.related_categories')
         <ul>
             @foreach ($criteria->categories as $category)
             <li>
@@ -76,12 +74,12 @@
         <div class="mt-3 mb-5">
             @can('edit criterias')
             <a class="btn btn-info btn-sm" href="{{ route('criterias.edit', $criteria->id) }}">
-                <i class="fas fa-pencil-alt"></i> Изменить
+                <i class="fas fa-pencil-alt"></i> @lang('criterias.edit')
             </a>
             @endcan
             @can('delete criterias')
             <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $criteria->id }}">
-                <i class="fas fa-trash"></i> Удалить
+                <i class="fas fa-trash"></i> @lang('criterias.delete')
             </button>
             <form method="POST" action="{{ route('criterias.destroy', $criteria->id) }}" id="destroy-{{ $criteria->id }}" hidden>
                 @csrf
@@ -92,19 +90,19 @@
 
         <div class="text-muted">
             <p class="text-sm">
-                Иконка
+                @lang('criterias.icon')
                 @if($criteria->fa_icon)
                 <i class="d-block fas {{ $criteria->fa_icon }}"></i>
                 @else
-                <b class="d-block">не задана</b>
+                <b class="d-block">@lang('criterias.none')</b>
                 @endif
             </p>
             <p class="text-sm">
-                Добавлен
+                @lang('criterias.created_at')
                 <b class="d-block">{{ $criteria->created_at }}</b>
             </p>
             <p class="text-sm">
-                Пользователь
+                @lang('criterias.created_by')
                 <b class="d-block">@include('components.user-link', ['user' => $criteria->user])</b>
             </p>
         </div>

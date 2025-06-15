@@ -34,7 +34,7 @@ class UserAdminController extends Controller
 
         $user->groups()->sync($request->group_ids);
 
-        return redirect()->back()->withSuccess('Назначение групп успешно обновлено');
+        return redirect()->back()->withSuccess(__('users.group_assignment_updated_successfully'));
     }
 
     public function permissions(int $id)
@@ -61,7 +61,7 @@ class UserAdminController extends Controller
 
         $user->permissions()->sync($request->permission_ids);
 
-        return redirect()->back()->withSuccess('Права пользователя успешно обновлены');
+        return redirect()->back()->withSuccess(__('users.permissions_updated_successfully'));
     }
 
     public function roles(int $id)
@@ -88,6 +88,6 @@ class UserAdminController extends Controller
 
         $user->roles()->sync($request->role_ids);
 
-        return redirect()->back()->withSuccess('Роли пользователя успешно обновлены');
+        return redirect()->back()->withSuccess(__('users.roles_updated_successfully'));
     }
 }

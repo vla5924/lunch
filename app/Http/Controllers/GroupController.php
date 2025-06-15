@@ -47,7 +47,7 @@ class GroupController extends Controller
         $this->setUserId($group);
         $group->save();
 
-        return redirect()->route('groups.show', $group->id)->with('success', 'Группа успешно создана');
+        return redirect()->route('groups.show', $group->id)->with('success', __('groups.created_successfully'));
     }
 
     /**
@@ -87,7 +87,7 @@ class GroupController extends Controller
         $group->name = $request->name;
         $group->save();
 
-        return redirect()->route('groups.show', $group->id)->with('success', 'Группа успешно изменена');
+        return redirect()->route('groups.show', $group->id)->with('success', __('groups.updated_successfully'));
     }
 
     /**
@@ -99,6 +99,6 @@ class GroupController extends Controller
 
         $group->delete();
 
-        return redirect()->route('groups.index')->with('success', 'Группа успешно удалена');
+        return redirect()->route('groups.index')->with('success', __('groups.deleted_successfully'));
     }
 }

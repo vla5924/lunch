@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Группа: ' . $group->name)
+@section('title', __('groups.group') . ': ' . $group->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Группы', route('groups.index')],
+    [__('groups.groups'), route('groups.index')],
 ], 'active' => $group->name])
 @endsection
 
@@ -15,7 +15,7 @@
 <div class="card-body">
     <div class="row">
     <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-        Связанные пользователи:
+        @lang('groups.related_users')
 
         <ul>
             @foreach ($group->users as $user)
@@ -27,12 +27,12 @@
         <div class="mt-3 mb-5">
             @can('edit groups')
             <a class="btn btn-info btn-sm" href="{{ route('groups.edit', $group->id) }}">
-                <i class="fas fa-pencil-alt"></i> Изменить
+                <i class="fas fa-pencil-alt"></i> @lang('groups.edit')
             </a>
             @endcan
             @can('delete groups')
             <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $group->id }}">
-                <i class="fas fa-trash"></i> Удалить
+                <i class="fas fa-trash"></i> @lang('groups.delete')
             </button>
             <form method="POST" action="{{ route('groups.destroy', $group->id) }}" id="destroy-{{ $group->id }}" hidden>
                 @csrf
@@ -43,11 +43,11 @@
 
         <div class="text-muted">
             <p class="text-sm">
-                Создана
+                @lang('groups.created_at')
                 <b class="d-block">{{ $group->created_at }}</b>
             </p>
             <p class="text-sm">
-                Пользователь
+                @lang('groups.created_by')
                 <b class="d-block">@include('components.user-link', ['user' => $group->user])</b>
             </p>
         </div>

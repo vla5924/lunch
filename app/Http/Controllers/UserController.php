@@ -84,7 +84,7 @@ class UserController extends Controller
         $user->notes = $request->get('notes');
         $user->save();
 
-        return redirect()->back()->withSuccess(__('settings.information_updated_successfully'));
+        return redirect()->back()->withSuccess(__('users.information_updated_successfully'));
     }
 
     /**

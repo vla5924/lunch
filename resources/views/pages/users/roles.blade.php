@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Роли пользователя: ' . $user->name)
+@section('title', __('users.roles') . ': ' . $user->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Пользователи', route('users.index')],
+    [__('users.users'), route('users.index')],
     [$user->name, route('users.show', $user->id)],
-], 'active' => 'Роли'])
+], 'active' => __('users.roles')])
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label>Роли</label>
+                    <label>@lang('users.roles')</label>
                     <select multiple class="form-control" name="role_ids[]" size="{{ $roles->count() }}" required>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">@lang('users.save')</button>
             </div>
         </form>
     </div>

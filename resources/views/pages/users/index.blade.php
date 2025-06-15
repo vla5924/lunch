@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Пользователи')
+@section('title', __('users.users'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs')
@@ -14,10 +14,10 @@
         <table class="table table-striped projects">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Имя</th>
-                    <th>Регистрация</th>
-                    <th>Последняя активность</th>
+                    <th>@lang('users.id')</th>
+                    <th>@lang('users.name')</th>
+                    <th>@lang('users.registration')</th>
+                    <th>@lang('users.last_activity')</th>
                 </tr>
             </thead>
             <tbody>

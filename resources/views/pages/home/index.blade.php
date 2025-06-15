@@ -3,5 +3,5 @@
 @section('title', __('home.home'))
 
 @section('content')
-hello! {{ $user->name }}
+@lang('home.hello'), {{ $user->name }}!
 @endsection

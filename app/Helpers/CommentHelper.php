@@ -28,7 +28,7 @@ class CommentHelper
             return null;
         if ($externalClass == Visit::class)
             return [
-                'preamble' => 'к посещению',
+                'preamble' => __('comments.to_visit'),
                 'href' => route('visits.show', $commentable->id),
                 'text' => $commentable->datetime,
             ];

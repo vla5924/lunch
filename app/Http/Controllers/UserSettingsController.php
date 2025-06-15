@@ -30,7 +30,7 @@ class UserSettingsController extends Controller
             $user->locale = LanguageHelper::DEFAULT_LOCALE;
         $user->save();
 
-        return redirect()->back()->withSuccess(__('settings.settings_saved', [], $user->locale));
+        return redirect()->back()->withSuccess(__('users.settings_saved', locale: $user->locale));
     }
 
     public function removeYandexId()
@@ -39,6 +39,6 @@ class UserSettingsController extends Controller
         $user->yandex_id = null;
         $user->save();
 
-        return redirect()->back()->withSuccess('Привязка аккаунта Яндекса отменена');
+        return redirect()->back()->withSuccess(__('users.yandex_unlinked'));
     }
 }

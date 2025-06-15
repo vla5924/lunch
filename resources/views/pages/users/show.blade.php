@@ -4,7 +4,7 @@
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Пользователи', route('users.index')],
+    [__('users.users'), route('users.index')],
 ], 'active' => $user->name])
 @endsection
 
@@ -27,16 +27,16 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                        <b>Имя в Telegram</b> <span class="float-right">{{ $user->tg_name }}</span>
+                        <b>@lang('users.telegram_name')</b> <span class="float-right">{{ $user->tg_name }}</span>
                     </li>
                     <li class="list-group-item">
-                        <b>Никнейм в Telegram</b> <a class="float-right" href="//t.me/{{ $user->tg_username }}" target="_blank">{{ $user->tg_username }}</a>
+                        <b>@lang('users.telegram_nickname')</b> <a class="float-right" href="//t.me/{{ $user->tg_username }}" target="_blank">{{ $user->tg_username }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>@lang('users.user_since')</b> <span class="float-right">{{ $user->created_at }}</span>
+                        <b>@lang('users.registration')</b> <span class="float-right">{{ $user->created_at }}</span>
                     </li>
                     <li class="list-group-item">
-                        <b>Последняя активность</b> <span class="float-right">{{ $user->onlineAt }}</span>
+                        <b>@lang('users.last_activity')</b> <span class="float-right">{{ $user->onlineAt }}</span>
                     </li>
                 </ul>
 
@@ -48,20 +48,20 @@
         @can(['edit users', 'assign groups', 'assign roles', 'assign permissions'])
         <div class="card card-danger">
             <div class="card-header">
-                <h3 class="card-title">Администрирование</h3>
+                <h3 class="card-title">@lang('users.administration')</h3>
             </div>
             <div class="card-body">
                 @can('edit users')
-                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-danger btn-block">Информация</a>
+                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-danger btn-block">@lang('users.public_information')</a>
                 @endcan
                 @can('assign groups')
-                <a href="{{ route('users.groups', $user->id) }}" class="btn btn-danger btn-block">Группы</a>
+                <a href="{{ route('users.groups', $user->id) }}" class="btn btn-danger btn-block">@lang('users.groups')</a>
                 @endcan
                 @can('assign roles')
-                <a href="{{ route('users.roles', $user->id) }}" class="btn btn-danger btn-block">Роли</a>
+                <a href="{{ route('users.roles', $user->id) }}" class="btn btn-danger btn-block">@lang('users.roles')</a>
                 @endcan
                 @can('assign permissions')
-                <a href="{{ route('users.permissions', $user->id) }}" class="btn btn-danger btn-block">Права</a>
+                <a href="{{ route('users.permissions', $user->id) }}" class="btn btn-danger btn-block">@lang('users.permissions')</a>
                 @endcan
             </div>
         </div>
@@ -71,10 +71,10 @@
     <div class="col-12 col-md-8 col-lg-9">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">@lang('users.about_me')</h3>
+                <h3 class="card-title">@lang('users.notes')</h3>
             </div>
             <div class="card-body">
-                <strong><i class="fas fa-users mr-1"></i> Группы</strong>
+                <strong><i class="fas fa-users mr-1"></i> @lang('users.groups')</strong>
                 <p class="text-muted">
                     @foreach($user->groups as $group)
                     {{ $group->name }}
@@ -86,7 +86,7 @@
                     @if ($user->notes)
                     {{ $user->notes }}
                     @else
-                    <i>Пусто...</i>
+                    <i>@lang('users.empty')</i>
                     @endif
                 </p>
             </div>

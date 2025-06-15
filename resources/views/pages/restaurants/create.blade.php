@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Добавить ресторан')
+@section('title', __('restaurants.create_restaurant'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Рестораны', route('restaurants.index')],
+    [__('restaurants.restaurants'), route('restaurants.index')],
 ]])
 @endsection
 
@@ -17,7 +17,7 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Категория</label>
+                <label>@lang('restaurants.category')</label>
                 <select class="form-control" style="width: 100%;" name="category_id" required>
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -25,25 +25,25 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" class="form-control" name="name" placeholder="Введите название ресторана" required>
+                <label>@lang('restaurants.name')</label>
+                <input type="text" class="form-control" name="name" placeholder="@lang('restaurants.enter_name')" required>
             </div>
             <div class="form-group">
-                <label>Описание</label>
-                <textarea class="form-control" name="description" placeholder="Введите описание ресторана"></textarea>
+                <label>@lang('restaurants.description')</label>
+                <textarea class="form-control" name="description" placeholder="@lang('restaurants.enter_description')"></textarea>
             </div>
             <div class="form-group">
-                <label>Местоположение</label>
-                <input type="text" class="form-control" name="location" placeholder="Введите местоположение ресторана (например, город, улицу и номер дома)" required>
+                <label>@lang('restaurants.location')</label>
+                <input type="text" class="form-control" name="location" placeholder="@lang('restaurants.enter_location')" required>
             </div>
             <div class="form-group">
-                <label>Ссылка для виджета Яндекс Карт</label>
-                <input type="text" class="form-control" name="yandex_map_widget">
+                <label>@lang('restaurants.yandex_map_widget')</label>
+                <input type="text" class="form-control" name="yandex_map_widget" placeholder="@lang('restaurants.enter_yandex_map_widget')">
             </div>
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">@lang('restaurants.create')</button>
         </div>
     </form>
 </div>

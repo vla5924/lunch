@@ -4,7 +4,7 @@
 
 @section('breadcrumbs')
     @include('components.breadcrumbs', [
-        'prev' => [['Рестораны', route('restaurants.index')]],
+        'prev' => [[__('restaurants.restaurants'), route('restaurants.index')]],
         'active' => $restaurant->name,
     ])
 @endsection
@@ -16,21 +16,21 @@
         <div class="col-md-3">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Информация</h3>
+                    <h3 class="card-title">@lang('restaurants.information')</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <strong><i class="fas fa-book mr-1"></i> Категория</strong>
+                    <strong><i class="fas fa-layer-group mr-1"></i> @lang('restaurants.category')</strong>
                     <p class="text-muted">
                         <a href="{{ route('categories.show', $restaurant->category->id) }}">
                             {{ $restaurant->category->name }}
                         </a>
                     </p>
                     <hr>
-                    <strong><i class="fas fa-book mr-1"></i> Описание</strong>
+                    <strong><i class="fas fa-book mr-1"></i> @lang('restaurants.description')</strong>
                     <p class="text-muted">{{ $restaurant->description }}</p>
                     <hr>
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Местоположение</strong>
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> @lang('restaurants.location')</strong>
                     <p class="text-muted">{{ $restaurant->location }}</p>
                     @if ($restaurant->yandex_map_widget)
                         <p>
@@ -40,12 +40,12 @@
                     @endif
                     @can('edit restaurants')
                         <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
-                            <i class="fas fa-pencil-alt"></i> Изменить
+                            <i class="fas fa-pencil-alt"></i> @lang('restaurants.edit')
                         </a>
                     @endcan
                     @can('delete restaurants')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" form="destroy-{{ $restaurant->id }}">
-                            <i class="fas fa-trash"></i> Удалить
+                            <i class="fas fa-trash"></i> @lang('restaurants.delete')
                         </button>
                         <form method="POST" action="{{ route('restaurants.destroy', $restaurant->id) }}"
                             id="destroy-{{ $restaurant->id }}" hidden>
@@ -59,30 +59,30 @@
             <!-- /.card -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Статистика</h3>
+                    <h3 class="card-title">@lang('restaurants.statistics')</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Все посещения</b>
+                            <b>@lang('restaurants.all_visits')</b>
                             <a class="float-right"
                                 href="{{ route('visits.restaurant', $restaurant->id) }}">{{ $restaurant->visits->count() }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Последнее посещение</b>
+                            <b>@lang('restaurants.last_visit')</b>
                             @if ($last_visit)
                                 <a class="float-right" href="{{ route('visits.show', $last_visit->id) }}">
                                     {{ $last_visit->datetime }}
                                 </a>
                             @else
-                                <span class="float-right">никогда</span>
+                                <span class="float-right">@lang('restaurants.never')</span>
                             @endif
                         </li>
                     </ul>
                     @can('create visits')
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
-                            <i class="fas fa-calendar-plus"></i> Добавить посещение
+                            <i class="fas fa-calendar-plus"></i> @lang('restaurants.add_visit')
                         </a>
                     @endcan
                 </div>
@@ -94,7 +94,7 @@
         <div class="col-md-9">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Рейтинг</h3>
+                    <h3 class="card-title">@lang('restaurants.rating')</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -104,13 +104,13 @@
                             <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3>{{ $evaluation_avg }}</h3>
-                                    <p>Средняя оценка</p>
+                                    <p>@lang('restaurants.average_score')</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-star-half-alt"></i>
                                 </div>
                                 <a href="{{ route('evaluations.restaurant', $restaurant->id) }}" class="small-box-footer">
-                                    Все оценки ({{ $restaurant->evaluations->count() }})
+                                    @lang('restaurants.all_evaluations') ({{ $restaurant->evaluations->count() }})
                                     <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -122,26 +122,26 @@
                                 <div class="small-box bg-info">
                                     <div class="inner">
                                         <h3>{{ $evaluation->totalf }}</h3>
-                                        <p>Ваша оценка</p>
+                                        <p>@lang('restaurants.your_score')</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-user-check"></i>
                                     </div>
                                     <a href="{{ route('evaluations.show', $evaluation->id) }}" class="small-box-footer">
-                                        Подробнее <i class="fas fa-arrow-circle-right"></i>
+                                        @lang('restaurants.more') <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
                             @else
                                 <div class="small-box bg-secondary">
                                     <div class="inner">
-                                        <h3>Неизвестно</h3>
-                                        <p>Ваша оценка</p>
+                                        <h3>@lang('restaurants.unknown')</h3>
+                                        <p>@lang('restaurants.your_score')</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-user-times"></i>
                                     </div>
                                     <a href="{{ route('evaluations.create', $restaurant->id) }}" class="small-box-footer">
-                                        Поставить оценку <i class="fas fa-arrow-circle-right"></i>
+                                        @lang('restaurants.evaluate') <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
                             @endif
@@ -156,10 +156,10 @@
                             </div>
                             <div class="d-flex flex-row justify-content-end">
                                 <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> Ваша оценка
+                                    <i class="fas fa-square text-primary"></i> @lang('restaurants.your_score')
                                 </span>
                                 <span>
-                                    <i class="fas fa-square text-gray"></i> Средняя оценка
+                                    <i class="fas fa-square text-gray"></i> @lang('restaurants.average_score')
                                 </span>
                             </div>
                         </div>

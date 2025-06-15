@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Оценки ресторана: ' . $restaurant->name)
+@section('title', __('evaluations.evaluations') . ': ' . $restaurant->name)
 
 @section('breadcrumbs')
     @include('components.breadcrumbs', [
         'prev' => [
-            ['Рестораны', route('restaurants.index')],
+            [__('restaurants.restaurants'), route('restaurants.index')],
             [$restaurant->name, route('restaurants.show', $restaurant->id)],
         ],
-        'active' => 'Оценки',
+        'active' => __('evaluations.evaluations'),
     ])
 @endsection
 
@@ -20,8 +20,8 @@
             <table class="table table-striped projects">
                 <thead>
                     <tr>
-                        <th>Автор</th>
-                        <th>Средняя оценка</th>
+                        <th>@lang('evaluations.author')</th>
+                        <th>@lang('evaluations.average_score')</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -32,7 +32,7 @@
                             <td>
                                 @include('components.user-link', ['user' => $evaluation->user])
                                 <div class="test-sm text-muted">
-                                    добавлено {{ $evaluation->created_at }}
+                                    @lang('evaluations.created_at') {{ $evaluation->created_at }}
                                 </div>
                             </td>
                             <td>{{ $evaluation->totalf }}</td>
@@ -40,7 +40,7 @@
                             <td class="project-actions text-right">
                                 <a class="btn btn-primary btn-sm" href="{{ route('evaluations.show', $evaluation->id) }}">
                                     <i class="fas fa-folder"></i>
-                                    <span class="d-none d-md-inline">Посмотреть</span>
+                                    <span class="d-none d-md-inline">@lang('evaluations.show')</span>
                                 </a>
                             </td>
                         </tr>

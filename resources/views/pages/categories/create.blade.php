@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Добавить категорию')
+@section('title', __('categories.create_category'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Категории', route('categories.index')],
+    [__('categories.categories'), route('categories.index')],
 ]])
 @endsection
 
@@ -17,11 +17,11 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Название</label>
-                <input type="text" class="form-control" name="name" placeholder="Введите название категории" required>
+                <label>@lang('categories.name')</label>
+                <input type="text" class="form-control" name="name" placeholder="@lang('categories.enter_name')" required>
             </div>
             <div class="form-group">
-                <label>Критерии</label>
+                <label>@lang('categories.criterias')</label>
                 <select multiple class="form-control" name="criteria_ids[]">
                     @foreach ($criterias as $criteria)
                     <option value="{{ $criteria->id }}">{{ $criteria->name }}</option>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">@lang('categories.create')</button>
         </div>
     </form>
 </div>

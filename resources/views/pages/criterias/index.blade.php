@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Критерии')
+@section('title', __('criterias.criterias'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs')
@@ -14,16 +14,16 @@
         <table class="table table-striped projects">
             <thead>
                 <tr>
-                    <th>Название</th>
-                    <th>Мин.</th>
-                    <th>Макс.</th>
-                    <th>Шаг</th>
-                    <th>Вес</th>
+                    <th>@lang('criterias.name')</th>
+                    <th>@lang('criterias.min')</th>
+                    <th>@lang('criterias.max')</th>
+                    <th>@lang('criterias.step_short')</th>
+                    <th>@lang('criterias.weight_short')</th>
                     <th class="text-right">
                         @can('create criterias')
                         <a class="btn btn-info btn-sm" href="{{ route('criterias.create') }}">
                             <i class="fas fa-plus"></i>
-                            <span class="d-none d-md-inline">Добавить</span>
+                            <span class="d-none d-md-inline">@lang('criterias.create')</span>
                         </a>
                         @endcan
                     </th>
@@ -45,18 +45,18 @@
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('criterias.show', $criteria->id) }}">
                               <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">Посмотреть</span>
+                              <span class="d-none d-md-inline">@lang('criterias.show')</span>
                         </a>
                         @can('edit criterias')
                         <a class="btn btn-info btn-sm" href="{{ route('criterias.edit', $criteria->id) }}">
                             <i class="fas fa-pencil-alt"></i>
-                            <span class="d-none d-md-inline">Изменить</span>
+                            <span class="d-none d-md-inline">@lang('criterias.edit')</span>
                         </a>
                         @endcan
                         @can('delete criterias')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $criteria->id }}">
                                 <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">Удалить</span>
+                                <span class="d-none d-md-inline">@lang('criterias.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('criterias.destroy', $criteria->id) }}" id="destroy-{{ $criteria->id }}" hidden>
                             @csrf

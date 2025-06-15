@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Поставить оценку: ' . $restaurant->name)
+@section('title', __('evaluations.evaluate') . ': ' . $restaurant->name)
 
 @section('breadcrumbs')
     @include('components.breadcrumbs', [
         'prev' => [
-            ['Рестораны', route('restaurants.index')],
+            [__('restaurants.restaurants'), route('restaurants.index')],
             [$restaurant->name, route('restaurants.show', $restaurant->id)],
-            ['Оценки', route('evaluations.restaurant', $restaurant->id)],
+            [__('evaluations.evaluations'), route('evaluations.restaurant', $restaurant->id)],
         ],
-        'active' => 'Поставить оценку',
+        'active' => __('evaluations.evaluate'),
     ])
 @endsection
 
@@ -24,8 +24,8 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label>Заметки</label>
-                    <textarea class="form-control" name="notes" placeholder="Введите заметки к своей оценке"></textarea>
+                    <label>@lang('evaluations.notes')</label>
+                    <textarea class="form-control" name="notes" placeholder="@lang('evaluations.enter_notes')"></textarea>
                 </div>
                 @foreach ($restaurant->category->criterias as $criteria)
                     <div class="form-group">
@@ -34,9 +34,11 @@
                             <span id="criteria-{{ $criteria->id }}">{{ $criteria->max_value }}</span>
                         </label>
                         <div class="text-muted">
-                            от {{ $criteria->min_value }}
-                            до {{ $criteria->max_value }} включительно
-                            с шагом {{ $criteria->step }}
+                            @lang('evaluations.range', [
+                                'min' => $criteria->min_value,
+                                'max' => $criteria->max_value,
+                                'step' => $criteria->step,
+                            ])
                         </div>
                         <input type="range" class="form-control" name="criteria_values[]" min="{{ $criteria->min_value }}"
                             max="{{ $criteria->max_value }}" step="{{ $criteria->step }}"
@@ -53,7 +55,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">@lang('evaluations.save')</button>
             </div>
         </form>
     </div>

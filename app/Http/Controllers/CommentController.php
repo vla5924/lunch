@@ -46,7 +46,7 @@ class CommentController extends Controller
         $this->setUserId($comment);
         $comment->save();
 
-        return redirect()->back()->with('success', 'Комментарий добавлен');
+        return redirect()->back()->with('success', __('comments.created_successfully'));
     }
 
     /**
@@ -75,7 +75,7 @@ class CommentController extends Controller
         $comment->save();
 
         $view = self::COMMENTABLE_VIEWS[$comment->commentable_type];
-        return redirect()->route($view, $comment->commentable_id)->with('success', 'Комментарий изменен');
+        return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.updated_successfully'));
     }
 
     /**
@@ -89,6 +89,6 @@ class CommentController extends Controller
         $comment->delete();
 
         $view = self::COMMENTABLE_VIEWS[$comment->commentable_type];
-        return redirect()->route($view, $comment->commentable_id)->with('success', 'Комментарий удален');
+        return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.deleted_successfully'));
     }
 }

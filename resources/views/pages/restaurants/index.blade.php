@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Рестораны')
+@section('title', __('restaurants.restaurants'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs')
@@ -14,14 +14,14 @@
         <table class="table table-striped projects">
             <thead>
                 <tr>
-                    <th>Название</th>
-                    <th>Категория</th>
-                    <th>Адрес</th>
+                    <th>@lang('restaurants.name')</th>
+                    <th>@lang('restaurants.category')</th>
+                    <th>@lang('restaurants.location')</th>
                     <th class="text-right">
                         @can('create restaurants')
                         <a class="btn btn-info btn-sm" href="{{ route('restaurants.create') }}">
                             <i class="fas fa-plus"></i>
-                            <span class="d-none d-md-inline">Добавить</span>
+                            <span class="d-none d-md-inline">@lang('restaurants.create')</span>
                         </a>
                         @endcan
                     </th>
@@ -38,18 +38,18 @@
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('restaurants.show', $restaurant->id) }}">
                               <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">Посмотреть</span>
+                              <span class="d-none d-md-inline">@lang('restaurants.show')</span>
                         </a>
                         @can('edit restaurants')
                         <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
                             <i class="fas fa-pencil-alt"></i>
-                            <span class="d-none d-md-inline">Изменить</span>
+                            <span class="d-none d-md-inline">@lang('restaurants.edit')</span>
                         </a>
                         @endcan
                         @can('delete restaurants')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $restaurant->id }}">
                                 <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">Удалить</span>
+                                <span class="d-none d-md-inline">@lang('restaurants.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('restaurants.destroy', $restaurant->id) }}" id="destroy-{{ $restaurant->id }}" hidden>
                             @csrf

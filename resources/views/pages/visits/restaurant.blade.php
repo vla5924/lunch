@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Посещения: ' . $restaurant->name)
+@section('title', __('visits.visits') . ': ' . $restaurant->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Рестораны', route('restaurants.index')],
+    [__('restaurants.restaurants'), route('restaurants.index')],
     [$restaurant->name, route('restaurants.show', $restaurant->id)],
-], 'active' => 'Посещения'])
+], 'active' => __('visits.visits')])
 @endsection
 
 @section('content')
@@ -17,12 +17,12 @@
         <table class="table table-striped projects">
             <thead>
                 <tr>
-                    <th>Дата и время</th>
-                    <th>Группа</th>
+                    <th>@lang('visits.datetime')</th>
+                    <th>@lang('visits.group')</th>
                     <th class="text-right">
                         @can('create visits')
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
-                            <i class="fas fa-calendar-plus"></i> Добавить
+                            <i class="fas fa-calendar-plus"></i> @lang('visits.create')
                         </a>
                         @endcan
                     </th>
@@ -38,18 +38,18 @@
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.show', $visit->id) }}">
                               <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">Посмотреть</span>
+                              <span class="d-none d-md-inline">@lang('visits.show')</span>
                         </a>
                         @can('edit visits')
                         <a class="btn btn-info btn-sm" href="{{ route('visits.edit', $visit->id) }}">
                             <i class="fas fa-pencil-alt"></i>
-                            <span class="d-none d-md-inline">Изменить</span>
+                            <span class="d-none d-md-inline">@lang('visits.edit')</span>
                         </a>
                         @endcan
                         @can('delete visits')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $visit->id }}">
                                 <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">Удалить</span>
+                                <span class="d-none d-md-inline">@lang('visits.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('visits.destroy', $visit->id) }}" id="destroy-{{ $visit->id }}" hidden>
                             @csrf

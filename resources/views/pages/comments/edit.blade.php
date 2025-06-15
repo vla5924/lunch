@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Изменить комментарий')
+@section('title', __('comments.edit_comment'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs')
@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@lang('comments.save')</button>
         </div>
     </form>
 </div>

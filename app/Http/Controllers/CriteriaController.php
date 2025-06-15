@@ -63,7 +63,7 @@ class CriteriaController extends Controller
         $criteria->user_id = Auth::user()->id;
         $criteria->save();
 
-        return redirect()->route('criterias.show', $criteria->id)->with('success', 'Критерий успешно создан');
+        return redirect()->route('criterias.show', $criteria->id)->with('success', __('criterias.created_successfully'));
     }
 
     /**
@@ -119,7 +119,7 @@ class CriteriaController extends Controller
         $criteria->impact = $request->impact;
         $criteria->save();
 
-        return redirect()->route('criterias.show', $criteria->id)->with('success', 'Критерий успешно изменен');
+        return redirect()->route('criterias.show', $criteria->id)->with('success', __('criterias.updated_successfully'));
     }
 
     /**
@@ -131,6 +131,6 @@ class CriteriaController extends Controller
 
         $criteria->delete();
 
-        return redirect()->route('criterias.index')->with('success', 'Критерий успешно удален');
+        return redirect()->route('criterias.index')->with('success', __('criterias.deleted_successfully'));
     }
 }

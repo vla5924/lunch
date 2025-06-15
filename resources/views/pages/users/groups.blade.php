@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Группы пользователя: ' . $user->name)
+@section('title', __('users.groups') . ': ' . $user->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Пользователи', route('users.index')],
+    [__('users.users'), route('users.index')],
     [$user->name, route('users.show', $user->id)],
-], 'active' => 'Группы'])
+], 'active' => __('users.groups')])
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Группы</label>
+                <label>@lang('users.groups')</label>
                 <select multiple class="form-control" name="group_ids[]">
                     @foreach ($groups as $group)
                     <option value="{{ $group->id }}" {{ $user->groups->contains($group) ? 'selected' : '' }}>{{ $group->name }}</option>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@lang('users.save')</button>
         </div>
     </form>
 </div>

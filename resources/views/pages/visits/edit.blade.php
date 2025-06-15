@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Изменить посещение: ' . $visit->restaurant->name)
+@section('title', __('visits.edit_visit') . ': ' . $visit->restaurant->name)
 
 @section('breadcrumbs')
 @include('components.breadcrumbs', ['prev' => [
-    ['Рестораны', route('restaurants.index')],
+    [__('restaurants.restaurants'), route('restaurants.index')],
     [$visit->restaurant->name, route('restaurants.show', $visit->restaurant->id)],
-    ['Посещения', route('visits.restaurant', $visit->restaurant->id)],
+    [__('visits.visits'), route('visits.restaurant', $visit->restaurant->id)],
     [$visit->datetime, route('visits.show', $visit->id)],
-], 'active' => 'Изменить'])
+], 'active' => __('visits.edit_visit')])
 @endsection
 
 @section('content')
@@ -22,15 +22,15 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label>Заметки</label>
-                <textarea class="form-control" name="notes" placeholder="Введите заметки для посещения">{{ $visit->notes }}</textarea>
+                <label>@lang('visits.notes')</label>
+                <textarea class="form-control" name="notes" placeholder="@lang('visits.enter_notes')">{{ $visit->notes }}</textarea>
             </div>
             <div class="form-group">
-                <label>Дата и время</label>
+                <label>@lang('visits.datetime')</label>
                 <input type="datetime-local" class="form-control" name="datetime" value="{{ $visit->datetime }}" required>
             </div>
             <div class="form-group">
-                <label>Группа</label>
+                <label>@lang('visits.group')</label>
                 <select class="form-control" name="group_id" required>
                     @foreach ($groups as $group)
                     <option value="{{ $group->id }}" {{ $group->id == $visit->group->id ? 'selected' : '' }}>{{ $group->name }}</option>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@lang('visits.save')</button>
         </div>
     </form>
 </div>

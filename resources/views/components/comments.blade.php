@@ -1,7 +1,7 @@
 @can('view comments')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Комментарии ({{ $comments->count() }})</h3>
+            <h3 class="card-title">@lang('comments.comments') ({{ $comments->count() }})</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body card-comments">
@@ -16,7 +16,7 @@
                                 &middot; {{ $comment->created_at }}
                                 &middot; <a href="#comment-{{ $comment->id }}">#{{ $comment->id }}</a>
                                 @if ($comment->parent_id)
-                                    &middot; в ответ
+                                    &middot; @lang('comments.reply_to')
                                     <a href="#comment-{{ $comment->parent_id }}">#{{ $comment->parent_id }}</a>
                                 @endif
                                 @if ($external = App\Helpers\CommentHelper::getExternal($comment, $commentable))
@@ -55,7 +55,7 @@
                 <!-- /.card-comment -->
             @endforeach
             @if ($comments->isEmpty())
-                <div class="card-comment text-center">Комментариев нет.</div>
+                <div class="card-comment text-center">@lang('comments.no_comments')</div>
             @endif
             {{ $comments->links('vendor.pagination.bootstrap-4') }}
             <!-- /.card-body -->
@@ -68,14 +68,14 @@
                         <input type="hidden" name="parent_id" id="comment-reply-id" value="">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control form-control-sm" name="text"
-                                placeholder="Введите текст комментария" minlength="2" required>
+                                placeholder="@lang('comments.enter_text')" minlength="1" required>
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-warning btn-flat" id="comment-reply-btn"
                                     onclick="cancelReply()" hidden>
-                                    В ответ
+                                    @lang('comments.reply')
                                     <i class="fas fa-times"></i>
                                 </button>
-                                <button type="submit" class="btn btn-info btn-flat">Отправить</button>
+                                <button type="submit" class="btn btn-info btn-flat">@lang('comments.send')</button>
                             </span>
                         </div>
                     </form>

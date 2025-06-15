@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Категории')
+@section('title', __('categories.categories'))
 
 @section('breadcrumbs')
 @include('components.breadcrumbs')
@@ -14,12 +14,12 @@
         <table class="table table-striped projects">
             <thead>
                 <tr>
-                    <th>Название</th>
+                    <th>@lang('categories.name')</th>
                     <th class="text-right">
                         @can('create categories')
                         <a class="btn btn-info btn-sm" href="{{ route('categories.create') }}">
                             <i class="fas fa-plus"></i>
-                            <span class="d-none d-md-inline">Добавить</span>
+                            <span class="d-none d-md-inline">@lang('categories.create')</span>
                         </a>
                         @endcan
                     </th>
@@ -34,18 +34,18 @@
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('categories.show', $category->id) }}">
                               <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">Посмотреть</span>
+                              <span class="d-none d-md-inline">@lang('categories.show')</span>
                         </a>
                         @can('edit categories')
                         <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
                             <i class="fas fa-pencil-alt"></i>
-                            <span class="d-none d-md-inline">Изменить</span>
+                            <span class="d-none d-md-inline">@lang('categories.edit')</span>
                         </a>
                         @endcan
                         @can('delete categories')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $category->id }}">
                                 <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">Удалить</span>
+                                <span class="d-none d-md-inline">@lang('categories.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('categories.destroy', $category->id) }}" id="destroy-{{ $category->id }}" hidden>
                             @csrf
