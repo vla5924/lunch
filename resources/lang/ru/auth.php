@@ -2,9 +2,9 @@
 
 return [
     // Populated by Laravel
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Указанные учетные данные не соответствуют нашим записям.',
+    'password' => 'Предоставленный пароль неверен.',
+    'throttle' => 'Слишком много попыток входа. Пожалуйста, попробуйте снова через :seconds секунд.',
 
     // Custom
     'login' => 'Войти',
