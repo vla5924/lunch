@@ -52,6 +52,7 @@
                 userParams: {
                     UserID: {{ Auth::user()->id }},
                     admin: {{ Auth::user()->hasRole('admin') ? 'true' : 'false' }},
+                    locale: "{{ Auth::user()->locale }}",
                 },
             });
         </script>
