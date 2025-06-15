@@ -8,26 +8,29 @@ RUN apt-get update \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-ARG APP_DIR=/var/www/html
+ARG APP_DIR="/var/www/html"
+ARG DATABASE_DIR="/var/www/database"
+ARG WWW_USER="www-data:www-data"
 
-COPY composer.json composer.lock ${APP_DIR}
+RUN mkdir -p ${APP_DIR} \
+    && chown -R ${WWW_USER} ${APP_DIR} \
+    && mkdir -p ${DATABASE_DIR} \
+    && chown -R ${WWW_USER} ${DATABASE_DIR} \
+    && chmod -R 755 ${DATABASE_DIR}
+
+USER ${WWW_USER}
 
 WORKDIR ${APP_DIR}
 
+COPY --chown=${WWW_USER} composer.json composer.lock ./
+
 RUN composer install --no-interaction --no-plugins --no-scripts --no-dev --prefer-dist
 
-COPY . .
+COPY --chown=${WWW_USER} . .
 
 RUN composer dump-autoload \
     && composer run-script post-autoload-dump \
-    && chown -R www-data:www-data ${APP_DIR} \
     && chmod -R 755 ${APP_DIR}/storage
-
-ARG DATABASE_DIR=/var/www/database
-
-RUN mkdir ${DATABASE_DIR} \
-    && chown -R www-data:www-data ${DATABASE_DIR} \
-    && chmod -R 755 ${DATABASE_DIR}
 
 EXPOSE 9000
 
