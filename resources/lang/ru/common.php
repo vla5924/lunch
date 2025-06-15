@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'locale' => 'Русский',
+    'locale' => 'Русский (Russian)',
     'lunch' => 'Абед',
     'success' => 'Готово',
     'failure' => 'Ошибка',

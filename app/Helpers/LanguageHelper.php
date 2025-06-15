@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class LanguageHelper
 {
-    const SUPPORTED_LOCALES = ['en', 'ru'];
+    const SUPPORTED_LOCALES = ['en', 'ru', 'zh_CN'];
 
     const DEFAULT_LOCALE = 'ru';
 
