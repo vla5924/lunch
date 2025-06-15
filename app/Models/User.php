@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Helpers\UserActivityHelper;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -66,5 +67,10 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    public function getOnlineAtAttribute()
+    {
+        return UserActivityHelper::getOnline($this->id);
     }
 }

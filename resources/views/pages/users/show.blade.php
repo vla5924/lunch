@@ -35,6 +35,9 @@
                     <li class="list-group-item">
                         <b>@lang('users.user_since')</b> <span class="float-right">{{ $user->created_at }}</span>
                     </li>
+                    <li class="list-group-item">
+                        <b>Последняя активность</b> <span class="float-right">{{ $user->onlineAt }}</span>
+                    </li>
                 </ul>
 
                 @if($user->id == Auth::user()->id)

@@ -2,6 +2,7 @@
 
 return [
     // AdminSeeder
+    'admin_id' => env('ADMIN_ID', 1),
     'admin_tg_id' => env('ADMIN_TG_ID'),
     'admin_tg_name' => env('ADMIN_TG_NAME', 'admin'),
     'admin_tg_username' => env('ADMIN_TG_USERNAME', 'admin'),

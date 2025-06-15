@@ -12,9 +12,10 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'id' => 1,
+        $user = User::updateOrCreate([
+            'id' => config('lunch.admin_id'),
             'tg_id' => config('lunch.admin_tg_id'),
+        ], [
             'tg_name' => config('lunch.admin_tg_name'),
             'tg_username' => config('lunch.admin_tg_username'),
             'yandex_id' => config('lunch.admin_yandex_id'),

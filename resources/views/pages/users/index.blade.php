@@ -17,6 +17,7 @@
                     <th>ID</th>
                     <th>Имя</th>
                     <th>Регистрация</th>
+                    <th>Последняя активность</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td>{{ $user->id }}</td>
                     <td>@include('components.user-link', ['user' => $user])</td>
                     <td>{{ $user->created_at }}</td>
+                    <td>{{ $user->onlineAt }}</td>
                 </tr>
                 @endforeach
             </tbody>

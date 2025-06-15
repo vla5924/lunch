@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\LanguageHelper;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -17,8 +18,8 @@ class SwitchLanguage
     public function handle(Request $request, Closure $next)
     {
         $locale = Auth::user()->locale;
-        if (!\in_array($locale, ['ru', 'en']))
-            $locale = 'ru';
+        if (!\in_array($locale, LanguageHelper::SUPPORTED_LOCALES))
+            $locale = LanguageHelper::DEFAULT_LOCALE;
         App::setLocale($locale);
 
         return $next($request);

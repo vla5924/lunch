@@ -49,7 +49,10 @@
                 clickmap: true,
                 trackLinks: true,
                 accurateTrackBounce: true,
-                userParams: { UserID: {{ Auth::user()->id }} },
+                userParams: {
+                    UserID: {{ Auth::user()->id }},
+                    admin: {{ Auth::user()->hasRole('admin') ? 'true' : 'false' }},
+                },
             });
         </script>
         <noscript>

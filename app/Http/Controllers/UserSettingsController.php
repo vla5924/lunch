@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LanguageHelper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserSettingsController extends Controller
 {
-    const SUPPORTED_LOCALES = [
-        'ru' => 'Русский',
-        'en' => 'English',
-    ];
-
-    const DEFAULT_LOCALE = 'ru';
 
     public function edit()
     {
         return view('pages.users.settings', [
-            'locales' => self::SUPPORTED_LOCALES,
+            'locales' => LanguageHelper::localeNames(),
         ]);
     }
 
@@ -29,10 +24,10 @@ class UserSettingsController extends Controller
         ]);
 
         $user = User::where('id', Auth::user()->id)->first();
-        if (\in_array($request->locale, array_keys(self::SUPPORTED_LOCALES)))
+        if (\in_array($request->locale, LanguageHelper::SUPPORTED_LOCALES))
             $user->locale = $request->locale;
         else
-            $user->locale = self::DEFAULT_LOCALE;
+            $user->locale = LanguageHelper::DEFAULT_LOCALE;
         $user->save();
 
         return redirect()->back()->withSuccess(__('settings.settings_saved', [], $user->locale));

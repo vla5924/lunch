@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // \App\Http\Middleware\TrustHosts::class,
             \App\Http\Middleware\TrustProxies::class,
         ]);
+        $middleware->appendToGroup('web', \App\Http\Middleware\UpdateUserActivity::class);
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
