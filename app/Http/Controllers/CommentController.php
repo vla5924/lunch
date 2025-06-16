@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
 use App\Models\Comment;
-use App\Models\Restaurant;
-use App\Models\User;
-use App\Models\Visit;
+use App\Notifications\CommentReplyCreated;
+use App\Notifications\UserCommentCreated;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    const COMMENTABLE_VIEWS = [
-        Restaurant::class => 'restaurants.show',
-        User::class => 'users.show',
-        Visit::class => 'visits.show',
-    ];
-
     /**
      * Store a newly created resource in storage.
      */
@@ -35,7 +29,7 @@ class CommentController extends Controller
             $request->commentable_id = $parent->commentable_id;
         } else {
             $modelClass = $request->commentable_type;
-            if (!\in_array($modelClass, array_keys(self::COMMENTABLE_VIEWS))) {
+            if (!\in_array($modelClass, array_keys(CommentHelper::COMMENTABLE_VIEWS))) {
                 abort(404);
             }
             $this->requireExistingId($modelClass, $request->commentable_id);
@@ -48,6 +42,9 @@ class CommentController extends Controller
         $comment->commentable_id = $request->commentable_id;
         $this->setUserId($comment);
         $comment->save();
+
+        if (!CommentReplyCreated::tryNotify($comment))
+            UserCommentCreated::tryNotify($comment);
 
         return redirect()->back()->with('success', __('comments.created_successfully'));
     }
@@ -77,7 +74,7 @@ class CommentController extends Controller
         $comment->text = $request->text;
         $comment->save();
 
-        $view = self::COMMENTABLE_VIEWS[$comment->commentable_type];
+        $view = CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type];
         return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.updated_successfully'));
     }
 
@@ -90,7 +87,7 @@ class CommentController extends Controller
 
         DeleteHelper::deleteComment($comment);
 
-        $view = self::COMMENTABLE_VIEWS[$comment->commentable_type];
+        $view = CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type];
         return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.deleted_successfully'));
     }
 }

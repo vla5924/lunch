@@ -3,12 +3,20 @@
 namespace App\Helpers;
 
 use App\Models\Comment;
+use App\Models\Restaurant;
+use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Database\Eloquent\Model;
 
 class CommentHelper
 {
-    const PER_PAGE = 50;
+    const COMMENTABLE_VIEWS = [
+        Restaurant::class => 'restaurants.show',
+        User::class => 'users.show',
+        Visit::class => 'visits.show',
+    ];
+
+    const PER_PAGE = 30;
 
     public static function canEdit(Comment $comment)
     {

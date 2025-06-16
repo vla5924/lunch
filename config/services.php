@@ -42,6 +42,10 @@ return [
         'redirect' => env('TELEGRAM_REDIRECT_URI'),
     ],
 
+    'telegram-bot-api' => [
+        'token' => env('TELEGRAM_TOKEN'),
+    ],
+
     'yandex' => [
         'client_id' => env('YANDEX_CLIENT_ID'),
         'client_secret' => env('YANDEX_CLIENT_SECRET'),
