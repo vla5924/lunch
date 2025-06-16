@@ -19,4 +19,5 @@ return [
     'related_users' => 'Related users:',
     'created_at' => 'Created at',
     'created_by' => 'User',
+    'group_still_has_visits' => 'Group has associated visits and cannot be deleted',
 ];

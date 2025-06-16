@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CommentHelper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,6 +55,7 @@ class UserController extends Controller
     {
         return view('pages.users.show', [
             'user' => $user,
+            'comments' => $user->comments()->paginate(CommentHelper::PER_PAGE),
         ]);
     }
 

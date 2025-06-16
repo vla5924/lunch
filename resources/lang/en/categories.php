@@ -20,4 +20,5 @@ return [
     'related_restaurants' => 'Related restaurants:',
     'created_at' => 'Added at',
     'created_by' => 'User',
+    'category_is_not_empty' => 'Category is not empty and cannot be deleted',
 ];

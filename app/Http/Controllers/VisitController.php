@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CommentHelper;
+use App\Helpers\DeleteHelper;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Restaurant;
@@ -144,7 +145,7 @@ class VisitController extends Controller
     {
         $this->requirePermission('delete visits');
 
-        $visit->delete();
+        DeleteHelper::deleteVisit($visit);
 
         return redirect()->route('visits.index')->with('success', __('visits.deleted_successfully'));
     }

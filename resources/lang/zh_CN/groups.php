@@ -19,4 +19,5 @@ return [
     'related_users' => '相关用户：',
     'created_at' => '创建时间',
     'created_by' => '用户',
+    'group_still_has_visits' => '群组仍有相关访问记录，无法删除'
 ];

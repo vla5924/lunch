@@ -20,4 +20,5 @@ return [
     'related_restaurants' => '相关餐厅：',
     'created_at' => '添加时间',
     'created_by' => '用户',
+    'category_is_not_empty' => '分类非空，无法删除',
 ];

@@ -68,7 +68,7 @@
                         <input type="hidden" name="parent_id" id="comment-reply-id" value="">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control form-control-sm" name="text"
-                                placeholder="@lang('comments.enter_text')" minlength="1" required>
+                                placeholder="@lang('comments.enter_text')" minlength="2" required>
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-warning btn-flat" id="comment-reply-btn"
                                     onclick="cancelReply()" hidden>

@@ -91,6 +91,8 @@
                 </p>
             </div>
         </div>
+
+        @include('components.comments', ['comments' => $comments, 'commentable' => $user])
     </div>
 </div>
 @endsection

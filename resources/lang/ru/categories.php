@@ -20,4 +20,5 @@ return [
     'related_restaurants' => 'Связанные рестораны:',
     'created_at' => 'Добавлена',
     'created_by' => 'Пользователь',
+    'category_is_not_empty' => 'Категория не пуста и не может быть удалена',
 ];

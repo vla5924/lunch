@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DeleteHelper;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,7 +98,10 @@ class GroupController extends Controller
     {
         $this->requirePermission('delete groups');
 
-        $group->delete();
+        if (!$group->visits->isEmpty()) {
+            return redirect()->back()->with('failure', __('groups.group_still_has_visits'));
+        }
+        DeleteHelper::deleteGroup($group);
 
         return redirect()->route('groups.index')->with('success', __('groups.deleted_successfully'));
     }

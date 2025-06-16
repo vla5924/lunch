@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CommentHelper;
+use App\Helpers\DeleteHelper;
 use App\Helpers\EvaluationHelper;
 use App\Models\Category;
 use App\Models\Comment;
@@ -175,7 +176,7 @@ class RestaurantController extends Controller
     {
         $this->requirePermission('delete restaurants');
 
-        $restaurant->delete();
+        DeleteHelper::deleteRestaurant($restaurant);
 
         return redirect()->route('restaurants.index')->with('success', __('restaurants.deleted_successfully'));
     }

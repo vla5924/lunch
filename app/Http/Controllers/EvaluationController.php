@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DeleteHelper;
 use App\Helpers\EvaluationHelper;
 use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
@@ -175,10 +176,7 @@ class EvaluationController extends Controller
         $this->requirePermission('delete owned evaluations');
 
         $restaurantId = $evaluation->restaurant->id;
-        foreach ($evaluation->criterias as $criteria) {
-            $criteria->delete();
-        }
-        $evaluation->delete();
+        DeleteHelper::deleteEvaluation($evaluation);
 
         return redirect()->route('restaurants.show', $restaurantId)->with('success', __('evaluations.deleted_successfully'));
     }

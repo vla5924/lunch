@@ -112,6 +112,9 @@ class CategoryController extends Controller
     {
         $this->requirePermission('delete categories');
 
+        if (!$category->restaurants->isEmpty()) {
+            return redirect()->back()->with('failure', __('categories.category_is_not_empty'));
+        }
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', __('categories.deleted_successfully'));

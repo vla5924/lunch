@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DeleteHelper;
 use App\Models\Criteria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +130,7 @@ class CriteriaController extends Controller
     {
         $this->requirePermission('delete criterias');
 
-        $criteria->delete();
+        DeleteHelper::deleteCriteria($criteria);
 
         return redirect()->route('criterias.index')->with('success', __('criterias.deleted_successfully'));
     }

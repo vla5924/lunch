@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DeleteHelper;
 use App\Models\Comment;
 use App\Models\Restaurant;
+use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 
@@ -11,6 +13,7 @@ class CommentController extends Controller
 {
     const COMMENTABLE_VIEWS = [
         Restaurant::class => 'restaurants.show',
+        User::class => 'users.show',
         Visit::class => 'visits.show',
     ];
 
@@ -32,7 +35,7 @@ class CommentController extends Controller
             $request->commentable_id = $parent->commentable_id;
         } else {
             $modelClass = $request->commentable_type;
-            if (!\in_array($modelClass, [Restaurant::class, Visit::class])) {
+            if (!\in_array($modelClass, array_keys(self::COMMENTABLE_VIEWS))) {
                 abort(404);
             }
             $this->requireExistingId($modelClass, $request->commentable_id);
@@ -85,8 +88,7 @@ class CommentController extends Controller
     {
         $this->requireOwnedPermission('delete all comments', 'delete owned comments', $comment->user_id);
 
-        Comment::where('parent_id', $comment->id)->update(['parent_id' => $comment->parent_id]);
-        $comment->delete();
+        DeleteHelper::deleteComment($comment);
 
         $view = self::COMMENTABLE_VIEWS[$comment->commentable_type];
         return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.deleted_successfully'));
