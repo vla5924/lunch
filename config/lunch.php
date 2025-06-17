@@ -10,6 +10,8 @@ return [
 
     'fallback_avatar' => env('USER_FALLBACK_AVATAR'),
 
+    'restaurant_ban_limit' => (int) env('RESTAURANT_BAN_LIMIT', 5),
+
     'url_scheme' => env('APP_URL_SCHEME', 'http'),
 
     'yandex_metrika_id' => env('YANDEX_METRIKA_ID'),

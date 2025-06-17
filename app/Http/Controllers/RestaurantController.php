@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
 use App\Helpers\EvaluationHelper;
+use App\Models\BannedRestaurant;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\CriteriaEvaluation;
@@ -57,7 +58,7 @@ class RestaurantController extends Controller
             'description' => 'nullable',
             'location' => 'required',
             'yandex_map_widget' => 'nullable',
-            'category_id' => 'required|integer',
+            'category_id' => 'exists:categories,id',
         ]);
 
         $restaurant = new Restaurant;
@@ -118,6 +119,7 @@ class RestaurantController extends Controller
             ];
         }
         $lastVisit = Visit::where('restaurant_id', $restaurant->id)->orderBy('datetime', 'desc')->limit(1)->first();
+        $banned = BannedRestaurant::where('user_id', Auth::user()->id)->where('restaurant_id', $restaurant->id)->count();
 
 
         return view('pages.restaurants.show', [
@@ -127,6 +129,7 @@ class RestaurantController extends Controller
             'evaluation_avg' => EvaluationHelper::formatTotal($restaurant->evaluations->avg('total')),
             'chart' => $chart,
             'last_visit' => $lastVisit,
+            'banned' => $banned,
         ]);
     }
 
@@ -156,7 +159,7 @@ class RestaurantController extends Controller
             'description' => 'nullable',
             'location' => 'required',
             'yandex_map_widget' => 'nullable',
-            'category_id' => 'required|integer',
+            'category_id' => 'exists:categories,id',
         ]);
 
         $restaurant->name = $request->name;

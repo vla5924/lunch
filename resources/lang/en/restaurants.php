@@ -34,4 +34,12 @@ return [
     'more' => 'More',
     'unknown' => 'Unknown',
     'evaluate' => 'Evaluate',
+    'ban_restaurant' => 'Ban restaurant',
+    'unban_restaurant' => 'Unban restaurant',
+    'ban_limit_reached' => 'Restaurant ban limit reached',
+    'banned_successfully' => 'Restaurant successfully banned',
+    'already_banned' => 'Restaurant is already banned',
+    'unbanned_successfully' => 'Restaurant successfully unbanned',
+    'was_not_banned' => 'Restaurant was not banned and therefore cannot be unbanned',
+    'bans' => 'Bans',
 ];

@@ -26,9 +26,11 @@
                             {{ $restaurant->category->name }}
                         </a>
                     </p>
-                    <hr>
-                    <strong><i class="fas fa-book mr-1"></i> @lang('restaurants.description')</strong>
-                    <p class="text-muted">{{ $restaurant->description }}</p>
+                    @if ($restaurant->description)
+                        <hr>
+                        <strong><i class="fas fa-book mr-1"></i> @lang('restaurants.description')</strong>
+                        <p class="text-muted">{{ $restaurant->description }}</p>
+                    @endif
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> @lang('restaurants.location')</strong>
                     <p class="text-muted">{{ $restaurant->location }}</p>
@@ -66,8 +68,9 @@
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <b>@lang('restaurants.all_visits')</b>
-                            <a class="float-right"
-                                href="{{ route('visits.restaurant', $restaurant->id) }}">{{ $restaurant->visits->count() }}</a>
+                            <a class="float-right" href="{{ route('visits.restaurant', $restaurant->id) }}">
+                                {{ $restaurant->visits->count() }}
+                            </a>
                         </li>
                         <li class="list-group-item">
                             <b>@lang('restaurants.last_visit')</b>
@@ -79,11 +82,38 @@
                                 <span class="float-right">@lang('restaurants.never')</span>
                             @endif
                         </li>
+                        <li class="list-group-item">
+                            <b>@lang('restaurants.bans')</b>
+                            <span class="float-right">{{ $restaurant->bans()->count() }}</span>
+                        </li>
                     </ul>
                     @can('create visits')
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
                             <i class="fas fa-calendar-plus"></i> @lang('restaurants.add_visit')
                         </a>
+                    @endcan
+                    @can('ban restaurants')
+                        @if ($banned)
+                            <button type="submit" class="btn btn-outline-danger btn-sm btn-delete" form="unban-form">
+                                <i class="fas fa-ban"></i>
+                                @lang('restaurants.unban_restaurant')
+                            </button>
+                            <form method="POST" action="{{ route('restaurants.unban') }}" id="unban-form" hidden>
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
+                            </form>
+                        @else
+                            <button type="submit" class="btn btn-danger btn-sm btn-delete" form="ban-form">
+                                <i class="fas fa-ban"></i>
+                                @lang('restaurants.ban_restaurant')
+                            </button>
+                            <form method="POST" action="{{ route('restaurants.ban') }}" id="ban-form" hidden>
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
+                            </form>
+                        @endif
                     @endcan
                 </div>
                 <!-- /.card-body -->

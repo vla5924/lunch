@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+    public function bans()
+    {
+        return $this->hasMany(BannedRestaurant::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\TelegramAuthController;
 use App\Http\Controllers\Auth\YandexAuthController;
+use App\Http\Controllers\BannedRestaurantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CriteriaController;
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::get('/restaurants/{id}/visits', [VisitController::class, 'restaurant'])->name('visits.restaurant');
     Route::get('/restaurants/{id}/evaluations/create', [EvaluationController::class, 'create'])->name('evaluations.create');
     Route::get('/restaurants/{id}/evaluations', [EvaluationController::class, 'restaurant'])->name('evaluations.restaurant');
+    Route::post('/restaurants/ban', [BannedRestaurantController::class, 'ban'])->name('restaurants.ban');
+    Route::post('/restaurants/unban', [BannedRestaurantController::class, 'unban'])->name('restaurants.unban');
 
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/groups', [UserAdminController::class, 'groups'])->name('users.groups');

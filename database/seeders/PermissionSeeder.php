@@ -25,6 +25,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'create restaurants']);
         Permission::create(['name' => 'edit restaurants']);
         Permission::create(['name' => 'delete restaurants']);
+        Permission::create(['name' => 'ban restaurants']);
 
         Permission::create(['name' => 'view categories']);
         Permission::create(['name' => 'create categories']);
@@ -74,6 +75,7 @@ class PermissionSeeder extends Seeder
         Role::create(['name' => 'user'])->givePermissionTo([
             'view users',
             'view restaurants',
+            'ban restaurants',
             'view categories',
             'view visits',
             'view criterias',

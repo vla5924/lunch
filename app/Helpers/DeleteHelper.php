@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\BannedRestaurant;
 use App\Models\Comment;
 use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
@@ -22,6 +23,7 @@ class DeleteHelper
     public static function deleteCriteria(Criteria $criteria)
     {
         CriteriaEvaluation::where('criteria_id', $criteria->id)->delete();
+        $criteria->categories()->detach();
         $criteria->delete();
     }
 
@@ -56,6 +58,7 @@ class DeleteHelper
             self::deleteEvaluation($evaluation);
         foreach ($restaurant->visits as $visit)
             self::deleteVisit($visit);
+        BannedRestaurant::where('restaurant_id', $restaurant->id)->delete();
         $restaurant->delete();
     }
 

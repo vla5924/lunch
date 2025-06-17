@@ -34,4 +34,12 @@ return [
     'more' => '更多',
     'unknown' => '未知',
     'evaluate' => '评价',
+    'ban_restaurant' => '拉黑餐厅',
+    'unban_restaurant' => '取消拉黑餐厅',
+    'ban_limit_reached' => '已达到餐厅拉黑数量上限',
+    'banned_successfully' => '餐厅已成功拉黑',
+    'already_banned' => '餐厅已被拉黑',
+    'unbanned_successfully' => '餐厅已成功取消拉黑',
+    'was_not_banned' => '餐厅未被拉黑，无法取消',
+    'bans' => '拉黑列表',
 ];
