@@ -8,14 +8,23 @@ use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
 use App\Models\Evaluation;
 use App\Models\Restaurant;
+use App\Models\User;
 use App\Models\Visit;
+use App\Notifications\CommentReplyCreated;
+use App\Notifications\UserCommentCreated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DeleteHelper
 {
     public static function deleteComment(Comment $comment)
     {
         Comment::where('parent_id', $comment->id)->update(['parent_id' => $comment->parent_id]);
+        DB::table('notifications')
+            ->where('notifiable_type', User::class)
+            ->whereIn('type', [CommentReplyCreated::class, UserCommentCreated::class])
+            ->whereJsonContains('data->comment_id', $comment->id)
+            ->delete();
         $comment->delete();
     }
 
