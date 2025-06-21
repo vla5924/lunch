@@ -13,4 +13,5 @@ return [
     'no_events_today' => '今日无活动',
     'no_future_events' => '暂无未来活动',
     'all_events' => '全部活动',
+    'show_all' => '显示全部',
 ];

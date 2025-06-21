@@ -13,4 +13,5 @@ return [
     'no_events_today' => 'No events today',
     'no_future_events' => 'No future events',
     'all_events' => 'All events',
+    'show_all' => 'Show all',
 ];

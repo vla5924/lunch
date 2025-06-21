@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RestaurantScoreHelper;
 use App\Models\Category;
 use App\Models\Criteria;
+use App\Models\RestaurantScore;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -118,5 +120,18 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', __('categories.deleted_successfully'));
+    }
+
+    public function rating(int $categoryId)
+    {
+        $this->requirePermission('view restaurants');
+
+        $category = $this->requireExistingId(Category::class, $categoryId);
+        $restaurants = RestaurantScoreHelper::getRatingQuery($category->id)->get();
+
+        return view('pages.categories.rating', [
+            'category' => $category,
+            'restaurants' => $restaurants,
+        ]);
     }
 }

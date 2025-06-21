@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DeleteHelper;
 use App\Helpers\EvaluationHelper;
+use App\Helpers\RestaurantScoreHelper;
 use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
 use App\Models\Evaluation;
@@ -94,6 +95,8 @@ class EvaluationController extends Controller
             $ce->save();
         }
 
+        RestaurantScoreHelper::setOutdated($evaluation->restaurant_id);
+
         return redirect()->route('evaluations.show', $evaluation->id)->withSuccess(__('evaluations.created_successfully'));
     }
 
@@ -164,6 +167,8 @@ class EvaluationController extends Controller
             $ce->save();
         }
 
+        RestaurantScoreHelper::setOutdated($evaluation->restaurant_id);
+
         return redirect()->route('evaluations.show', $evaluation->id)->withSuccess(__('evaluations.updated_successfully'));
     }
 
@@ -177,6 +182,7 @@ class EvaluationController extends Controller
 
         $restaurantId = $evaluation->restaurant->id;
         DeleteHelper::deleteEvaluation($evaluation);
+        RestaurantScoreHelper::setOutdated($restaurantId);
 
         return redirect()->route('restaurants.show', $restaurantId)->with('success', __('evaluations.deleted_successfully'));
     }

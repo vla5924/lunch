@@ -41,6 +41,11 @@
     </div>
     <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
         <div class="mt-3 mb-5">
+            @can('view restaurants')
+            <a class="btn btn-primary btn-sm" href="{{ route('categories.rating', $category->id) }}">
+                <i class="fas fa-list-ol"></i> @lang('categories.rating')
+            </a>
+            @endcan
             @can('edit categories')
             <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
                 <i class="fas fa-pencil-alt"></i> @lang('categories.edit')

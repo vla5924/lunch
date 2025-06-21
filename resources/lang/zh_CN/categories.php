@@ -21,4 +21,9 @@ return [
     'created_at' => '添加时间',
     'created_by' => '用户',
     'category_is_not_empty' => '分类非空，无法删除',
+    'rating' => '评分',
+    'rank' => '排名',
+    'restaurant' => '餐厅',
+    'score' => '分数',
+    'bans' => '封禁',
 ];

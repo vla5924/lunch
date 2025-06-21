@@ -140,4 +140,62 @@
         </div>
         <!-- ./col -->
     </div>
+
+    @if ($categories && $default_category && $rating)
+        <h5 class="mb-2">@lang('categories.rating')</h5>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ $default_category->name }}</h3>
+                <div class="card-tools">
+                    <div class="btn-group">
+                        <a href="{{ route('categories.rating', $default_category->id) }}" class="btn btn-sm btn-primary">
+                            @lang('home.show_all')
+                        </a>
+                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-icon"
+                            data-toggle="dropdown">
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            @foreach ($categories as $category)
+                                <a class="dropdown-item" href="{{ route('categories.rating', $category->id) }}">Action</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px">@lang('categories.rank')</th>
+                            <th>@lang('categories.restaurant')</th>
+                            <th>@lang('categories.score')</th>
+                            <th>@lang('categories.bans')</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($rating as $i => $r)
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>
+                                    <a href="{{ route('restaurants.show', $r->restaurant->id) }}">
+                                        {{ $r->restaurant->name }}
+                                    </a>
+                                </td>
+                                <td>{{ $r->score }}</td>
+                                <td>{{ $r->bans }}</td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td>...</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
 @endsection

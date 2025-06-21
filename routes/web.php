@@ -45,6 +45,8 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::post('/restaurants/ban', [BannedRestaurantController::class, 'ban'])->name('restaurants.ban');
     Route::post('/restaurants/unban', [BannedRestaurantController::class, 'unban'])->name('restaurants.unban');
 
+    Route::get('/categories/{id}/rating', [CategoryController::class, 'rating'])->name('categories.rating');
+
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/permissions', [UserAdminController::class, 'permissions'])->name('users.permissions');
     Route::post('/users/{id}/permissions', [UserAdminController::class, 'updatePermissions']);

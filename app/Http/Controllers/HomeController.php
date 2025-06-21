@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RestaurantScoreHelper;
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\Visit;
 use Illuminate\Database\Eloquent\Builder;
@@ -73,11 +75,22 @@ class HomeController extends Controller
             ")
             ->first();
 
+        $categories = Category::get();
+        $defaultCategory = null;
+        $rating = null;
+        if ($category = Category::find(config('lunch.default_category_id'))) {
+            $defaultCategory = $category;
+            $rating = RestaurantScoreHelper::getRatingQuery($category->id)->limit(5)->get();
+        }
+
         return view('pages.home.index', [
             'prev_visit' => $prevVisit,
             'next_visit' => $nextVisit,
             'current_event' => $currentEvent,
             'next_event' => $nextEvent,
+            'categories' => $categories,
+            'default_category' => $defaultCategory,
+            'rating' => $rating,
         ]);
     }
 }

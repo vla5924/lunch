@@ -9,6 +9,7 @@ use App\Models\CriteriaEvaluation;
 use App\Models\Evaluation;
 use App\Models\Event;
 use App\Models\Restaurant;
+use App\Models\RestaurantScore;
 use App\Models\User;
 use App\Models\Visit;
 use App\Notifications\CommentReplyCreated;
@@ -69,6 +70,7 @@ class DeleteHelper
         foreach ($restaurant->visits as $visit)
             self::deleteVisit($visit);
         BannedRestaurant::where('restaurant_id', $restaurant->id)->delete();
+        RestaurantScore::where('restaurant_id', $restaurant->id)->delete();
         $restaurant->delete();
     }
 

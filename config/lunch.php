@@ -8,6 +8,8 @@ return [
     'admin_tg_username' => env('ADMIN_TG_USERNAME', 'admin'),
     'admin_yandex_id' => env('ADMIN_YANDEX_ID'),
 
+    'default_category_id' => (int) env('DEFAULT_CATEGORY_ID', 1),
+
     'fallback_avatar' => env('USER_FALLBACK_AVATAR'),
 
     'restaurant_ban_limit' => (int) env('RESTAURANT_BAN_LIMIT', 5),

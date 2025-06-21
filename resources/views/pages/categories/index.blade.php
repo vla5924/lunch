@@ -29,13 +29,15 @@
                 @foreach ($categories as $category)
                 <tr>
                     <td>
-                        <b>{{ $category->name }}</b>
+                        <a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a>
                     </td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ route('categories.show', $category->id) }}">
-                              <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">@lang('categories.show')</span>
+                        @can('view restaurants')
+                        <a class="btn btn-primary btn-sm" href="{{ route('categories.rating', $category->id) }}">
+                            <i class="fas fa-list-ol"></i>
+                            <span class="d-none d-md-inline">@lang('categories.rating')</span>
                         </a>
+                        @endcan
                         @can('edit categories')
                         <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
                             <i class="fas fa-pencil-alt"></i>
