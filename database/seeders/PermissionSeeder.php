@@ -16,57 +16,62 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'assign permissions']);
-        Permission::create(['name' => 'assign roles']);
+        Permission::findOrCreate('view users');
+        Permission::findOrCreate('edit users');
+        Permission::findOrCreate('assign permissions');
+        Permission::findOrCreate('assign roles');
 
-        Permission::create(['name' => 'view restaurants']);
-        Permission::create(['name' => 'create restaurants']);
-        Permission::create(['name' => 'edit restaurants']);
-        Permission::create(['name' => 'delete restaurants']);
-        Permission::create(['name' => 'ban restaurants']);
+        Permission::findOrCreate('view restaurants');
+        Permission::findOrCreate('create restaurants');
+        Permission::findOrCreate('edit restaurants');
+        Permission::findOrCreate('delete restaurants');
+        Permission::findOrCreate('ban restaurants');
 
-        Permission::create(['name' => 'view categories']);
-        Permission::create(['name' => 'create categories']);
-        Permission::create(['name' => 'edit categories']);
-        Permission::create(['name' => 'delete categories']);
+        Permission::findOrCreate('view categories');
+        Permission::findOrCreate('create categories');
+        Permission::findOrCreate('edit categories');
+        Permission::findOrCreate('delete categories');
 
-        Permission::create(['name' => 'view visits']);
-        Permission::create(['name' => 'create visits']);
-        Permission::create(['name' => 'edit visits']);
-        Permission::create(['name' => 'delete visits']);
+        Permission::findOrCreate('view visits');
+        Permission::findOrCreate('create visits');
+        Permission::findOrCreate('edit visits');
+        Permission::findOrCreate('delete visits');
 
-        Permission::create(['name' => 'view criterias']);
-        Permission::create(['name' => 'create criterias']);
-        Permission::create(['name' => 'edit criterias']);
-        Permission::create(['name' => 'delete criterias']);
+        Permission::findOrCreate('view criterias');
+        Permission::findOrCreate('create criterias');
+        Permission::findOrCreate('edit criterias');
+        Permission::findOrCreate('delete criterias');
 
-        Permission::create(['name' => 'view evaluations']);
-        Permission::create(['name' => 'create evaluations']);
-        Permission::create(['name' => 'edit owned evaluations']);
-        Permission::create(['name' => 'edit all evaluations']);
-        Permission::create(['name' => 'delete owned evaluations']);
-        Permission::create(['name' => 'delete all evaluations']);
+        Permission::findOrCreate('view evaluations');
+        Permission::findOrCreate('create evaluations');
+        Permission::findOrCreate('edit owned evaluations');
+        Permission::findOrCreate('edit all evaluations');
+        Permission::findOrCreate('delete owned evaluations');
+        Permission::findOrCreate('delete all evaluations');
 
-        Permission::create(['name' => 'view comments']);
-        Permission::create(['name' => 'create comments']);
-        Permission::create(['name' => 'edit owned comments']);
-        Permission::create(['name' => 'edit all comments']);
-        Permission::create(['name' => 'delete owned comments']);
-        Permission::create(['name' => 'delete all comments']);
+        Permission::findOrCreate('view comments');
+        Permission::findOrCreate('create comments');
+        Permission::findOrCreate('edit owned comments');
+        Permission::findOrCreate('edit all comments');
+        Permission::findOrCreate('delete owned comments');
+        Permission::findOrCreate('delete all comments');
 
-        Permission::create(['name' => 'view reactions']);
-        Permission::create(['name' => 'create reactions']);
-        Permission::create(['name' => 'edit reactions']);
-        Permission::create(['name' => 'delete reactions']);
+        Permission::findOrCreate('view reactions');
+        Permission::findOrCreate('create reactions');
+        Permission::findOrCreate('edit reactions');
+        Permission::findOrCreate('delete reactions');
 
-        Permission::create(['name' => 'add comment reactions']);
-        Permission::create(['name' => 'remove comment reactions']);
+        Permission::findOrCreate('add comment reactions');
+        Permission::findOrCreate('remove comment reactions');
 
-        Role::create(['name' => 'noname']);
+        Permission::findOrCreate('view events');
+        Permission::findOrCreate('create events');
+        Permission::findOrCreate('edit events');
+        Permission::findOrCreate('delete events');
 
-        Role::create(['name' => 'user'])->givePermissionTo([
+        Role::findOrCreate('noname');
+
+        Role::findOrCreate('user')->givePermissionTo([
             'view users',
             'view restaurants',
             'ban restaurants',
@@ -84,8 +89,9 @@ class PermissionSeeder extends Seeder
             'view reactions',
             'add comment reactions',
             'remove comment reactions',
+            'view events',
         ]);
 
-        Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
+        Role::findOrCreate('admin')->givePermissionTo(Permission::all());
     }
 }

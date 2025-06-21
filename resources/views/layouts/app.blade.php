@@ -200,6 +200,14 @@
                             </a>
                         </li>
                         @endcan
+                        @can('view events')
+                        <li class="nav-item">
+                            <a href="{{ route('events.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>@lang('events.events')</p>
+                            </a>
+                        </li>
+                        @endcan
                         @can('view users')
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link">

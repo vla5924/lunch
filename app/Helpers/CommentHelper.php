@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Comment;
+use App\Models\Event;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Models\Visit;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommentHelper
 {
     const COMMENTABLE_VIEWS = [
+        Event::class => 'events.show',
         Restaurant::class => 'restaurants.show',
         User::class => 'users.show',
         Visit::class => 'visits.show',

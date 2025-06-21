@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserAdminController;
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::resource('visits', VisitController::class)->except('create');
     Route::resource('comments', CommentController::class)->only(['store', 'edit', 'update', 'destroy']);
     Route::resource('evaluations', EvaluationController::class)->except(['index', 'create']);
+    Route::resource('events', EventController::class);
 
     Route::get('/restaurants/{id}/visits/create', [VisitController::class, 'create'])->name('visits.create');
     Route::get('/restaurants/{id}/visits', [VisitController::class, 'restaurant'])->name('visits.restaurant');

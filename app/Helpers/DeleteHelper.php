@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
 use App\Models\Evaluation;
+use App\Models\Event;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Models\Visit;
@@ -42,6 +43,12 @@ class DeleteHelper
             $ce->delete();
         }
         $evaluation->delete();
+    }
+
+    public static function deleteEvent(Event $event)
+    {
+        self::deleteRelatedComments($event);
+        $event->delete();
     }
 
     public static function deleteRelatedComments(Model $commentable)
