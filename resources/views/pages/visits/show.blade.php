@@ -48,6 +48,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-9">
+            @if($visit->notes)
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">@lang('visits.notes')</h3>
@@ -58,6 +59,7 @@
                 </div>
                 <!-- /.card -->
             </div>
+            @endif
             @include('components.comments', ['comments' => $comments, 'commentable' => $visit])
         </div>
     </div>

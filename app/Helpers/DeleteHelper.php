@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Visit;
 use App\Notifications\CommentReplyCreated;
 use App\Notifications\UserCommentCreated;
+use App\Notifications\VisitPlanned;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -67,6 +68,11 @@ class DeleteHelper
     public static function deleteVisit(Visit $visit)
     {
         self::deleteRelatedComments($visit);
+        DB::table('notifications')
+            ->where('notifiable_type', User::class)
+            ->where('type', VisitPlanned::class)
+            ->whereJsonContains('data->visit_id', $visit->id)
+            ->delete();
         $visit->delete();
     }
 }

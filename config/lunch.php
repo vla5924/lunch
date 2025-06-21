@@ -14,5 +14,7 @@ return [
 
     'url_scheme' => env('APP_URL_SCHEME', 'http'),
 
+    'visit_notification_delay' => (int) env('VISIT_NOTIFICATION_DELAY', 16),
+
     'yandex_metrika_id' => env('YANDEX_METRIKA_ID'),
 ];

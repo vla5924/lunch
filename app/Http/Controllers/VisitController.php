@@ -6,9 +6,14 @@ use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
 use App\Models\Comment;
 use App\Models\Restaurant;
+use App\Models\User;
 use App\Models\Visit;
+use App\Notifications\VisitPlanned;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class VisitController extends Controller
 {
@@ -63,9 +68,8 @@ class VisitController extends Controller
         $request->validate([
             'notes' => 'nullable',
             'datetime' => 'required|date',
-            'restaurant_id' => 'required|integer',
+            'restaurant_id' => 'exists:restaurants,id',
         ]);
-        $this->requireExistingId(Restaurant::class, $request->restaurant_id);
 
         $visit = new Visit;
         $visit->notes = $request->notes;
@@ -73,6 +77,9 @@ class VisitController extends Controller
         $visit->restaurant_id = $request->restaurant_id;
         $this->setUserId($visit);
         $visit->save();
+
+        Log::info('fsdswdvs', ['visit' => $visit]);
+        VisitPlanned::tryNotify($visit);
 
         return redirect()->route('visits.show', $visit->id)->with('success', __('visits.created_successfully'));
     }
@@ -117,14 +124,18 @@ class VisitController extends Controller
         $request->validate([
             'notes' => 'nullable',
             'datetime' => 'required|date',
-            'restaurant_id' => 'required|integer',
+            'restaurant_id' => 'exists:restaurants,id',
         ]);
-        $this->requireExistingId(Restaurant::class, $request->restaurant_id);
 
+        $oldDatetime = $visit->datetime;
         $visit->notes = $request->notes;
         $visit->datetime = $request->datetime;
         $visit->restaurant_id = $request->restaurant_id;
         $visit->save();
+
+        if ($oldDatetime != $visit->datetime) {
+            VisitPlanned::tryNotify($visit);
+        }
 
         return redirect()->route('visits.show', $visit->id)->with('success', __('visits.updated_successfully'));
     }

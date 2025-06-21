@@ -12,6 +12,13 @@ abstract class CommentNotification extends Notification implements ShouldQueue
 {
     protected Comment $comment;
 
+    /**
+     * Delete the job if its models no longer exist.
+     *
+     * @var bool
+     */
+    public $deleteWhenMissingModels = true;
+
     use Queueable;
 
     /**

@@ -15,8 +15,9 @@
 @include('components.form-alert')
 
 <div class="card card-primary">
-    <form method="POST" action="{{ route('visits.store') }}">
+    <form method="POST" action="{{ route('visits.update', $visit->id) }}">
         @csrf
+        @method('PUT')
 
         <input type="hidden" name="restaurant_id" value="{{ $visit->restaurant->id }}">
 
