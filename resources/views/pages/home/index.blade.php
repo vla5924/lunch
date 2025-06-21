@@ -156,7 +156,9 @@
                         </button>
                         <div class="dropdown-menu" role="menu">
                             @foreach ($categories as $category)
-                                <a class="dropdown-item" href="{{ route('categories.rating', $category->id) }}">Action</a>
+                                <a class="dropdown-item" href="{{ route('categories.rating', $category->id) }}">
+                                    {{ $category->name }}
+                                </a>
                             @endforeach
                         </div>
                     </div>
@@ -188,7 +190,9 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td>...</td>
+                            <td>
+                                <a href="{{ route('categories.rating', $default_category->id) }}">...</a>
+                            </td>
                             <td></td>
                             <td></td>
                             <td></td>
