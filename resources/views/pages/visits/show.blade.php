@@ -28,9 +28,6 @@
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> @lang('restaurants.location')</strong>
                     <p class="text-muted">{{ $visit->restaurant->location }}</p>
-                    <hr>
-                    <strong><i class="fas fa-users mr-1"></i> @lang('visits.group')</strong>
-                    <p class="text-muted"> {{ $visit->group->name }}</p>
                     @can('edit visits')
                     <a class="btn btn-info btn-sm" href="{{ route('visits.edit', $visit->id) }}">
                         <i class="fas fa-pencil-alt"></i> @lang('visits.edit')

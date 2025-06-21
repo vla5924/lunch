@@ -12,7 +12,6 @@ return [
     'notes' => '备注',
     'enter_notes' => '输入访问备注',
     'datetime' => '日期和时间',
-    'group' => '群组',
     'create' => '添加',
     'edit_visit' => '修改访问记录',
     'save' => '保存',

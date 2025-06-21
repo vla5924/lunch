@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'group_assignment_updated_successfully' => '群组分配更新成功',
     'permissions_updated_successfully' => '用户权限更新成功',
     'roles_updated_successfully' => '用户角色更新成功',
     'information_updated_successfully' => '用户信息修改成功',
@@ -14,7 +13,6 @@ return [
     'notes' => '关于我',
     'enter_notes' => '输入个人简介，将显示在您的个人资料中',
     'save' => '保存',
-    'groups' => '群组',
     'id' => 'ID',
     'name' => '名称',
     'registration' => '注册时间',

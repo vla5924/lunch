@@ -28,14 +28,6 @@
                 <label>@lang('visits.datetime')</label>
                 <input type="datetime-local" class="form-control" name="datetime" required>
             </div>
-            <div class="form-group">
-                <label>@lang('visits.group')</label>
-                <select class="form-control" name="group_id" required>
-                    @foreach ($groups as $group)
-                    <option value="{{ $group->id }}">{{ $group->name }}</option>
-                    @endforeach
-                </select>
-            </div>
         </div>
 
         <div class="card-footer">

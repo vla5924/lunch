@@ -12,7 +12,6 @@ return [
     'notes' => 'Notes',
     'enter_notes' => 'Enter notes for the visit',
     'datetime' => 'Date and time',
-    'group' => 'Group',
     'create' => 'Add',
     'edit_visit' => 'Edit visit',
     'save' => 'Save',

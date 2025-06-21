@@ -64,12 +64,6 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-
-    public function groups()
-    {
-        return $this->belongsToMany(Group::class);
-    }
-
     public function getOnlineAtAttribute()
     {
         return UserActivityHelper::getOnline($this->id);

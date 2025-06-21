@@ -208,14 +208,6 @@
                             </a>
                         </li>
                         @endcan
-                        @can('view groups')
-                        <li class="nav-item">
-                            <a href="{{ route('groups.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>@lang('groups.groups')</p>
-                            </a>
-                        </li>
-                        @endcan
                     </ul>
                 </nav><!-- /.sidebar-menu -->
 

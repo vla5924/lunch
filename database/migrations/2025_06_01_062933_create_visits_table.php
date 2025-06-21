@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->text('notes')->nullable()->default(null);
             $table->dateTimeTz('datetime');
-            $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->foreign('user_id')->references('id')->on('users');
         });

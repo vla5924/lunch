@@ -16,7 +16,6 @@
                 <tr>
                     <th>@lang('visits.datetime')</th>
                     <th>@lang('visits.restaurant')</th>
-                    <th>@lang('visits.group')</th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,7 +26,6 @@
                         <b>{{ $visit->datetime }}</b>
                     </td>
                     <td>{{ $visit->restaurant->name }}</td>
-                    <td>{{ $visit->group->name }}</td>
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.show', $visit->id) }}">
                               <i class="fas fa-folder"></i>

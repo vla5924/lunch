@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
 use App\Models\Comment;
-use App\Models\Group;
 use App\Models\Restaurant;
 use App\Models\Visit;
 use Illuminate\Http\Request;
@@ -52,7 +51,6 @@ class VisitController extends Controller
 
         return view('pages.visits.create', [
             'restaurant' => $restaurant,
-            'groups' => Auth::user()->groups,
         ]);
     }
 
@@ -65,16 +63,13 @@ class VisitController extends Controller
         $request->validate([
             'notes' => 'nullable',
             'datetime' => 'required|date',
-            'group_id' => 'required|integer',
             'restaurant_id' => 'required|integer',
         ]);
-        $this->requireExistingId(Group::class, $request->group_id);
         $this->requireExistingId(Restaurant::class, $request->restaurant_id);
 
         $visit = new Visit;
         $visit->notes = $request->notes;
         $visit->datetime = $request->datetime;
-        $visit->group_id = $request->group_id;
         $visit->restaurant_id = $request->restaurant_id;
         $this->setUserId($visit);
         $visit->save();
@@ -110,7 +105,6 @@ class VisitController extends Controller
 
         return view('pages.visits.edit', [
             'visit' => $visit,
-            'groups' => Auth::user()->groups,
         ]);
     }
 
@@ -123,15 +117,12 @@ class VisitController extends Controller
         $request->validate([
             'notes' => 'nullable',
             'datetime' => 'required|date',
-            'group_id' => 'required|integer',
             'restaurant_id' => 'required|integer',
         ]);
-        $this->requireExistingId(Group::class, $request->group_id);
         $this->requireExistingId(Restaurant::class, $request->restaurant_id);
 
         $visit->notes = $request->notes;
         $visit->datetime = $request->datetime;
-        $visit->group_id = $request->group_id;
         $visit->restaurant_id = $request->restaurant_id;
         $visit->save();
 

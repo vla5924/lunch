@@ -45,7 +45,7 @@
                 @endif
             </div>
         </div>
-        @can(['edit users', 'assign groups', 'assign roles', 'assign permissions'])
+        @can(['edit users', 'assign roles', 'assign permissions'])
         <div class="card card-danger">
             <div class="card-header">
                 <h3 class="card-title">@lang('users.administration')</h3>
@@ -53,9 +53,6 @@
             <div class="card-body">
                 @can('edit users')
                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-danger btn-block">@lang('users.public_information')</a>
-                @endcan
-                @can('assign groups')
-                <a href="{{ route('users.groups', $user->id) }}" class="btn btn-danger btn-block">@lang('users.groups')</a>
                 @endcan
                 @can('assign roles')
                 <a href="{{ route('users.roles', $user->id) }}" class="btn btn-danger btn-block">@lang('users.roles')</a>
@@ -74,14 +71,6 @@
                 <h3 class="card-title">@lang('users.notes')</h3>
             </div>
             <div class="card-body">
-                <strong><i class="fas fa-users mr-1"></i> @lang('users.groups')</strong>
-                <p class="text-muted">
-                    @foreach($user->groups as $group)
-                    {{ $group->name }}
-                    @endforeach
-                </p>
-                <hr />
-                <strong><i class="far fa-file-alt mr-1"></i> @lang('users.notes')</strong>
                 <p class="text-muted">
                     @if ($user->notes)
                     {{ $user->notes }}

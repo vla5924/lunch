@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'group_assignment_updated_successfully' => 'Назначение групп успешно обновлено',
     'permissions_updated_successfully' => 'Права пользователя успешно обновлены',
     'roles_updated_successfully' => 'Роли пользователя успешно обновлены',
     'information_updated_successfully' => 'Информация о пользователе успешно изменена',
@@ -14,7 +13,6 @@ return [
     'notes' => 'О себе',
     'enter_notes' => 'Введите информацию о себе, которая будет отображаться в вашем профиле',
     'save' => 'Сохранить',
-    'groups' => 'Группы',
     'id' => 'ID',
     'name' => 'Имя',
     'registration' => 'Регистрация',

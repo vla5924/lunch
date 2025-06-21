@@ -42,12 +42,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit criterias']);
         Permission::create(['name' => 'delete criterias']);
 
-        Permission::create(['name' => 'view groups']);
-        Permission::create(['name' => 'create groups']);
-        Permission::create(['name' => 'edit groups']);
-        Permission::create(['name' => 'delete groups']);
-        Permission::create(['name' => 'assign groups']);
-
         Permission::create(['name' => 'view evaluations']);
         Permission::create(['name' => 'create evaluations']);
         Permission::create(['name' => 'edit owned evaluations']);
@@ -79,7 +73,6 @@ class PermissionSeeder extends Seeder
             'view categories',
             'view visits',
             'view criterias',
-            'view groups',
             'view evaluations',
             'create evaluations',
             'edit owned evaluations',

@@ -7,7 +7,6 @@ use App\Models\Comment;
 use App\Models\Criteria;
 use App\Models\CriteriaEvaluation;
 use App\Models\Evaluation;
-use App\Models\Group;
 use App\Models\Restaurant;
 use App\Models\Visit;
 use Illuminate\Database\Eloquent\Model;
@@ -33,12 +32,6 @@ class DeleteHelper
             $ce->delete();
         }
         $evaluation->delete();
-    }
-
-    public static function deleteGroup(Group $group)
-    {
-        $group->users()->detach();
-        $group->delete();
     }
 
     public static function deleteRelatedComments(Model $commentable)

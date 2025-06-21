@@ -18,7 +18,6 @@
             <thead>
                 <tr>
                     <th>@lang('visits.datetime')</th>
-                    <th>@lang('visits.group')</th>
                     <th class="text-right">
                         @can('create visits')
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
@@ -34,7 +33,6 @@
                     <td>
                         <b>{{ $visit->datetime }}</b>
                     </td>
-                    <td>{{ $visit->group->name }}</td>
                     <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.show', $visit->id) }}">
                               <i class="fas fa-folder"></i>

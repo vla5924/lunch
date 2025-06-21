@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'group_assignment_updated_successfully' => 'Group assignments successfully updated',
     'permissions_updated_successfully' => 'User permissions successfully updated',
     'roles_updated_successfully' => 'User roles successfully updated',
     'information_updated_successfully' => 'User information successfully updated',
@@ -14,7 +13,6 @@ return [
     'notes' => 'About',
     'enter_notes' => 'Enter information about yourself that will be displayed in your profile',
     'save' => 'Save',
-    'groups' => 'Groups',
     'id' => 'ID',
     'name' => 'Name',
     'registration' => 'Registration',
