@@ -66,3 +66,30 @@ docker/compose.sh logs php
 docker/compose.sh logs nginx
 docker/compose.sh exec php cat storage/logs/laravel.log
 ```
+
+Use Supervisor for the queue worker:
+
+```bash
+sudo apt-get install supervisor
+sudo nano /etc/supervisor/conf.d/docker-lunch-laravel-worker.conf
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start "docker-lunch-laravel-worker:*"
+```
+
+Configuration file for Supervisor:
+
+```
+[program:docker-lunch-laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=/usr/bin/docker compose -f /<path>/lunch/docker/compose.yaml exec php php artisan queue:work --quiet --sleep=10 --tries=3 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=<user>
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/home/<user>/docker-lunch-laravel-worker.log
+stopwaitsecs=3600
+```
