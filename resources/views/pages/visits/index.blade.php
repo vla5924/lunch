@@ -16,6 +16,7 @@
                 <tr>
                     <th>@lang('visits.datetime')</th>
                     <th>@lang('visits.restaurant')</th>
+                    <th>@lang('visits.participants')</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                         <b><x-model-link :model="$visit">{{ $visit->datetime }}</x-model-link></b>
                     </td>
                     <td><x-model-link :model="$visit->restaurant" /></td>
+                    <td>{{ $visit->participants()->count() }}</td>
                     <td class="project-actions text-right">
                         @can('edit visits')
                         <a class="btn btn-info btn-sm" href="{{ route('visits.edit', $visit->id) }}">

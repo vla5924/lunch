@@ -11,6 +11,11 @@ class Visit extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function participants()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);

@@ -33,6 +33,11 @@ class Controller extends RoutingController
             abort(403);
     }
 
+    /**
+     * @template TModel
+     * @param  class-string<TModel>  $modelClass
+     * @return TModel
+     */
     public function requireExistingId(string $modelClass, int $id, string $message = '')
     {
         $inst = $modelClass::where('id', $id)->first();

@@ -48,11 +48,15 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
 
     Route::get('/categories/{id}/rating', [CategoryController::class, 'rating'])->name('categories.rating');
 
+    Route::get('/visits/{id}/participate', [VisitController::class, 'participate'])->name('visits.participate');
+    Route::post('/visits/cancel_participation', [VisitController::class, 'cancelParticipation'])->name('visits.cancel_participation');
+
     Route::resource('users', UserController::class);
     Route::get('/users/{id}/permissions', [UserAdminController::class, 'permissions'])->name('users.permissions');
     Route::post('/users/{id}/permissions', [UserAdminController::class, 'updatePermissions']);
     Route::get('/users/{id}/roles', [UserAdminController::class, 'roles'])->name('users.roles');
     Route::post('/users/{id}/roles', [UserAdminController::class, 'updateRoles']);
+
     Route::get('/settings', [UserSettingsController::class, 'edit'])->name('users.settings');
     Route::post('/settings', [UserSettingsController::class, 'update']);
     Route::post('/settings/remove_yandex_id', [UserSettingsController::class, 'removeYandexId'])->name('users.setings.remove_yandex_id');

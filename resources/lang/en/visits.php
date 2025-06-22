@@ -18,4 +18,9 @@ return [
     'restaurant' => 'Restaurant',
     'visit' => 'Visit',
     'information' => 'Information',
+    'participation_saved' => 'Your participation in the visit has been saved',
+    'participation_cancelled' => 'Your participation in the visit has been cancelled',
+    'participate' => 'Participate',
+    'cancel_participation' => 'Cancel participation',
+    'participants' => 'Participants',
 ];

@@ -18,4 +18,9 @@ return [
     'restaurant' => '餐厅',
     'visit' => '访问',
     'information' => '信息',
+    'participation_saved' => '您的参与已保存',
+    'participation_cancelled' => '您的参与已取消',
+    'participate' => '参加',
+    'cancel_participation' => '取消参加',
+    'participants' => '参与者',
 ];

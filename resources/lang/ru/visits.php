@@ -18,4 +18,9 @@ return [
     'restaurant' => 'Ресторан',
     'visit' => 'Посещение',
     'information' => 'Информация',
+    'participation_saved' => 'Ваше участие в посещении сохранено',
+    'participation_cancelled' => 'Ваше участие в посещении отменено',
+    'participate' => 'Участвовать',
+    'cancel_participation' => 'Отменить участие',
+    'participants' => 'Участники',
 ];

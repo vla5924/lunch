@@ -6,14 +6,10 @@ use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
 use App\Models\Comment;
 use App\Models\Restaurant;
-use App\Models\User;
 use App\Models\Visit;
 use App\Notifications\VisitPlanned;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
 
 class VisitController extends Controller
 {
@@ -95,10 +91,12 @@ class VisitController extends Controller
             ->where('commentable_type', Visit::class)
             ->orderBy('created_by', 'asc')
             ->paginate(CommentHelper::PER_PAGE);
+        $participant = $visit->participants()->where('user_id', Auth::user()->id)->count();
 
         return view('pages.visits.show', [
             'visit' => $visit,
             'comments' => $comments,
+            'participant' => $participant,
         ]);
     }
 
@@ -149,5 +147,28 @@ class VisitController extends Controller
         DeleteHelper::deleteVisit($visit);
 
         return redirect()->route('visits.index')->with('success', __('visits.deleted_successfully'));
+    }
+
+    public function participate(int $visitId)
+    {
+        $this->requirePermission('view visits');
+
+        $visit = $this->requireExistingId(Visit::class, $visitId);
+        $visit->participants()->attach(Auth::user()->id);
+
+        return redirect()->route('visits.show', $visit->id)->with('success', __('visits.participation_saved'));
+    }
+
+    public function cancelParticipation(Request $request)
+    {
+        $this->requirePermission('view visits');
+        $request->validate([
+            'visit_id' => 'exists:visits,id',
+        ]);
+
+        $visit = Visit::find($request->visit_id);
+        $visit->participants()->detach(Auth::user()->id);
+
+        return redirect()->route('visits.show', $visit->id)->with('success', __('visits.participation_cancelled'));
     }
 }
