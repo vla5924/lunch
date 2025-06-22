@@ -27,15 +27,4 @@ class CommentReplyCreated extends CommentNotification
             ->line($comment->text)
             ->button(__('notifications.open'), route(CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type], $comment->commentable_id));
     }
-
-    public static function tryNotify(Comment $comment): bool
-    {
-        if ($parentId = $comment->parent_id) {
-            if ($parent = Comment::where('id', $parentId)->first()) {
-                $parent->user->notify(new CommentReplyCreated($comment));
-                return true;
-            }
-        }
-        return false;
-    }
 }

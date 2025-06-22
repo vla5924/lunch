@@ -26,13 +26,4 @@ class UserCommentCreated extends CommentNotification
             ->line($comment->text)
             ->button(__('notifications.open'), route('users.show', $user->id));
     }
-
-    public static function tryNotify(Comment $comment): bool
-    {
-        $user = $comment->commentable;
-        if (get_class($user) != User::class)
-            return false;
-        $user->notify(new UserCommentCreated($comment));
-        return true;
-    }
 }

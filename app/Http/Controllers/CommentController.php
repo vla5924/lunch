@@ -43,9 +43,6 @@ class CommentController extends Controller
         $this->setUserId($comment);
         $comment->save();
 
-        if (!CommentReplyCreated::tryNotify($comment))
-            UserCommentCreated::tryNotify($comment);
-
         return redirect()->back()->with('success', __('comments.created_successfully'));
     }
 
