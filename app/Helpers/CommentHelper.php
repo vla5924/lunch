@@ -44,4 +44,9 @@ class CommentHelper
             ];
         return null;
     }
+
+    public static function getRoute(Comment $comment)
+    {
+        return route(self::COMMENTABLE_VIEWS[$comment->commentable_type], $comment->commentable_id);
+    }
 }

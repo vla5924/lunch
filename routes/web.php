@@ -10,6 +10,7 @@ use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\TelegramBotController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingsController;
@@ -55,4 +56,11 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::get('/settings', [UserSettingsController::class, 'edit'])->name('users.settings');
     Route::post('/settings', [UserSettingsController::class, 'update']);
     Route::post('/settings/remove_yandex_id', [UserSettingsController::class, 'removeYandexId'])->name('users.setings.remove_yandex_id');
+});
+
+Route::prefix('/telegram')->group(function () {
+    Route::get('/setup', [TelegramBotController::class, 'setup'])->name('telegram.setup');
+    Route::get('/info', [TelegramBotController::class, 'info'])->name('telegram.info');
+    Route::get('/webhook', [TelegramBotController::class, 'stub'])->name('telegram.stub');
+    Route::post('/webhook', [TelegramBotController::class, 'webhook'])->name('telegram.webhook');
 });

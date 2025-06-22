@@ -6,9 +6,12 @@ use App\Models\Restaurant;
 use App\Models\RestaurantScore;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Cache;
 
 class UpdateRestaurantScores implements ShouldQueue
 {
+    const CACHE_KEY = 'restaurant_scores_updated';
+
     use Queueable;
 
     /**
@@ -31,5 +34,6 @@ class UpdateRestaurantScores implements ShouldQueue
             $values['bans'] = $restaurant->bans()->count() ?? 0;
             RestaurantScore::updateOrInsert(['restaurant_id' => $restaurant->id], $values);
         }
+        Cache::put(self::CACHE_KEY, now());
     }
 }

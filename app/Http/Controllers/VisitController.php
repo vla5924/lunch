@@ -78,7 +78,6 @@ class VisitController extends Controller
         $this->setUserId($visit);
         $visit->save();
 
-        Log::info('fsdswdvs', ['visit' => $visit]);
         VisitPlanned::tryNotify($visit);
 
         return redirect()->route('visits.show', $visit->id)->with('success', __('visits.created_successfully'));

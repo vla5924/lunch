@@ -87,7 +87,9 @@ class VisitPlanned extends BaseNotification implements ShouldQueue
         $notifyAt = Carbon::parse($visit->datetime)->subHours($hours);
         if ($notifyAt->isBefore(now()))
             return false;
-        Notification::send(User::get(), new self($visit)->delay($notifyAt));
+        Notification::send(User::get()->filter(function (User $user) {
+            return $user->can('view visits');
+        }), new self($visit)->delay($notifyAt));
         return true;
     }
 }

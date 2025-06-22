@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ProcessTelegramUpdates;
 use App\Jobs\UpdateRestaurantScores;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -22,4 +23,4 @@ Artisan::command('run:update-restaurant-scores', function () {
 Schedule::job(new UpdateRestaurantScores)->hourly();
 
 // Run the queue worker
-Schedule::command('queue:work --stop-when-empty --timeout=59')->everyMinute()->withoutOverlapping();
+Schedule::command('queue:work --stop-when-empty --timeout=59')->everyMinute()->withoutOverlapping()->runInBackground();

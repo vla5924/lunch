@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
             // \App\Http\Middleware\TrustHosts::class,
             \App\Http\Middleware\TrustProxies::class,
         ]);
+        $middleware->validateCsrfTokens([
+            'telegram/webhook',
+        ]);
         $middleware->appendToGroup('web', \App\Http\Middleware\UpdateUserActivity::class);
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
