@@ -38,6 +38,15 @@ class DeleteHelper
         CriteriaEvaluation::where('criteria_id', $criteria->id)->delete();
         $criteria->categories()->detach();
         $criteria->delete();
+        self::deleteEmptyEvaluations();
+    }
+
+    public static function deleteEmptyEvaluations()
+    {
+        Evaluation::query()
+            ->leftJoin('criteria_evaluations', 'criteria_evaluations.evaluation_id', '=', 'evaluations.id')
+            ->where('criteria_evaluations.id', null)
+            ->delete();
     }
 
     public static function deleteEvaluation(Evaluation $evaluation)

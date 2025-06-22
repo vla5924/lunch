@@ -131,25 +131,8 @@
                     <div class="row">
                         <div class="col-lg-6 col-12">
                             <!-- small card -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>{{ $evaluation_avg }}</h3>
-                                    <p>@lang('restaurants.average_score')</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <a href="{{ route('evaluations.restaurant', $restaurant->id) }}" class="small-box-footer">
-                                    @lang('restaurants.all_evaluations') ({{ $restaurant->evaluations->count() }})
-                                    <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-6 col-12">
-                            <!-- small card -->
                             @if ($evaluation)
-                                <div class="small-box bg-info">
+                                <div class="small-box bg-primary">
                                     <div class="inner">
                                         <h3>{{ $evaluation->totalf }}</h3>
                                         <p>@lang('restaurants.your_score')</p>
@@ -177,6 +160,23 @@
                             @endif
                         </div>
                         <!-- ./col -->
+                        <div class="col-lg-6 col-12">
+                            <!-- small card -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{ $evaluation_avg }}</h3>
+                                    <p>@lang('restaurants.average_score')</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <a href="{{ route('evaluations.restaurant', $restaurant->id) }}" class="small-box-footer">
+                                    @lang('restaurants.all_evaluations') ({{ $restaurant->evaluations->count() }})
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
                     </div>
                     <!-- /.row -->
                     <div class="row">
@@ -189,7 +189,7 @@
                                     <i class="fas fa-square text-primary"></i> @lang('restaurants.your_score')
                                 </span>
                                 <span>
-                                    <i class="fas fa-square text-gray"></i> @lang('restaurants.average_score')
+                                    <i class="fas fa-square text-info"></i> @lang('restaurants.average_score')
                                 </span>
                             </div>
                         </div>
@@ -258,8 +258,8 @@
                             ],
                         },
                         {
-                            backgroundColor: '#ced4da',
-                            borderColor: '#ced4da',
+                            backgroundColor: '#17a2b8',
+                            borderColor: '#17a2b8',
                             data: [
                                 @foreach ($chart as $c)
                                     {{ $c['avg']['percentage'] }},

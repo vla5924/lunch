@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DeleteHelper;
 use App\Helpers\RestaurantScoreHelper;
 use App\Models\Category;
 use App\Models\Criteria;
+use App\Models\CriteriaEvaluation;
 use App\Models\RestaurantScore;
 use Illuminate\Http\Request;
 
@@ -100,9 +102,22 @@ class CategoryController extends Controller
             'criteria_ids.*' => 'exists:criterias,id',
         ]);
 
+        $oldCriterias = [];
+        foreach ($category->criterias as $criteria)
+            $oldCriterias[] = $criteria->id;
         $category->name = $request->name;
         $category->save();
         $category->criterias()->sync($request->criteria_ids);
+        $removedCriterias = array_diff($oldCriterias, $request->criteria_ids);
+        if (count($removedCriterias) > 0) {
+            CriteriaEvaluation::query()
+                ->join('evaluations', 'criteria_evaluations.evaluation_id', '=', 'evaluations.id')
+                ->join('restaurants', 'evaluations.restaurant_id', '=', 'restaurants.id')
+                ->where('restaurants.category_id', $category->id)
+                ->whereIn('criteria_id', $removedCriterias)
+                ->delete();
+            DeleteHelper::deleteEmptyEvaluations();
+        }
 
         return redirect()->route('categories.show', $category->id)->with('success', __('categories.updated_successfully'));
     }
@@ -117,6 +132,7 @@ class CategoryController extends Controller
         if (!$category->restaurants->isEmpty()) {
             return redirect()->back()->with('failure', __('categories.category_is_not_empty'));
         }
+        $category->criterias()->detach();
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', __('categories.deleted_successfully'));

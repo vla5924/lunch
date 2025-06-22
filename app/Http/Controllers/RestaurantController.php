@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
-    const PER_PAGE = 10;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of the resource.
@@ -92,20 +92,34 @@ class RestaurantController extends Controller
             ->orderBy('created_at', 'asc')
             ->paginate(CommentHelper::PER_PAGE);
         $evaluation = Evaluation::where('user_id', Auth::user()->id)->where('restaurant_id', $restaurant->id)->first();
-        $userValues = null;
+        $userValues = [];
         if ($evaluation) {
             foreach ($evaluation->criterias as $ce) {
-                $userValues[$ce->criteria->id] = [
-                    'value' => $ce->value,
-                    'percentage' => $ce->percentage,
-                ];
+                $userValues[$ce->criteria->id] = ['value' => $ce->value, 'percentage' => $ce->percentage];
             }
         }
-        $ces = CriteriaEvaluation::query()
-            ->join('evaluations', 'criteria_evaluations.evaluation_id', '=', 'evaluations.id')
-            ->where('evaluations.restaurant_id', $restaurant->id)->select('criteria_evaluations.*')->get();
+        $requiredCriterias = $restaurant->category->criterias;
+        $avgValues = [];
+        $displayValues = [];
+        foreach ($requiredCriterias as $criteria) {
+            $id = $criteria->id;
+            if (array_key_exists($id, $userValues))
+                $displayValues[$id] = $userValues[$id];
+            else
+                $displayValues[$id] = ['value' => 0, 'percentage' => 0];
+            $ces = CriteriaEvaluation::query()
+                ->join('evaluations', 'criteria_evaluations.evaluation_id', '=', 'evaluations.id')
+                ->where('evaluations.restaurant_id', $restaurant->id)
+                ->where('criteria_id', $id)
+                ->select('criteria_evaluations.*')
+                ->get();
+            if ($ces->isNotEmpty())
+                $avgValues[$id] = ['value' => $ces->avg('value'), 'percentage' => $ces->avg('percentage')];
+            else
+                $avgValues[$id] = ['value' => 0, 'percentage' => 0];
+        }
         $chart = [];
-        foreach ($restaurant->category->criterias as $criteria) {
+        foreach ($requiredCriterias as $criteria) {
             $chart[$criteria->id] = [
                 'name' => $criteria->name,
                 'description' => $criteria->description,
@@ -113,14 +127,8 @@ class RestaurantController extends Controller
                     'min' => $criteria->min_value,
                     'max' => $criteria->max_value,
                 ]),
-                'avg' => [
-                    'value' => $ces->avg('value'),
-                    'percentage' => $ces->avg('percentage'),
-                ],
-                'user' => [
-                    'value' => $userValues != null ? $userValues[$criteria->id]['value'] : 0,
-                    'percentage' => $userValues != null ? $userValues[$criteria->id]['percentage'] : 0,
-                ],
+                'avg' => $avgValues[$criteria->id],
+                'user' => $displayValues[$criteria->id],
             ];
         }
         $lastVisit = Visit::where('restaurant_id', $restaurant->id)->orderBy('datetime', 'desc')->limit(1)->first();
