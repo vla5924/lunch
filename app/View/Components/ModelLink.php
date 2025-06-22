@@ -5,7 +5,6 @@ namespace App\View\Components;
 use App\Helpers\RouteHelper;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 use Illuminate\View\Component;
 
 class ModelLink extends Component
@@ -20,7 +19,6 @@ class ModelLink extends Component
      */
     public function render(): View
     {
-        Log::info($this->model->name);
         return view('components.model-link', [
             'href' => RouteHelper::show($this->model),
         ]);

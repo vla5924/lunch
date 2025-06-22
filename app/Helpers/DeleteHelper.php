@@ -10,12 +10,14 @@ use App\Models\Evaluation;
 use App\Models\Event;
 use App\Models\Restaurant;
 use App\Models\RestaurantScore;
+use App\Models\TelegramNotification;
 use App\Models\User;
 use App\Models\Visit;
 use App\Notifications\CommentReplyCreated;
 use App\Notifications\UserCommentCreated;
 use App\Notifications\VisitPlanned;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 class DeleteHelper
@@ -23,11 +25,11 @@ class DeleteHelper
     public static function deleteComment(Comment $comment)
     {
         Comment::where('parent_id', $comment->id)->update(['parent_id' => $comment->parent_id]);
-        DB::table('notifications')
+        $notifications = DB::table('notifications')
             ->where('notifiable_type', User::class)
             ->whereIn('type', [CommentReplyCreated::class, UserCommentCreated::class])
-            ->whereJsonContains('data->comment_id', $comment->id)
-            ->delete();
+            ->whereJsonContains('data->comment_id', $comment->id);
+        self::deleteNotifications($notifications);
         $comment->delete();
     }
 
@@ -50,6 +52,14 @@ class DeleteHelper
     {
         self::deleteRelatedComments($event);
         $event->delete();
+    }
+
+    public static function deleteNotifications(Builder $query)
+    {
+        foreach ($query->get(['id']) as $notification) {
+            TelegramNotification::where('notification_id', $notification->id)->delete();
+        }
+        $query->delete();
     }
 
     public static function deleteRelatedComments(Model $commentable)
@@ -77,11 +87,11 @@ class DeleteHelper
     public static function deleteVisit(Visit $visit)
     {
         self::deleteRelatedComments($visit);
-        DB::table('notifications')
+        $notifications = DB::table('notifications')
             ->where('notifiable_type', User::class)
             ->where('type', VisitPlanned::class)
-            ->whereJsonContains('data->visit_id', $visit->id)
-            ->delete();
+            ->whereJsonContains('data->visit_id', $visit->id);
+        self::deleteNotifications($notifications);
         $visit->delete();
     }
 }
