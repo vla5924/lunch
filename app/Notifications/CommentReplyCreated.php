@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Helpers\CommentHelper;
+use App\Helpers\RouteHelper;
 use App\Models\Comment;
 use App\Models\User;
 use NotificationChannels\Telegram\TelegramMessage;
@@ -25,6 +26,6 @@ class CommentReplyCreated extends CommentNotification
             ->to($user->tg_id)
             ->content("💬 {$userLink} {$info}:\n")
             ->line($comment->text)
-            ->button(__('notifications.open'), route(CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type], $comment->commentable_id));
+            ->button(__('notifications.open'), RouteHelper::show($comment->commentable));
     }
 }

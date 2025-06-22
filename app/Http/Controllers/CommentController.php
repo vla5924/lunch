@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CommentHelper;
 use App\Helpers\DeleteHelper;
+use App\Helpers\RouteHelper;
 use App\Models\Comment;
 use App\Notifications\CommentReplyCreated;
 use App\Notifications\UserCommentCreated;
@@ -29,7 +30,7 @@ class CommentController extends Controller
             $request->commentable_id = $parent->commentable_id;
         } else {
             $modelClass = $request->commentable_type;
-            if (!\in_array($modelClass, array_keys(CommentHelper::COMMENTABLE_VIEWS))) {
+            if (!\in_array($modelClass, CommentHelper::COMMENTABLE)) {
                 abort(404);
             }
             $this->requireExistingId($modelClass, $request->commentable_id);
@@ -71,7 +72,7 @@ class CommentController extends Controller
         $comment->text = $request->text;
         $comment->save();
 
-        $view = CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type];
+        $view = RouteHelper::SHOW[$comment->commentable_type];
         return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.updated_successfully'));
     }
 
@@ -84,7 +85,7 @@ class CommentController extends Controller
 
         DeleteHelper::deleteComment($comment);
 
-        $view = CommentHelper::COMMENTABLE_VIEWS[$comment->commentable_type];
+        $view = RouteHelper::SHOW[$comment->commentable_type];
         return redirect()->route($view, $comment->commentable_id)->with('success', __('comments.deleted_successfully'));
     }
 }

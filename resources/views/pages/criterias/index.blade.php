@@ -34,19 +34,15 @@
                 <tr>
                     <td>
                         @if($criteria->fa_icon)
-                        <i class="fas {{ $criteria->fa_icon }}"></i>
+                        <i class="fas {{ $criteria->fa_icon }} fa-fw"></i>
                         @endif
-                        <b>{{ $criteria->name }}</b>
+                        <x-model-link :model="$criteria" />
                     </td>
                     <td>{{ $criteria->min_value }}</td>
                     <td>{{ $criteria->max_value }}</td>
                     <td>{{ $criteria->step }}</td>
                     <td>{{ $criteria->impact }}</td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ route('criterias.show', $criteria->id) }}">
-                              <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">@lang('criterias.show')</span>
-                        </a>
                         @can('edit criterias')
                         <a class="btn btn-info btn-sm" href="{{ route('criterias.edit', $criteria->id) }}">
                             <i class="fas fa-pencil-alt"></i>

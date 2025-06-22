@@ -31,15 +31,11 @@
                 @foreach ($restaurants as $restaurant)
                 <tr>
                     <td>
-                        <b>{{ $restaurant->name }}</b>
+                        <b><x-model-link :model="$restaurant" /></b>
                     </td>
-                    <td>{{ $restaurant->category->name }}</td>
+                    <td><x-model-link :model="$restaurant->category" /></td>
                     <td>{{ $restaurant->location }}</td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ route('restaurants.show', $restaurant->id) }}">
-                              <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">@lang('restaurants.show')</span>
-                        </a>
                         @can('edit restaurants')
                         <a class="btn btn-info btn-sm" href="{{ route('restaurants.edit', $restaurant->id) }}">
                             <i class="fas fa-pencil-alt"></i>

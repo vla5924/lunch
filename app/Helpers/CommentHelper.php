@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommentHelper
 {
-    const COMMENTABLE_VIEWS = [
-        Event::class => 'events.show',
-        Restaurant::class => 'restaurants.show',
-        User::class => 'users.show',
-        Visit::class => 'visits.show',
+    const COMMENTABLE = [
+        Event::class,
+        Restaurant::class,
+        User::class,
+        Visit::class,
     ];
 
     const PER_PAGE = 30;
@@ -39,7 +39,7 @@ class CommentHelper
         if ($externalClass == Visit::class)
             return [
                 'preamble' => __('comments.to_visit'),
-                'href' => route('visits.show', $commentable->id),
+                'href' => RouteHelper::show($commentable),
                 'text' => $commentable->datetime,
             ];
         return null;
@@ -47,6 +47,6 @@ class CommentHelper
 
     public static function getRoute(Comment $comment)
     {
-        return route(self::COMMENTABLE_VIEWS[$comment->commentable_type], $comment->commentable_id);
+        return RouteHelper::show($comment->commentable_type, $comment->commentable_id);
     }
 }

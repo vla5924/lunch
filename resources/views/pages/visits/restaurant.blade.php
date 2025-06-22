@@ -31,13 +31,9 @@
                 @foreach ($visits as $visit)
                 <tr>
                     <td>
-                        <b>{{ $visit->datetime }}</b>
+                        <x-model-link :model="$visit">{{ $visit->datetime }}</x-model-link>
                     </td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ route('visits.show', $visit->id) }}">
-                              <i class="fas fa-folder"></i>
-                              <span class="d-none d-md-inline">@lang('visits.show')</span>
-                        </a>
                         @can('edit visits')
                         <a class="btn btn-info btn-sm" href="{{ route('visits.edit', $visit->id) }}">
                             <i class="fas fa-pencil-alt"></i>

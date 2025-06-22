@@ -29,9 +29,7 @@
                 <tbody>
                     @foreach ($events as $event)
                         <tr>
-                            <td>
-                                <b>{{ $event->name }}</b>
-                            </td>
+                            <td><x-model-link :model="$event" /></td>
                             <td>
                                 {{ $event->date }}
                                 @if ($event->annual)
@@ -39,10 +37,6 @@
                                 @endif
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="{{ route('events.show', $event->id) }}">
-                                    <i class="fas fa-folder"></i>
-                                    <span class="d-none d-md-inline">@lang('events.show')</span>
-                                </a>
                                 @can('edit events')
                                     <a class="btn btn-info btn-sm" href="{{ route('events.edit', $event->id) }}">
                                         <i class="fas fa-pencil-alt"></i>

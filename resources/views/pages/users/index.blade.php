@@ -24,7 +24,7 @@
                 @foreach ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
-                    <td>@include('components.user-link', ['user' => $user])</td>
+                    <td><x-model-link :model="$user" /></td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->onlineAt }}</td>
                 </tr>

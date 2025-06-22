@@ -28,9 +28,7 @@
             <tbody>
                 @foreach ($categories as $category)
                 <tr>
-                    <td>
-                        <a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a>
-                    </td>
+                    <td><x-model-link :model="$category" /></td>
                     <td class="project-actions text-right">
                         @can('view restaurants')
                         <a class="btn btn-primary btn-sm" href="{{ route('categories.rating', $category->id) }}">

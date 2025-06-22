@@ -13,7 +13,7 @@ class Comment extends Model
      * @var array<string, string>
      */
     protected $dispatchesEvents = [
-        'saved' => CommentCreated::class,
+        'created' => CommentCreated::class,
     ];
 
     public function commentable()
