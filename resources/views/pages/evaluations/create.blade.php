@@ -28,8 +28,12 @@
                     <textarea class="form-control" name="notes" placeholder="@lang('evaluations.enter_notes')"></textarea>
                 </div>
                 @foreach ($restaurant->category->criterias as $criteria)
+                    <hr />
                     <div class="form-group">
                         <label>
+                            @if ($criteria->fa_icon)
+                                <i class="fas {{ $criteria->fa_icon }} fa-fw"></i>
+                            @endif
                             {{ $criteria->name }}:
                             <span id="criteria-{{ $criteria->id }}">{{ $criteria->max_value }}</span>
                         </label>
@@ -40,6 +44,7 @@
                                 'step' => $criteria->step,
                             ])
                         </div>
+                        <p>{{ $criteria->description }}</p>
                         <input type="range" class="form-control" name="criteria_values[]" min="{{ $criteria->min_value }}"
                             max="{{ $criteria->max_value }}" step="{{ $criteria->step }}"
                             value="{{ $criteria->max_value }}" list="markers-{{ $criteria->id }}"
@@ -59,4 +64,21 @@
             </div>
         </form>
     </div>
+
+    <style>
+        datalist {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 10px;
+        }
+
+        datalist option {
+            width: 1em;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
 @endsection

@@ -108,6 +108,11 @@ class RestaurantController extends Controller
         foreach ($restaurant->category->criterias as $criteria) {
             $chart[$criteria->id] = [
                 'name' => $criteria->name,
+                'description' => $criteria->description,
+                'range_tooltip' => __('evaluations.range_tooltip', [
+                    'min' => $criteria->min_value,
+                    'max' => $criteria->max_value,
+                ]),
                 'avg' => [
                     'value' => $ces->avg('value'),
                     'percentage' => $ces->avg('percentage'),

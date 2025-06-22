@@ -18,7 +18,7 @@
                         <th>@lang('events.date')</th>
                         <th class="text-right">
                             @can('create events')
-                                <a class="btn btn-info btn-sm" href="{{ route('events.create') }}">
+                                <a class="btn btn-primary btn-sm" href="{{ route('events.create') }}">
                                     <i class="fas fa-plus"></i>
                                     <span class="d-none d-md-inline">@lang('events.create')</span>
                                 </a>

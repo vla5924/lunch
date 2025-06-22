@@ -23,23 +23,30 @@
                 <div class="col-12 col-md-12 col-lg-8">
                     <p>
                         <b>@lang('evaluations.restaurant'):</b>
-                        <a href="{{ route('restaurants.show', $evaluation->restaurant->id) }}">
-                            {{ $evaluation->restaurant->name }}
-                        </a>
+                        <x-model-link :model="$evaluation->restaurant" />
                     </p>
                     <p>{{ $evaluation->notes }}</p>
                     <table class="table table-striped">
                         <thead>
                             <th>@lang('evaluations.criteria')</th>
                             <th>@lang('evaluations.score')</th>
+                            <th style="min-width: 100px"></th>
                         </thead>
                         <tbody>
                             @foreach ($evaluation->criterias as $ce)
                                 <tr>
-                                    <td>{{ $ce->criteria->name }}</td>
                                     <td>
-                                        <div class="progress progress-xs" data-toggle="tooltip" data-placement="top"
-                                            title="<b>{{ $ce->value }}</b> @lang('evaluations.range_tooltip', ['min' => $ce->criteria->min_value, 'max' => $ce->criteria->max_value])">
+                                        @if ($ce->criteria->fa_icon)
+                                            <i class="fas {{ $ce->criteria->fa_icon }} fa-fw"></i>
+                                        @endif
+                                        {{ $ce->criteria->name }}
+                                    </td>
+                                    <td>
+                                        <b>{{ $ce->value }}</b> @lang('evaluations.range_tooltip', ['min' => $ce->criteria->min_value, 'max' => $ce->criteria->max_value])
+                                    </td>
+                                    <td>
+                                        <div class="progress progress-xs" data-toggle="tooltip" data-placement="left"
+                                            title="{{ $ce->percentage }}%">
                                             <div class="progress-bar progress-bar-primary"
                                                 style="width: {{ $ce->percentage }}%"></div>
                                         </div>

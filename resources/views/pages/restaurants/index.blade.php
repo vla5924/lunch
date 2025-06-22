@@ -19,7 +19,7 @@
                     <th>@lang('restaurants.location')</th>
                     <th class="text-right">
                         @can('create restaurants')
-                        <a class="btn btn-info btn-sm" href="{{ route('restaurants.create') }}">
+                        <a class="btn btn-primary btn-sm" href="{{ route('restaurants.create') }}">
                             <i class="fas fa-plus"></i>
                             <span class="d-none d-md-inline">@lang('restaurants.create')</span>
                         </a>

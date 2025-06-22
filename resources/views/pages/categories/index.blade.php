@@ -17,7 +17,7 @@
                     <th>@lang('categories.name')</th>
                     <th class="text-right">
                         @can('create categories')
-                        <a class="btn btn-info btn-sm" href="{{ route('categories.create') }}">
+                        <a class="btn btn-primary btn-sm" href="{{ route('categories.create') }}">
                             <i class="fas fa-plus"></i>
                             <span class="d-none d-md-inline">@lang('categories.create')</span>
                         </a>

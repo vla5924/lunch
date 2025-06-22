@@ -203,6 +203,33 @@
     </div>
 
     <script>
+        let criteriaDescriptions = [
+            @foreach ($chart as $c)
+                '{{ $c['description'] }}',
+            @endforeach
+        ];
+
+        let actualValues = [
+            // User values
+            [
+                @foreach ($chart as $c)
+                    {{ $c['user']['value'] }},
+                @endforeach
+            ],
+            // Average values
+            [
+                @foreach ($chart as $c)
+                    {{ $c['avg']['value'] }},
+                @endforeach
+            ],
+        ];
+
+        let rangeTooltips = [
+            @foreach ($chart as $c)
+                '{{ $c['range_tooltip'] }}',
+            @endforeach
+        ];
+
         let drawChart = () => {
             let ticksStyle = {
                 fontColor: '#495057',
@@ -226,7 +253,7 @@
                             borderColor: '#007bff',
                             data: [
                                 @foreach ($chart as $c)
-                                    {{ $c['avg']['percentage'] }},
+                                    {{ $c['user']['percentage'] }},
                                 @endforeach
                             ],
                         },
@@ -235,10 +262,11 @@
                             borderColor: '#ced4da',
                             data: [
                                 @foreach ($chart as $c)
-                                    {{ $c['user']['percentage'] }},
+                                    {{ $c['avg']['percentage'] }},
                                 @endforeach
                             ],
                         },
+
                     ],
                 },
                 options: {
@@ -246,6 +274,16 @@
                     tooltips: {
                         mode: mode,
                         intersect: intersect,
+                        callbacks: {
+                            label(tooltipItem, data) {
+                                let value = actualValues[tooltipItem.datasetIndex][tooltipItem.index];
+                                let range = rangeTooltips[tooltipItem.index];
+                                return `${value} ${range}`;
+                            },
+                            footer(tooltipItems, data) {
+                                return criteriaDescriptions[tooltipItems[0].index];
+                            },
+                        },
                     },
                     hover: {
                         mode: mode,

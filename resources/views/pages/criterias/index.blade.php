@@ -21,7 +21,7 @@
                     <th>@lang('criterias.weight_short')</th>
                     <th class="text-right">
                         @can('create criterias')
-                        <a class="btn btn-info btn-sm" href="{{ route('criterias.create') }}">
+                        <a class="btn btn-primary btn-sm" href="{{ route('criterias.create') }}">
                             <i class="fas fa-plus"></i>
                             <span class="d-none d-md-inline">@lang('criterias.create')</span>
                         </a>
