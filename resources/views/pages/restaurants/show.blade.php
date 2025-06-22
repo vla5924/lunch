@@ -84,7 +84,9 @@
                         </li>
                         <li class="list-group-item">
                             <b>@lang('restaurants.bans')</b>
-                            <span class="float-right">{{ $restaurant->bans()->count() }}</span>
+                            <a class="float-right" href="#" data-toggle="modal" data-target="#modal-bans">
+                                {{ $restaurant->bans()->count() }}
+                            </a>
                         </li>
                     </ul>
                     @can('create visits')
@@ -201,6 +203,26 @@
             @include('components.comments', ['comments' => $comments, 'commentable' => $restaurant])
         </div>
     </div>
+
+    <div class="modal fade" id="modal-bans">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@lang('restaurants.bans')</h4>
+                    <button type="button" class="close fas fa-times" data-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    @foreach ($restaurant->bans as $ban)
+                        <x-model-link :model="$ban->user" />
+                        <br />
+                    @endforeach
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
     <script>
         let criteriaDescriptions = [
