@@ -23,9 +23,13 @@ class SendCommentNotification
         //
     }
 
-    private function shouldNotify(Comment $comment, int $recipientId): bool
+    private function shouldNotify(Comment $comment, User $recipient, ?string $setting = null): bool
     {
-        return $this->allowSelfNotify || $comment->user_id != $recipientId;
+        if (!$recipient->can('view comments'))
+            return false;
+        if ($setting && !$recipient->notificationSettings->$setting)
+            return false;
+        return $this->allowSelfNotify || $comment->user_id != $recipient->id;
     }
 
     /**
@@ -34,15 +38,19 @@ class SendCommentNotification
     public function handle(CommentCreated $event): void
     {
         $comment = $event->comment;
-        $parentUserId = null;
+        $parentUser = null;
         if ($parent = Comment::find($comment->parent_id)) {
-            $parentUserId = $parent->user_id;
-            if ($this->shouldNotify($comment, $parentUserId))
+            $parentUser = $parent->user;
+            if ($this->shouldNotify($comment, $parentUser, 'comment_reply'))
                 $parent->user->notify(new CommentReplyCreated($comment)->delay(self::WAIT_BEFORE_SEND));
         }
         $user = $comment->commentable;
-        if (get_class($user) == User::class && $this->shouldNotify($comment, $user->id) && $user->id != $parentUserId) {
-            $user->notify(new UserCommentCreated($comment)->delay(self::WAIT_BEFORE_SEND));
+        if (get_class($user) == User::class) {
+            /**
+             * @var \App\Models\User $user
+             */
+            if ($this->shouldNotify($comment, $user, 'profile_comment') && $user->id != ($parentUser ? $parentUser->id : null))
+                $user->notify(new UserCommentCreated($comment)->delay(self::WAIT_BEFORE_SEND));
         }
     }
 }

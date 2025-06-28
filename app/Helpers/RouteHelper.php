@@ -30,11 +30,11 @@ class RouteHelper
 
     public static function show(Model|string $model, ?int $id = null, bool $absolute = true)
     {
-        $view = $model;
+        $class = $model;
         if ($model instanceof Model) {
-            $view = self::SHOW[get_class($model)];
+            $class = get_class($model);
             $id = $model->id;
         }
-        return route($view, $id, absolute: $absolute);
+        return route(self::SHOW[$class], $id, absolute: $absolute);
     }
 }

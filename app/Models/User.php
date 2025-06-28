@@ -59,6 +59,16 @@ class User extends Authenticatable implements HasLocalePreference
         ];
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function notificationSettings()
+    {
+        return $this->hasOne(UserNotificationSettings::class);
+    }
+
     public function getAvaAttribute()
     {
         return $this->avatar ?? config('lunch.fallback_avatar');
@@ -67,11 +77,6 @@ class User extends Authenticatable implements HasLocalePreference
     public function getNameAttribute()
     {
         return $this->display_name ?? $this->tg_name;
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function getOnlineAtAttribute()
