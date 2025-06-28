@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
+use App\Events\UserCreated;
+use App\Events\UserDeleting;
 use App\Helpers\UserActivityHelper;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
@@ -16,6 +16,16 @@ class User extends Authenticatable implements HasLocalePreference
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array<string, string>
+     */
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+        'deleting' => UserDeleting::class,
+    ];
 
     /**
      * The attributes that are mass assignable.

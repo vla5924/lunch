@@ -33,4 +33,8 @@ return [
     'administration' => 'Администрирование',
     'edit_information' => 'Редактировать информацию',
     'empty' => 'Пусто...',
+    'notifications' => 'Уведомления',
+    'new_comments_in_profile' => 'Новые комментарии в профиле',
+    'comments_replies' => 'Ответы на комментарии',
+    'planned_visits' => 'Запланированные посещения',
 ];

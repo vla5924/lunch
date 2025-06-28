@@ -33,4 +33,8 @@ return [
     'administration' => '管理',
     'edit_information' => '编辑信息',
     'empty' => '空...',
+    'notifications' => '通知',
+    'new_comments_in_profile' => '个人资料中的新评论',
+    'comments_replies' => '评论回复',
+    'planned_visits' => '计划访问',
 ];

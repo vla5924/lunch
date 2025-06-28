@@ -33,4 +33,8 @@ return [
     'administration' => 'Administration',
     'edit_information' => 'Edit information',
     'empty' => 'Empty...',
+    'notifications' => 'Notifications',
+    'new_comments_in_profile' => 'New comments in profile',
+    'comments_replies' => 'Comment replies',
+    'planned_visits' => 'Planned visits',
 ];

@@ -58,7 +58,8 @@ Route::middleware(['auth', 'language', 'role:user|admin'])->group(function () {
     Route::post('/users/{id}/roles', [UserAdminController::class, 'updateRoles']);
 
     Route::get('/settings', [UserSettingsController::class, 'edit'])->name('users.settings');
-    Route::post('/settings', [UserSettingsController::class, 'update']);
+    Route::post('/settings/app', [UserSettingsController::class, 'updateApp'])->name('users.settings.app');
+    Route::post('/settings/notification', [UserSettingsController::class, 'updateNotification'])->name('users.settings.notification');
     Route::post('/settings/remove_yandex_id', [UserSettingsController::class, 'removeYandexId'])->name('users.setings.remove_yandex_id');
 });
 
