@@ -31,6 +31,6 @@ class YandexAuthController extends Controller
             return redirect()->route('login')->with('failure', __('auth.yandex_telegram_first'));
         }
         Auth::login($user);
-        return redirect('/');
+        return redirect()->intended('/');
     }
 }

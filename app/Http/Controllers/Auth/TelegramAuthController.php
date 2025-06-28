@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class TelegramAuthController extends Controller
@@ -28,9 +27,7 @@ class TelegramAuthController extends Controller
                 'avatar' => $telegramUser->getAvatar(),
             ]
         );
-
         Auth::login($user);
-
-        return redirect('/');
+        return redirect()->intended('/');
     }
 }
