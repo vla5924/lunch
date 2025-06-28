@@ -61,12 +61,12 @@
                 </div>
                 <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                     <div class="mt-3 mb-5">
-                        @can('edit criterias')
+                        @if (App\Helpers\EvaluationHelper::canEdit($evaluation))
                             <a class="btn btn-info btn-sm" href="{{ route('evaluations.edit', $evaluation->id) }}">
                                 <i class="fas fa-pencil-alt"></i> @lang('evaluations.edit')
                             </a>
-                        @endcan
-                        @can('delete criterias')
+                        @endif
+                        @if (App\Helpers\EvaluationHelper::canDelete($evaluation))
                             <button type="submit" class="btn btn-danger btn-sm btn-delete"
                                 form="destroy-{{ $evaluation->id }}">
                                 <i class="fas fa-trash"></i> @lang('evaluations.delete')
@@ -76,7 +76,7 @@
                                 @csrf
                                 @method('DELETE')
                             </form>
-                        @endcan
+                        @endif
                     </div>
 
                     <div class="text-muted">

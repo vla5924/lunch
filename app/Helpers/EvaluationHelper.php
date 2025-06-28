@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\Evaluation;
+
 class EvaluationHelper
 {
     public static function totalFromArrays(array $values, array $weights)
@@ -30,5 +32,15 @@ class EvaluationHelper
         if ($total == null)
             $total = 0.0;
         return sprintf('%.2f', $total);
+    }
+
+    public static function canEdit(Evaluation $evaluation)
+    {
+        return PermissionHelper::canActOwned('edit all evaluations', 'edit owned evaluations', $evaluation->user_id);
+    }
+
+    public static function canDelete(Evaluation $evaluation)
+    {
+        return PermissionHelper::canActOwned('delete all evaluations', 'delete owned evaluations', $evaluation->user_id);
     }
 }

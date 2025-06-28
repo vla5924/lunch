@@ -22,7 +22,8 @@
                     <th class="text-right">
                         @can('create visits')
                         <a class="btn btn-primary btn-sm" href="{{ route('visits.create', $restaurant->id) }}">
-                            <i class="fas fa-calendar-plus"></i> @lang('visits.create')
+                            <i class="fas fa-calendar-plus"></i>
+                            <span class="d-none d-md-inline">@lang('visits.create')</span>
                         </a>
                         @endcan
                     </th>
@@ -44,8 +45,8 @@
                         @endcan
                         @can('delete visits')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $visit->id }}">
-                                <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">@lang('visits.delete')</span>
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-md-inline">@lang('visits.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('visits.destroy', $visit->id) }}" id="destroy-{{ $visit->id }}" hidden>
                             @csrf

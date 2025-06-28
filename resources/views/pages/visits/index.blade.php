@@ -37,8 +37,8 @@
                         @endcan
                         @can('delete visits')
                         <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $visit->id }}">
-                                <i class="fas fa-trash"></i>
-                                <span class="d-none d-md-inline">@lang('visits.delete')</span>
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-md-inline">@lang('visits.delete')</span>
                         </button>
                         <form method="POST" action="{{ route('visits.destroy', $visit->id) }}" id="destroy-{{ $visit->id }}" hidden>
                             @csrf

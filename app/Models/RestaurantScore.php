@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\EvaluationHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class RestaurantScore extends Model
@@ -11,5 +12,10 @@ class RestaurantScore extends Model
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function getScorefAttribute()
+    {
+        return EvaluationHelper::formatTotal($this->score);
     }
 }

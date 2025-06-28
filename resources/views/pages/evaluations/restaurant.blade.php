@@ -35,13 +35,33 @@
                                     @lang('evaluations.created_at') {{ $evaluation->created_at }}
                                 </div>
                             </td>
-                            <td>{{ $evaluation->totalf }}</td>
+                            <td>
+                                <x-model-link :model="$evaluation">
+                                    <b>{{ $evaluation->totalf }}</b>
+                                </x-model-link>
+                            </td>
                             <td>{{ $evaluation->notes }}</td>
                             <td class="project-actions text-right">
                                 <a class="btn btn-primary btn-sm" href="{{ route('evaluations.show', $evaluation->id) }}">
                                     <i class="fas fa-folder"></i>
                                     <span class="d-none d-md-inline">@lang('evaluations.show')</span>
                                 </a>
+                                @if(App\Helpers\EvaluationHelper::canEdit($evaluation))
+                                <a class="btn btn-info btn-sm" href="{{ route('evaluations.edit', $evaluation->id) }}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span class="d-none d-md-inline">@lang('evaluations.edit')</span>
+                                </a>
+                                @endif
+                                @if(App\Helpers\EvaluationHelper::canDelete($evaluation))
+                                <button type="submit" class="btn btn-danger btn-sm btn-delete" href="#" form="destroy-{{ $evaluation->id }}">
+                                    <i class="fas fa-trash"></i>
+                                    <span class="d-none d-md-inline">@lang('evaluations.delete')</span>
+                                </button>
+                                <form method="POST" action="{{ route('evaluations.destroy', $evaluation->id) }}" id="destroy-{{ $evaluation->id }}" hidden>
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

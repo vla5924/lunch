@@ -20,11 +20,11 @@ class Controller extends RoutingController
             abort(403);
     }
 
-    public function requireOwnedPermission(string $permissionAll, string $permissionOwned, int $ownerId)
+    public function requireOrAbort(bool $condition, int $code = 403, string $message = ''): void
     {
-        if (!PermissionHelper::canActOwned($permissionAll, $permissionOwned, $ownerId))
-            abort(403);
-        return;
+        if ($condition)
+            return;
+        abort($code, $message);
     }
 
     public function requireCurrentUser(int $userId)

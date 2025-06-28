@@ -33,7 +33,7 @@
                                     {{ $r->restaurant->name }}
                                 </a>
                             </td>
-                            <td>{{ $r->score }}</td>
+                            <td>{{ $r->scoref }}</td>
                             <td>{{ $r->bans }}</td>
                         </tr>
                     @endforeach

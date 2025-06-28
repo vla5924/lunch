@@ -117,8 +117,7 @@ class EvaluationController extends Controller
      */
     public function edit(Evaluation $evaluation)
     {
-        $this->requireCurrentUser($evaluation->user_id);
-        $this->requirePermission('edit owned evaluations');
+        $this->requireOrAbort(EvaluationHelper::canEdit($evaluation));
 
         return view('pages.evaluations.edit', [
             'evaluation' => $evaluation,
@@ -130,8 +129,7 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, Evaluation $evaluation)
     {
-        $this->requireCurrentUser($evaluation->user_id);
-        $this->requirePermission('edit owned evaluations');
+        $this->requireOrAbort(EvaluationHelper::canEdit($evaluation));
         $request->validate([
             'notes' => 'nullable',
             'criteria_ids' => 'array',
@@ -152,7 +150,7 @@ class EvaluationController extends Controller
         for ($i = 0; $i < $numIds; $i++) {
             $criteria = Criteria::where('id', $request->criteria_ids[$i])->first();
             if (!$criteria)
-                return redirect()->back()->with('failure', 'Неверные параметры запроса');
+                return redirect()->back()->with('failure', __('evaluations.invalid_request_parameters'));
             $value = $request->criteria_values[$i];
             if (!\in_array($value, $criteria->values))
                 return redirect()->back()->with('failure', __('evaluations.illegal_criteria_value', ['name' => $criteria->name]));
@@ -177,8 +175,7 @@ class EvaluationController extends Controller
      */
     public function destroy(Evaluation $evaluation)
     {
-        $this->requireCurrentUser($evaluation->user_id);
-        $this->requirePermission('delete owned evaluations');
+        $this->requireOrAbort(EvaluationHelper::canDelete($evaluation));
 
         $restaurantId = $evaluation->restaurant->id;
         DeleteHelper::deleteEvaluation($evaluation);

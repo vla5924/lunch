@@ -52,7 +52,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        $this->requireOwnedPermission('edit all comments', 'edit owned comments', $comment->user_id);
+        $this->requireOrAbort(CommentHelper::canEdit($comment));
 
         return view('pages.comments.edit', [
             'comment' => $comment,
@@ -64,7 +64,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        $this->requireOwnedPermission('edit all comments', 'edit owned comments', $comment->user_id);
+        $this->requireOrAbort(CommentHelper::canEdit($comment));
         $request->validate([
             'text' => 'required|string|min:2',
         ]);
@@ -81,7 +81,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        $this->requireOwnedPermission('delete all comments', 'delete owned comments', $comment->user_id);
+        $this->requireOrAbort(CommentHelper::canDelete($comment));
 
         DeleteHelper::deleteComment($comment);
 
