@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Helpers\TelegramHelper;
 use App\Models\Comment;
 use App\Models\User;
 use NotificationChannels\Telegram\TelegramMessage;
@@ -17,13 +18,13 @@ class UserCommentCreated extends CommentNotification
 
     public function toTelegram(User $user)
     {
-        $comment = $this->comment;
-        $userLink = '[' . $comment->user->name . '](' . route('users.show', $comment->user->id) . ')';
-        $info = __('notifications.left_comment_in_your_profile');
+        $message = __('notifications.left_comment_in_your_profile', [
+            'user' => TelegramHelper::modelLink($this->comment->user),
+        ]);
         return TelegramMessage::create()
             ->to($user->tg_id)
-            ->content("💬 {$userLink} {$info}:\n")
-            ->line($comment->text)
+            ->content('📥 ' . $message . PHP_EOL)
+            ->line($this->comment->text)
             ->button(__('notifications.open'), route('users.show', $user->id));
     }
 }

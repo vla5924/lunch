@@ -75,7 +75,8 @@ class VisitPlanned extends BaseNotification implements ShouldQueue
             ->to($user->tg_id)
             ->content('🍔 ' . $message . PHP_EOL)
             ->lineIf($notes->isNotEmpty(), strval($notes))
-            ->button(__('notifications.open'), route('visits.show', $this->visit->id));
+            ->button(__('notifications.open'), route('visits.show', $this->visit->id))
+            ->button(__('visits.participate'), route('visits.participate', $this->visit->id));
     }
 
     /**
